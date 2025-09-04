@@ -1,0 +1,1 @@
+Plaats je Rive-bestand als mascot.riv (State Machine: TurboSM met boolean inputs idle,wave,point,success,alert).
