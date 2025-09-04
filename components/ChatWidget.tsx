@@ -5,18 +5,18 @@ type Sender = 'user' | 'bot';
 type Msg = { from: Sender; text: string };
 
 export default function ChatWidget() {
-  const initialMsgs: Msg[] = [
-    { from: 'bot', text: 'Hoi! Is het dringend (binnen 24u)?' },
-  ];
-
+  // 1) Expliciet typen + literals vastzetten zodat 'from' niet naar string verbreedt
   const [open, setOpen] = useState(false);
-  const [msgs, setMsgs] = useState<Msg[]>(initialMsgs);
+  const [msgs, setMsgs] = useState<Msg[]>(
+    [{ from: 'bot', text: 'Hoi! Is het dringend (binnen 24u)?' }] as const
+  );
   const [input, setInput] = useState('');
 
   async function send() {
     if (!input.trim()) return;
 
-    const nextMsgs: Msg[] = [...msgs, { from: 'user', text: input }];
+    // 2) 'nextMsgs' expliciet als Msg[] en het nieuw item als Msg casten (of satisfies Msg)
+    const nextMsgs: Msg[] = [...msgs, { from: 'user', text: input } as Msg];
     setMsgs(nextMsgs);
     setInput('');
 
@@ -27,7 +27,10 @@ export default function ChatWidget() {
     });
     const data = await res.json();
 
-    setMsgs([...nextMsgs, { from: 'bot', text: String(data.reply ?? '') }]);
+    setMsgs([
+      ...nextMsgs,
+      { from: 'bot', text: String(data?.reply ?? '') } as Msg,
+    ]);
   }
 
   return (
@@ -73,7 +76,10 @@ export default function ChatWidget() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Typ je bericht…"
             />
-            <button onClick={send} className="bg-turbo-red text-white px-3 py-1 rounded">
+            <button
+              onClick={send}
+              className="bg-turbo-red text-white px-3 py-1 rounded"
+            >
               →
             </button>
           </div>
