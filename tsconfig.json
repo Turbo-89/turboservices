@@ -20,7 +20,13 @@
     "incremental": true,
     "types": [
       "node"
-    ]
+    ],
+
+    // 🔑 BELANGRIJK: alias zodat `@/…` werkt
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "include": [
     "next-env.d.ts",
