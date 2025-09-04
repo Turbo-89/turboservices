@@ -5,17 +5,16 @@ type Sender = 'user' | 'bot';
 type Msg = { from: Sender; text: string };
 
 export default function ChatWidget() {
-  // 1) Expliciet typen + literals vastzetten zodat 'from' niet naar string verbreedt
   const [open, setOpen] = useState(false);
-  const [msgs, setMsgs] = useState<Msg[]>(
-    [{ from: 'bot', text: 'Hoi! Is het dringend (binnen 24u)?' }] as const
-  );
+  const [msgs, setMsgs] = useState<Msg[]>([
+    { from: 'bot', text: 'Hoi! Is het dringend (binnen 24u)?' },
+  ]);
   const [input, setInput] = useState('');
 
   async function send() {
     if (!input.trim()) return;
 
-    // 2) 'nextMsgs' expliciet als Msg[] en het nieuw item als Msg casten (of satisfies Msg)
+    // Belangrijk: typ 'nextMsgs' als Msg[] en fixeer het nieuwe item als Msg
     const nextMsgs: Msg[] = [...msgs, { from: 'user', text: input } as Msg];
     setMsgs(nextMsgs);
     setInput('');
@@ -27,19 +26,13 @@ export default function ChatWidget() {
     });
     const data = await res.json();
 
-    setMsgs([
-      ...nextMsgs,
-      { from: 'bot', text: String(data?.reply ?? '') } as Msg,
-    ]);
+    setMsgs([...nextMsgs, { from: 'bot', text: String(data?.reply ?? '') } as Msg]);
   }
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
       {!open && (
-        <button
-          onClick={() => setOpen(true)}
-          className="bg-turbo-red text-white px-4 py-2 rounded-lg shadow"
-        >
+        <button onClick={() => setOpen(true)} className="bg-turbo-red text-white px-4 py-2 rounded-lg shadow">
           Chat met ons
         </button>
       )}
@@ -51,19 +44,8 @@ export default function ChatWidget() {
           </div>
           <div className="flex-1 overflow-auto p-3 space-y-2">
             {msgs.map((m, i) => (
-              <div
-                key={i}
-                className={`text-sm ${
-                  m.from === 'bot'
-                    ? 'text-slate-700'
-                    : 'text-slate-900 text-right'
-                }`}
-              >
-                <div
-                  className={`inline-block px-3 py-2 rounded-lg ${
-                    m.from === 'bot' ? 'bg-slate-100' : 'bg-turbo-red text-white'
-                  }`}
-                >
+              <div key={i} className={`text-sm ${m.from === 'bot' ? 'text-slate-700' : 'text-slate-900 text-right'}`}>
+                <div className={`${m.from === 'bot' ? 'bg-slate-100' : 'bg-turbo-red text-white'} inline-block px-3 py-2 rounded-lg`}>
                   {m.text}
                 </div>
               </div>
@@ -76,10 +58,7 @@ export default function ChatWidget() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Typ je bericht…"
             />
-            <button
-              onClick={send}
-              className="bg-turbo-red text-white px-3 py-1 rounded"
-            >
+            <button onClick={send} className="bg-turbo-red text-white px-3 py-1 rounded">
               →
             </button>
           </div>
