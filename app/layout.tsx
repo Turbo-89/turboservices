@@ -47,6 +47,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div>
               <p><a className="underline" href="tel:+32485031877">+32 485 03 18 77</a></p>
               <p><a className="underline" href="mailto:info@turboservices.be">info@turboservices.be</a></p>
+              <p><a href="https://wa.me/32485031877" className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50" aria-label="WhatsApp Turbo Services"> WhatsApp </a></p>
+
             </div>
             <div>
               <p>Ontstoppingen · Camera · Gerichte herstellingen</p>
