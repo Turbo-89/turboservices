@@ -24,6 +24,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 priority
               />
             </Link>
+            <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Plumber", // of "HomeAndConstructionBusiness"
+      "name": "Turbo Services",
+      "telephone": "+32 485 03 18 77",
+      "areaServed": "Vlaanderen",
+      "url": "https://turboservices.be",
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "telephone": "+32 485 03 18 77",
+        "contactType": "customer service",
+        "availableLanguage": ["nl"]
+      }]
+    })
+  }}
+/>
+
             <nav className="flex items-center gap-6 text-sm">
               <Link href="/diensten" className="hover:text-slate-900">Diensten</Link>
               <Link href="/prijzen" className="hover:text-slate-900">Prijzen</Link>
