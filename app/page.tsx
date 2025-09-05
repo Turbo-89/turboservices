@@ -60,6 +60,14 @@ export default function Home() {
               >
                 Bel nu: +32 485 03 18 77
               </a>
+              <a
+                href="https://wa.me/32485031877"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
+                aria-label="WhatsApp Turbo Services"
+              > 
+                WhatsApp
+              </a>
+
             </div>
 
             <p className="mt-3 text-xs text-slate-500">
