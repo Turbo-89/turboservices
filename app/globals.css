@@ -1,5 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body { @apply text-slate-800 bg-white; }
+
+:root { --turbo-red: #E34D35; }
+body { @apply bg-white text-slate-800; }
 .container { @apply max-w-6xl mx-auto px-4; }
