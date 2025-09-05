@@ -16,14 +16,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="sticky top-0 z-40 border-b bg-white/90 backdrop-blur">
           <div className="container mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
             <Link href="/" className="flex items-center gap-3">
-              <Image
-                src="/logo.png"    // <-- zet je logo in /public/logo.png
-                alt="Turbo Services"
-                width={150}
-                height={48}
-                priority
-              />
-            </Link>
+  <Image
+    src="/logo.png"
+    alt="Turbo Services"
+    width={150}
+    height={48}
+    priority
+  />
+  <span className="text-lg font-bold text-slate-900">Turbo Services</span>
+</Link>
+
             <script
   type="application/ld+json"
   dangerouslySetInnerHTML={{
