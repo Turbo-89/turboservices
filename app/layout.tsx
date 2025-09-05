@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <p>Rioolexpert & spoed-interventies</p>
             </div>
             <div>
-              <p><a className="underline" href="tel:+32470000000">+32 470 00 00 00</a></p>
+              <p><a className="underline" href="tel:+32485031877">+32 485 03 18 77</a></p>
               <p><a className="underline" href="mailto:info@turboservices.be">info@turboservices.be</a></p>
             </div>
             <div>
@@ -54,7 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
           <div className="border-t py-6 text-center text-xs text-slate-500">
-            © {new Date().getFullYear()} Turbo Services – Wim Verloo & Allan De Buijzer
+            © {new Date().getFullYear()} Turbo Services – Spoedhersteldienst riolen en loodgieterij
           </div>
         </footer>
       </body>
