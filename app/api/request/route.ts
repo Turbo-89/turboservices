@@ -69,31 +69,24 @@ export async function POST(req: Request) {
     await sendEmail(TO_EMAIL, 'Nieuwe aanvraag via website', adminHtml, TO_EMAIL);
 
     // ---- Klantbevestiging (indien e-mail opgegeven) ----
-    if (email) {
-      const klantHtml = `
-        <p>Beste ${escapeHtml(contactName)},</p>
-        <p>Bedankt voor je aanvraag bij <b>Turbo Services</b>. We plannen intern en sturen je snel een tijdsvenster (sms/WhatsApp).</p>
-        <p><b>Samenvatting</b></p>
-        <ul>
-          <li><b>Telefoon:</b> ${escapeHtml(phone)}</li>
-          <li><b>Adres:</b> ${escapeHtml(address || '')}</li>
-          <li><b>Type:</b> ${escapeHtml(serviceType || '')}${withCamera ? ' (+camera)' : ''}</li>
-          <li><b>Dringend:</b> ${urgent ? 'ja' : 'nee'}</li>
-          <li><b>Venster:</b> ${escapeHtml(window || '')}${window==='andere' && date ? ` – ${escapeHtml(date)} (${escapeHtml(dayPart || '')})` : ''}</li>
-        </ul>
-        ${desc ? `<p><b>Omschrijving:</b><br/>${escapeHtml(desc).replace(/\n/g,'<br/>')}</p>` : ''}
-        <p>Heb je nog een vraag? Bel 0485 03 18 77.</p>
-        <p>Groeten,<br/>Turbo Services</p>
-      `;
-      await sendEmail(email, 'Aanvraag ontvangen – Turbo Services', klantHtml, TO_EMAIL);
-    }
+    // In Resend sandbox mag alleen naar je eigen accountadres worden verzonden.
+// Tot je een domein verifieert, slaan we klantbevestiging over.
+const RESEND_TEST_TO = 'turbobv89@gmail.com'; // jouw Resend account e-mail
+if (email && email.trim().toLowerCase() === RESEND_TEST_TO) {
+  await sendEmail(email, 'Aanvraag ontvangen – Turbo Services', klantHtml, TO_EMAIL);
+} else {
+  // geen klantmail in sandbox
+}
 
-    return NextResponse.json({
-      ok: true,
-      message: email
-        ? 'We hebben je aanvraag ontvangen. Je kreeg zonet ook een bevestiging per e-mail.'
-        : 'We hebben je aanvraag ontvangen. (Geen e-mail opgegeven voor bevestiging.)'
-    });
+
+   const klantMailVerzonden = email && email.trim().toLowerCase() === RESEND_TEST_TO;
+return NextResponse.json({
+  ok: true,
+  message: klantMailVerzonden
+    ? 'We hebben je aanvraag ontvangen. Je kreeg zonet ook een bevestiging per e-mail.'
+    : 'We hebben je aanvraag ontvangen. (Klantbevestiging wordt verstuurd zodra ons domein is geverifieerd.)'
+});
+ 
   } catch (e: any) {
     console.error('REQUEST ERROR', e);
     return NextResponse.json({ ok:false, message: e?.message || 'Er ging iets mis.' }, { status: 500 });
