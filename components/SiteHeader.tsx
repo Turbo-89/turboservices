@@ -20,15 +20,29 @@ export default function SiteHeader() {
         {/* Logo links */}
         <Link href="/" className="flex items-center gap-2 min-w-0">
           {/* Desktop: liggend logo */}
-          <span className="hidden md:inline-block">
-            <Image
-              src="/logo-horizontal.png"
-              alt="Turbo Services"
-              width={220}
-              height={48}
-              priority
-            />
-          </span>
+          {/* Desktop: liggend logo + merknaam ernaast */}
+  <span className="hidden md:flex items-center gap-2">
+  <Image
+    src="/logo-horizontal.png"
+    alt="Turbo Services"
+    width={220}
+    height={48}
+    priority
+  />
+  {/* Titel expliciet zichtbaar naast het logo */}
+  <span className="font-extrabold text-xl leading-none tracking-tight whitespace-nowrap">
+    Turbo Services
+  </span>
+</span>
+
+{/* Mobiel: staand logo + compacte naam */}
+<span className="md:hidden flex items-center gap-2">
+  <Image src="/logo.png" alt="Turbo Services" width={42} height={42} />
+  <span className="font-extrabold text-base leading-none whitespace-nowrap">
+    Turbo&nbsp;Services
+  </span>
+</span>
+
 
           {/* Mobiel: staand logo + compacte naam */}
           <span className="md:hidden flex items-center gap-2">
