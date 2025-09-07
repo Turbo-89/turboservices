@@ -43,14 +43,6 @@ export default function SiteHeader() {
   </span>
 </span>
 
-
-          {/* Mobiel: staand logo + compacte naam */}
-          <span className="md:hidden flex items-center gap-2">
-            <Image src="/logo.png" alt="Turbo Services" width={42} height={42} />
-            <span className="font-extrabold text-base leading-none whitespace-nowrap">
-              Turbo&nbsp;Services
-            </span>
-          </span>
         </Link>
 
         {/* Desktop menu */}
