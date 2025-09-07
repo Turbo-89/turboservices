@@ -1,35 +1,43 @@
 // app/api/request/route.ts
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
 
 export const runtime = 'nodejs';
 
-const RESEND_KEY = process.env.RESEND_API_KEY;
+const RESEND_API_KEY = process.env.RESEND_API_KEY!;
 const TO_EMAIL = process.env.CONTACT_EMAIL || 'verloo.wim@icloud.com';
+const FROM = 'Turbo Services <onboarding@resend.dev>'; // na domeinverificatie aanpassen naar no-reply@turboservices.be
 
-// Safeguard: key moet gezet zijn
-if (!RESEND_KEY) {
-  console.warn('[request route] RESEND_API_KEY ontbreekt');
-}
-
-const resend = RESEND_KEY ? new Resend(RESEND_KEY) : null;
-
-// Helper om HTML te escapen
 function escapeHtml(s: string){
   return (s || '').toString().replace(/[&<>"']/g, (c) =>
     ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'} as any)[c]
   );
 }
 
+async function sendEmail(to: string, subject: string, html: string, replyTo?: string) {
+  if (!RESEND_API_KEY) throw new Error('RESEND_API_KEY ontbreekt');
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${RESEND_API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      from: FROM,
+      to: [to],
+      subject,
+      html,
+      reply_to: replyTo ? [replyTo] : undefined,
+    })
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Resend error: ${res.status} ${text}`);
+  }
+  return res.json();
+}
+
 export async function POST(req: Request) {
   try {
-    if (!resend) {
-      return NextResponse.json(
-        { ok: false, message: 'E-mailservice niet geconfigureerd (RESEND_API_KEY ontbreekt).' },
-        { status: 500 }
-      );
-    }
-
     const payload = await req.json();
     const {
       address, contactName, phone, email, desc,
@@ -37,12 +45,11 @@ export async function POST(req: Request) {
       payer, sendPaylink, serviceType
     } = payload || {};
 
-    // Minimale validatie
     if (!contactName || !phone) {
       return NextResponse.json({ ok:false, message:'Naam en telefoon zijn verplicht.' }, { status: 400 });
     }
 
-    // -------- Admin mail (naar jou) --------
+    // ---- Admin mail (naar jou) ----
     const adminHtml = `
       <h2>Nieuwe aanvraag (Turbo Services)</h2>
       <ul>
@@ -59,19 +66,9 @@ export async function POST(req: Request) {
       </ul>
       ${desc ? `<p><b>Omschrijving:</b><br/>${escapeHtml(desc).replace(/\n/g,'<br/>')}</p>` : ''}
     `;
+    await sendEmail(TO_EMAIL, 'Nieuwe aanvraag via website', adminHtml, TO_EMAIL);
 
-    // Gebruik voorlopig Resend-afzender; later vervangen door jouw domein na verificatie
-    const FROM = 'Turbo Services <onboarding@resend.dev>';
-
-    await resend.emails.send({
-      from: FROM,
-      to: [TO_EMAIL],                     // Jouw iCloud-adres als ontvanger
-      subject: 'Nieuwe aanvraag via website',
-      html: adminHtml,
-      reply_to: TO_EMAIL,                 // zodat je direct kan beantwoorden
-    });
-
-    // -------- Klantbevestiging (indien e-mail opgegeven) --------
+    // ---- Klantbevestiging (indien e-mail opgegeven) ----
     if (email) {
       const klantHtml = `
         <p>Beste ${escapeHtml(contactName)},</p>
@@ -88,14 +85,7 @@ export async function POST(req: Request) {
         <p>Heb je nog een vraag? Bel 0485 03 18 77.</p>
         <p>Groeten,<br/>Turbo Services</p>
       `;
-
-      await resend.emails.send({
-        from: FROM,
-        to: [email],
-        subject: 'Aanvraag ontvangen – Turbo Services',
-        html: klantHtml,
-        reply_to: TO_EMAIL,               // klantreply komt bij jouw iCloud terecht
-      });
+      await sendEmail(email, 'Aanvraag ontvangen – Turbo Services', klantHtml, TO_EMAIL);
     }
 
     return NextResponse.json({
