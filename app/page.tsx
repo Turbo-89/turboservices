@@ -14,68 +14,59 @@ export default function Home() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
-        <div className="absolute inset-0 -z-10 opacity-30 [mask-image:radial-gradient(60%_60%_at_50%_0%,black,transparent)]">
-          <div className="absolute -top-32 left-1/2 h-96 w-[120rem] -translate-x-1/2 bg-[radial-gradient(closest-side,_rgba(227,77,53,.15),_transparent_70%)]" />
-        </div>
+  <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
+    {/* Tekstblok */}
+    <div>
+      <h1 className="text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
+        Snel ter plaatse. Degelijk opgelost. <span className="text-[var(--turbo-red,#E34D35)]">Transparant geprijsd.</span>
+      </h1>
+      <p className="mt-4 max-w-xl text-lg text-slate-600">
+        Ontstopping <strong>€160</strong> (eerste uur incl.) · Camera-inspectie <strong>€90</strong> ·
+        Rookmachine/zender <strong>€90</strong> · Officieel verslag <strong>€50</strong>.
+      </p>
 
-        <div className="container mx-auto max-w-6xl px-4 py-16 md:py-20">
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-6 flex justify-center">
-              <Image
-                src="/logo.png" // <-- zet je logo als /public/logo.png
-                alt="Turbo Services"
-                width={220}
-                height={70}
-                priority
-                className="h-auto w-[180px] md:w-[220px]"
-              />
-            </div>
+      {/* Chips – wrapt netjes op mobiel */}
+      <div className="mt-5 flex flex-wrap gap-2">
+        {['Ontstoppingen','Camera-inspectie','Gerichte rioolherstellingen','Ketels & loodgieterij (spoed)'].map((x) => (
+          <span key={x} className="rounded-full bg-white/80 px-3 py-1 text-sm text-slate-700 ring-1 ring-black/5">
+            {x}
+          </span>
+        ))}
+      </div>
 
-            <div className="mb-4 flex flex-wrap items-center justify-center gap-2">
-              <Pill>Ontstoppingen</Pill>
-              <Pill>Camera-inspectie</Pill>
-              <Pill>Gerichte rioolherstellingen</Pill>
-              <Pill>Ketels & loodgieterij (spoed)</Pill>
-            </div>
+      <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row">
+        <Link
+          href="/boeken"
+          className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-white shadow-sm transition hover:opacity-90"
+        >
+          Aanvraag binnen 24u →
+        </Link>
+        <a
+          href="tel:+32485031877"
+          className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
+        >
+          Bel: 0485 03 18 77
+        </a>
+      </div>
 
-            <h1 className="text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
-              Snel ter plaatse. Degelijk opgelost. <span className="text-[var(--turbo-red,#E34D35)]">Transparant geprijsd.</span>
-            </h1>
+      <p className="mt-3 text-xs text-slate-500">
+        We plannen intern en bevestigen je tijdsvenster via sms/WhatsApp (geen publieke agenda).
+      </p>
+    </div>
 
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
-              24u-belofte voor dringende interventies. Ontstopping <strong>€160</strong>, camera-inspectie <strong>+€90</strong>.
-              We herstellen wat écht nodig is – geen overbodige werken.
-            </p>
-
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link
-                href="/boeken"
-                className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-white shadow-sm transition hover:opacity-90"
-              >
-                Aanvraag binnen 24u →
-              </Link>
-              <a
-                href="tel:+32485031877"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
-              >
-                Bel nu: +32 485 03 18 77
-              </a>
-              <a
-                href="https://wa.me/32485031877"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
-                aria-label="WhatsApp Turbo Services"
-              > 
-                WhatsApp
-              </a>
-
-            </div>
-
-            <p className="mt-3 text-xs text-slate-500">
-              In opstartfase bieden we ook standaard ontstoppingen aan. Bij te grote drukte beperken we die om kwaliteit te garanderen.
-            </p>
-          </div>
-        </div>
-      </section>
+    {/* Mascotte rechts – schaalt netjes, geen overlap */}
+    <div className="flex justify-center md:justify-end">
+      <Image
+        src="/mascot-large.png" // plaats je grote mascotte als /public/mascot-large.png
+        alt="Turbo Services mascot"
+        width={480}
+        height={480}
+        className="h-auto max-h-[380px] w-auto object-contain md:max-h-[480px]"
+        priority
+      />
+    </div>
+  </div>
+</section>
 
       {/* USP STRIP */}
       <section className="border-y bg-white">
