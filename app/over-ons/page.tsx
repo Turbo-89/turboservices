@@ -12,7 +12,7 @@ export default function OverOns() {
 
       <p className="mb-4 text-slate-700">
         In 2025 besloot ik een nieuwe weg in te slaan en startte ik samen met
-        <strong> Allan De Buijzer</strong> <em>Turbo Services</em>.
+        <strong> Allan De Buyser</strong> <em>Turbo Services</em>.
         Waar ik mij vooral richt op complexe rioolproblemen en camera-inspecties,
         focust Allan op verwarmingsketels, loodgieterij en spoedherstellingen.
       </p>
