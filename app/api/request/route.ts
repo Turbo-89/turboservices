@@ -109,7 +109,7 @@ export async function POST(req: Request) {
       ok: true,
       message: klantMailVerzonden
         ? 'We hebben je aanvraag ontvangen. Je kreeg zonet ook een bevestiging per e-mail.'
-        : 'We hebben je aanvraag ontvangen. (Klantbevestiging wordt verstuurd zodra ons e-maildomein geverifieerd is.)',
+        : 'We hebben je aanvraag ontvangen.',
     });
   } catch (e: any) {
     console.error('REQUEST ERROR', e);
