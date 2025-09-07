@@ -158,7 +158,7 @@ export default function Home() {
               href="tel:+32470000000"
               className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
             >
-              Bel nu: +32 470 00 00 00
+              Bel nu: +32 485 03 18 77
             </a>
           </div>
           <p className="mt-3 text-center text-xs text-slate-500">
