@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 export const runtime = 'nodejs';
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY!;
-const TO_EMAIL = process.env.CONTACT_EMAIL || 'verloo.wim@icloud.com';
+const TO_EMAIL = process.env.CONTACT_EMAIL || 'turbobv89@gmail.com';
 const FROM = 'Turbo Services <onboarding@resend.dev>'; // na domeinverificatie aanpassen naar no-reply@turboservices.be
 
 function escapeHtml(s: string){
