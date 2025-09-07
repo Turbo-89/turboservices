@@ -22,7 +22,7 @@ export default function Home() {
       </h1>
       <p className="mt-4 max-w-xl text-lg text-slate-600">
         Ontstopping <strong>€160</strong> (eerste uur incl.) · Camera-inspectie <strong>€90</strong> ·
-        Rookmachine/zender <strong>€90</strong> · Officieel verslag <strong>€50</strong>.
+        Rookmachine/zender <strong>€90</strong> · Extra 1/2 uur / Officieel verslag <strong>€50</strong>.
       </p>
 
       {/* Chips – wrapt netjes op mobiel */}
@@ -57,7 +57,7 @@ export default function Home() {
     {/* Mascotte rechts – schaalt netjes, geen overlap */}
     <div className="flex justify-center md:justify-end">
       <Image
-        src="/mascot-large.png" // plaats je grote mascotte als /public/mascot-large.png
+        src="/logo.png" 
         alt="Turbo Services mascot"
         width={480}
         height={480}
