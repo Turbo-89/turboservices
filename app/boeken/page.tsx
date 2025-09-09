@@ -1,104 +1,218 @@
-export const metadata = {
-  title: 'Boeken – Turbo Services',
-  description:
-    'Plan je interventie en rond (optioneel) meteen de online betaling af. Ontstopping, camera-inspectie en ketelservice.',
-};
+'use client';
+import React, { useState } from 'react';
+
+type WindowChoice = 'vandaag' | 'morgen' | 'andere';
+type DayPart = 'ochtend' | 'namiddag' | 'avond';
 
 export default function BoekenPage() {
+  // Form state
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setMsg(null); setError(null);
+    const fd = new FormData(e.currentTarget);
+
+    const payload = {
+      contactName: String(fd.get('contactName') || '').trim(),
+      phone: String(fd.get('phone') || '').trim(),
+      email: String(fd.get('email') || '').trim(),
+      address: String(fd.get('address') || '').trim(),
+      desc: String(fd.get('desc') || '').trim(),
+      urgent: fd.get('urgent') === 'on',
+      windowChoice: String(fd.get('windowChoice') || 'vandaag') as WindowChoice,
+      date: String(fd.get('date') || ''),
+      dayPart: String(fd.get('dayPart') || 'ochtend') as DayPart,
+      withCamera: fd.get('withCamera') === 'on',
+      serviceType: String(fd.get('serviceType') || 'ontstopping'),
+    };
+
+    if (!payload.contactName || !payload.phone) {
+      setError('Naam en telefoon zijn verplicht.');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.ok) throw new Error(json?.message || 'Versturen mislukt.');
+      setMsg('Dank je! Je aanvraag is verzonden. We nemen snel contact op.');
+      (e.target as HTMLFormElement).reset();
+    } catch (err:any) {
+      setError(err?.message || 'Er ging iets mis. Probeer opnieuw.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // Snelknoppen voor betalen (prefill van bedrag + omschrijving)
+  function payLink(amount: number, description: string) {
+    const p = new URLSearchParams({ amount: String(amount), description });
+    return `/betalen?${p.toString()}`;
+  }
+
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
+    <main className="mx-auto max-w-6xl px-4 py-10">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold">Boeken & betalen</h1>
+        <h1 className="text-3xl font-bold">Afspraak maken & online betalen</h1>
         <p className="mt-2 text-slate-600">
-          Boek je interventie. Wil je de betaling al afronden? Dat kan volledig <strong>los van de boeking</strong> via onze online betaalknop.
+          Vul links je gegevens in om een <strong>afspraak</strong> aan te vragen.
+          Rechts kan je, volledig <strong>los van de boeking</strong>, meteen <strong>online betalen</strong>.
         </p>
       </header>
 
-      {/* Kaarten met diensten + prijsindicatie + betaallink */}
-      <section className="grid gap-6 md:grid-cols-3">
-        {/* Ontstopping */}
-        <article className="rounded-2xl border p-5">
-          <h2 className="text-xl font-semibold">Ontstopping</h2>
-          <p className="mt-1 text-slate-600">Rioleringen, afvoer, WC, keuken…</p>
-          <div className="mt-3 text-2xl font-bold">€160</div>
-          <div className="mt-5 flex flex-col gap-2">
-            <a
-              href="/betalen?amount=160&description=Ontstopping%20interventie"
-              className="inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
-            >
-              Online betalen
-            </a>
-            <a
-              href="/over-ons#contact"
-              className="inline-flex items-center justify-center rounded-xl border px-4 py-2 hover:bg-slate-50"
-            >
-              Boeking/afspraak via contact
-            </a>
-          </div>
-        </article>
+      <section className="grid gap-8 md:grid-cols-2">
+        {/* LINKERKOLOM – AFSPRAAKFORMULIER */}
+        <div className="rounded-2xl border p-5">
+          <h2 className="text-xl font-semibold">Afspraakformulier</h2>
+          <p className="text-sm text-slate-600">Wij bevestigen per e-mail of telefoon.</p>
 
-        {/* Camera-inspectie */}
-        <article className="rounded-2xl border p-5">
-          <h2 className="text-xl font-semibold">Camera-inspectie</h2>
-          <p className="mt-1 text-slate-600">Optioneel bij ontstopping</p>
-          <div className="mt-3 text-2xl font-bold">+ €90</div>
-          <div className="mt-5 flex flex-col gap-2">
-            <a
-              href="/betalen?amount=90&description=Camera-inspectie"
-              className="inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
-            >
-              Online betalen
-            </a>
-            <a
-              href="/over-ons#contact"
-              className="inline-flex items-center justify-center rounded-xl border px-4 py-2 hover:bg-slate-50"
-            >
-              Boeking/afspraak via contact
-            </a>
-          </div>
-        </article>
+          <form onSubmit={submit} className="mt-5 space-y-4">
+            {/* Persoonsgegevens */}
+            <div className="grid gap-3 md:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium">Naam *</label>
+                <input name="contactName" required className="mt-1 w-full rounded-md border px-3 py-2" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium">Telefoon *</label>
+                <input name="phone" required className="mt-1 w-full rounded-md border px-3 py-2" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium">E-mail</label>
+                <input name="email" type="email" className="mt-1 w-full rounded-md border px-3 py-2" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium">Adres (interventieplaats)</label>
+                <input name="address" className="mt-1 w-full rounded-md border px-3 py-2" />
+              </div>
+            </div>
 
-        {/* Ketelservice */}
-        <article className="rounded-2xl border p-5">
-          <h2 className="text-xl font-semibold">Ketelservice</h2>
-          <p className="mt-1 text-slate-600">Onderhoud, aanbetaling of volledig</p>
-          <div className="mt-3 space-y-1">
-            <div className="text-sm text-slate-600">Aanbetaling</div>
-            <div className="text-xl font-semibold">€150</div>
-            <div className="text-sm text-slate-600 mt-2">Volledige service</div>
-            <div className="text-xl font-semibold">€350</div>
-          </div>
-          <div className="mt-5 flex flex-col gap-2">
-            <a
-              href="/betalen?amount=150&description=Ketel%20–%20aanbetaling"
-              className="inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
-            >
-              Online betalen – aanbetaling
-            </a>
-            <a
-              href="/betalen?amount=350&description=Ketel%20–%20volledige%20service"
-              className="inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
-            >
-              Online betalen – volledig
-            </a>
-            <a
-              href="/over-ons#contact"
-              className="inline-flex items-center justify-center rounded-xl border px-4 py-2 hover:bg-slate-50"
-            >
-              Boeking/afspraak via contact
-            </a>
-          </div>
-        </article>
-      </section>
+            {/* Dienst & opties */}
+            <div className="grid gap-3 md:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium">Dienst</label>
+                <select name="serviceType" className="mt-1 w-full rounded-md border px-3 py-2">
+                  <option value="ontstopping">Ontstopping</option>
+                  <option value="camera_inspectie">Camera-inspectie</option>
+                  <option value="ketel_aanbetaling">Ketel – aanbetaling</option>
+                  <option value="ketel_volledig">Ketel – volledige service</option>
+                </select>
+              </div>
+              <div className="flex items-center gap-2">
+                <input id="withCamera" name="withCamera" type="checkbox" defaultChecked />
+                <label htmlFor="withCamera" className="text-sm">Camera gewenst</label>
+              </div>
+            </div>
 
-      {/* Info-blok */}
-      <section className="mt-10 rounded-2xl border p-5">
-        <h3 className="text-lg font-semibold">Belangrijk</h3>
-        <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
-          <li>Betalen kan als <strong>particulier (6% of 21%)</strong> of als <strong>bedrijf (0% btw)</strong>. Je kiest dit op de betaalpagina.</li>
-          <li>De betaling staat <strong>los van de boeking</strong>. Wij contacteren je na ontvangst voor de planning.</li>
-          <li>Wil je een <strong>ander bedrag</strong> betalen? Ga naar <a className="underline" href="/betalen">/betalen</a> en vul zelf het bedrag in.</li>
-        </ul>
+            {/* Tijdvenster */}
+            <div className="rounded-lg border p-3">
+              <div className="flex flex-wrap items-center gap-4">
+                <span className="text-sm font-medium">Wanneer:</span>
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="radio" name="windowChoice" value="vandaag" defaultChecked /> Vandaag
+                </label>
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="radio" name="windowChoice" value="morgen" /> Morgen
+                </label>
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="radio" name="windowChoice" value="andere" /> Andere datum
+                </label>
+                <input name="date" type="date" className="ml-auto rounded-md border px-3 py-1 text-sm" />
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-4">
+                <span className="text-sm font-medium">Dagdeel:</span>
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="radio" name="dayPart" value="ochtend" defaultChecked /> Ochtend
+                </label>
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="radio" name="dayPart" value="namiddag" /> Namiddag
+                </label>
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="radio" name="dayPart" value="avond" /> Avond
+                </label>
+                <label className="ml-auto flex items-center gap-2 text-sm">
+                  <input type="checkbox" name="urgent" defaultChecked /> Spoed
+                </label>
+              </div>
+            </div>
+
+            {/* Beschrijving */}
+            <div>
+              <label className="block text-sm font-medium">Beschrijving</label>
+              <textarea name="desc" rows={4} placeholder="Kort probleem omschrijven..."
+                        className="mt-1 w-full resize-y rounded-md border px-3 py-2" />
+            </div>
+
+            {/* Feedback */}
+            {msg && <p className="rounded-md bg-emerald-50 px-3 py-2 text-sm text-emerald-700">{msg}</p>}
+            {error && <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
+
+            <button
+              disabled={loading}
+              className="w-full rounded-md bg-black px-4 py-2 text-white disabled:opacity-50"
+            >
+              {loading ? 'Versturen…' : 'Aanvraag versturen'}
+            </button>
+          </form>
+        </div>
+
+        {/* RECHTERKOLOM – ONLINE BETALEN */}
+        <div className="rounded-2xl border p-5">
+          <h2 className="text-xl font-semibold">Online betalen</h2>
+          <p className="text-sm text-slate-600">
+            Betalen kan volledig los van je boeking. Kies hieronder een bedrag of vul zelf in op de betaalpagina.
+          </p>
+
+          <div className="mt-5 grid gap-3">
+            <a
+              href={payLink(160, 'Ontstopping interventie')}
+              className="inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
+            >
+              Betaal €160 – Ontstopping
+            </a>
+            <a
+              href={payLink(90, 'Camera-inspectie')}
+              className="inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
+            >
+              Betaal €90 – Camera-inspectie
+            </a>
+            <a
+              href={payLink(150, 'Ketel – aanbetaling')}
+              className="inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
+            >
+              Betaal €150 – Ketel (aanbetaling)
+            </a>
+            <a
+              href={payLink(350, 'Ketel – volledige service')}
+              className="inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
+            >
+              Betaal €350 – Ketel (volledig)
+            </a>
+          </div>
+
+          <div className="mt-6 rounded-lg border p-4">
+            <p className="text-sm text-slate-700">
+              Liever een ander bedrag? Klik hieronder en vul **bedrag** en **omschrijving** zelf in.
+            </p>
+            <a
+              href="/betalen"
+              className="mt-3 inline-flex items-center justify-center rounded-xl border px-4 py-2 hover:bg-slate-50"
+            >
+              Ga naar betaalpagina
+            </a>
+            <p className="mt-3 text-xs text-slate-500">
+              Op de betaalpagina kan je kiezen: particulier (6% of 21%) of bedrijf (0% btw).
+            </p>
+          </div>
+        </div>
       </section>
     </main>
   );
