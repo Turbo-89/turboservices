@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export const runtime = 'nodejs';
 
 type Body = {
-  amount: number; // bruto EUR, bv 159.99
+  amount: number;
   description?: string;
   customer: {
     name: string;
@@ -13,10 +13,10 @@ type Body = {
     postalCode?: string;
     city?: string;
     country?: string; // 'BE'
-    company?: string; // bedrijfsnaam
-    vatNumber?: string; // BE0xxx...
+    company?: string;
+    vatNumber?: string;
     isCompany: boolean;
-    privateVat?: '6' | '21'; // enkel bij particulier
+    privateVat?: '6' | '21';
   };
 };
 
@@ -24,64 +24,95 @@ function eur(v: number) {
   return { currency: 'EUR', value: v.toFixed(2) };
 }
 
+// ➜ NIEUW: eenvoudige E.164 normalisatie (default BE)
+function toE164(raw: string | undefined, country: string | undefined) {
+  if (!raw) return undefined;
+  const c = (country || 'BE').toUpperCase();
+  let s = raw.replace(/[^\d+]/g, ''); // laat + en digits toe
+
+  if (!s) return undefined;
+
+  if (s.startsWith('+')) {
+    const digits = s.replace(/\D/g, '');
+    return digits.length >= 8 && digits.length <= 15 ? '+' + digits : undefined;
+  }
+
+  const digits = s.replace(/\D/g, '');
+
+  if (c === 'BE') {
+    // BE: 0xxxxxxxxx => +32 xxxxxxxxx
+    if (digits.startsWith('0') && digits.length >= 9) {
+      const d = '+32' + digits.slice(1);
+      return d;
+    }
+    if (digits.startsWith('32')) {
+      const d = '+' + digits;
+      return d.length <= 16 ? d : undefined;
+    }
+  }
+
+  // fallback: als het er op lijkt, prefixed met +
+  if (digits.length >= 8 && digits.length <= 15) return '+' + digits;
+
+  return undefined;
+}
+
 export async function POST(req: Request) {
   try {
-    const {
-      amount,
-      description,
-      customer,
-    } = (await req.json()) as Body;
+    const { amount, description, customer } = (await req.json()) as Body;
 
     if (!amount || !customer?.name || !customer?.email) {
       return NextResponse.json({ ok: false, message: 'Bedrag, naam en e-mail zijn verplicht.' }, { status: 400 });
+    }
+    if (customer.isCompany && !customer.vatNumber) {
+      return NextResponse.json(
+        { ok: false, message: 'BTW-nummer is verplicht voor bedrijven (0% btw).' },
+        { status: 400 }
+      );
     }
 
     const API = process.env.MOLLIE_API_KEY!;
     const BASE = process.env.BASE_URL || 'http://localhost:3000';
 
-    // BTW tarief bepalen
-    // Bedrijf => 0%; Particulier => 6% of 21% (door klant gekozen)
-    const vatRate = customer.isCompany ? '0.00'
-                  : customer.privateVat === '6' ? '6.00'
-                  : '21.00';
+    const vatRate =
+      customer.isCompany ? '0.00' : customer.privateVat === '6' ? '6.00' : '21.00';
 
-    // Orderregels (1 lijn met gekozen btw). Mollie verwacht bruto line price.
     const orderLine = {
       type: 'digital' as const,
       name: description || 'Turbo Services – Betaling',
       quantity: 1,
       unitPrice: eur(amount),
       totalAmount: eur(amount),
-      vatRate,                // 0.00 / 6.00 / 21.00
-      vatAmount: eur( 
-        customer.isCompany ? 0 :
-        customer.privateVat === '6' ? amount * (6/106) :
-        amount * (21/121)
+      vatRate,
+      vatAmount: eur(
+        customer.isCompany ? 0 : customer.privateVat === '6' ? amount * (6 / 106) : amount * (21 / 121)
       ),
     };
 
-    const billingAddress = {
+    const country = (customer.country || 'BE').toUpperCase();
+    const phoneE164 = toE164(customer.phone, country);
+
+    // Belangrijk: stuur phone ALLEEN mee als het geldig E.164 is
+    const billingAddress: any = {
       givenName: customer.name,
       organizationName: customer.company || undefined,
       email: customer.email,
-      phone: customer.phone || undefined,
       streetAndNumber: customer.street || undefined,
       postalCode: customer.postalCode || undefined,
       city: customer.city || undefined,
-      country: (customer.country || 'BE').toUpperCase(),
+      country,
     };
+    if (phoneE164) billingAddress.phone = phoneE164;
 
-    // Metadata voor jouw mail/boekhouding
     const metadata = {
       description: description || '',
       isCompany: customer.isCompany,
       company: customer.company || '',
       vatNumber: customer.vatNumber || '',
       privateVat: customer.privateVat || '',
-      phone: customer.phone || '',
+      phone: phoneE164 || customer.phone || '',
     };
 
-    // Mollie ORDER aanmaken
     const res = await fetch('https://api.mollie.com/v2/orders', {
       method: 'POST',
       headers: {
@@ -95,12 +126,9 @@ export async function POST(req: Request) {
         webhookUrl: `${BASE}/api/payment/webhook`,
         billingAddress,
         locale: 'nl_BE',
-        payment: {
-          // Bancontact / iDEAL / kaart, Mollie kiest automatisch; je kan ook method opleggen
-        },
+        payment: {},
         metadata,
         lines: [orderLine],
-        // Voor intracommunautair kan je ook 'vatNumber' meesturen in billingAddress (Mollie gebruikt dit voor exports/overviews)
       }),
     });
 
