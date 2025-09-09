@@ -14,8 +14,8 @@
     "react-dom": "18.3.1",
     "@rive-app/react-canvas": "4.13.2",
     "dayjs": "1.11.11",
-    "resend": "^2.0.0",
-    "@mollie/api-client": "^4.11.1"
+    "resend": "^6.0.3",
+    "@mollie/api-client": "^4.3.3"
   },
   "devDependencies": {
     "typescript": "5.5.4",
