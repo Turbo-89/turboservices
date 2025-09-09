@@ -164,39 +164,25 @@ export default function BoekenPage() {
           </form>
         </div>
 
-        {/* RECHTERKOLOM – ONLINE BETALEN */}
-        <div className="rounded-2xl border p-5">
-          <h2 className="text-xl font-semibold">Online betalen</h2>
-          <p className="text-sm text-slate-600">
-            Betalen kan volledig los van je boeking. Kies hieronder een bedrag of vul zelf in op de betaalpagina.
-          </p>
+        {/* RECHTERKOLOM – ENKEL ÉÉN KNOP */}
+<div className="rounded-2xl border p-5">
+  <h2 className="text-xl font-semibold">Online betalen</h2>
+  <p className="text-sm text-slate-600">
+    Betalen kan volledig los van je boeking. Klik hieronder en vul het <strong>bedrag</strong> en je <strong>gegevens</strong> in.
+  </p>
 
-          <div className="mt-5 grid gap-3">
-            <a
-              href={payLink(160, 'Ontstopping interventie')}
-              className="inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
-            >
-              Betaal €160 – Ontstopping
-            </a>
-            <a
-              href={payLink(90, 'Camera-inspectie')}
-              className="inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
-            >
-              Betaal €90 – Camera-inspectie
-            </a>
-            <a
-              href={payLink(150, 'Ketel – aanbetaling')}
-              className="inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
-            >
-              Betaal €150 – Ketel (aanbetaling)
-            </a>
-            <a
-              href={payLink(350, 'Ketel – volledige service')}
-              className="inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
-            >
-              Betaal €350 – Ketel (volledig)
-            </a>
-          </div>
+  <a
+    href="/betalen"
+    className="mt-5 inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
+  >
+    Online betalen
+  </a>
+
+  <p className="mt-3 text-xs text-slate-500">
+    Op de betaalpagina kies je: particulier (6% of 21%) of bedrijf (0% btw).
+  </p>
+</div>
+
 
           <div className="mt-6 rounded-lg border p-4">
             <p className="text-sm text-slate-700">
