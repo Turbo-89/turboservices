@@ -91,11 +91,12 @@ export default function BoekenPage() {
               <div>
                 <label className="block text-sm font-medium">Dienst</label>
                 <select name="serviceType" className="mt-1 w-full rounded-md border px-3 py-2">
-                  <option value="ontstopping">Ontstopping</option>
-                  <option value="camera_inspectie">Camera-inspectie</option>
-                  <option value="ketel_aanbetaling">Ketel – aanbetaling</option>
-                  <option value="ketel_volledig">Ketel – volledige service</option>
-                </select>
+  <option value="ontstopping">Ontstopping</option>
+  <option value="herstelling">Herstelling</option>
+  <option value="ketel_vervangen">Vervangen ketel</option>
+  <option value="andere">Andere</option>
+</select>
+
               </div>
               <div className="flex items-center gap-2">
                 <input id="withCamera" name="withCamera" type="checkbox" defaultChecked />
