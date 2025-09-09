@@ -30,7 +30,6 @@ export default function Aanvraag(){
     e.preventDefault();
     setError(null);
 
-    // minimale client-validatie
     if(!contactName.trim()) return setError('Vul je naam in.');
     if(!phone.trim()) return setError('Vul je telefoonnummer in.');
 
@@ -51,13 +50,12 @@ export default function Aanvraag(){
         headers:{'Content-Type':'application/json'},
         body: JSON.stringify(payload)
       });
-      if(!res.ok){
-        const t = await res.text();
-        throw new Error(t || 'Serverfout');
-      }
       const data = await res.json();
+      if(!res.ok) throw new Error(data?.error || 'Serverfout');
+
       setSubmitted(data);
-      // formulier leegmaken
+
+      // reset
       setAddress(''); setContactName(''); setPhone(''); setEmail('');
       setDesc(''); setUrgent(true); setWindowChoice('vandaag'); setDate('');
       setDayPart('ochtend'); setWithCamera(true); setPayerDiff(false);
@@ -71,9 +69,9 @@ export default function Aanvraag(){
 
   return (
     <section className="container py-12">
-      <h1 className="text-3xl font-bold mb-2">Aanvraag binnen 24 uur</h1>
+      <h1 className="text-3xl font-bold mb-2">Aanvraag & online betalen</h1>
       <p className="mb-6 text-slate-600">
-        We plannen intern en bevestigen via sms/WhatsApp. Geen publieke agenda.
+        We plannen intern en bevestigen via sms/WhatsApp. Betaal veilig via de link in de factuur.
       </p>
 
       {!submitted && (
@@ -116,7 +114,7 @@ export default function Aanvraag(){
 
           <div className="border rounded-xl p-6">
             <h2 className="text-xl font-semibold mb-3">Betaling & betaler</h2>
-            <p className="text-sm text-slate-600 mb-3">Online betalen is mogelijk, handig als bv. de huisbaas betaalt.</p>
+            <p className="text-sm text-slate-600 mb-3">Factuur met betaallink (Bancontact, kaart). Handig als bv. de huisbaas betaalt.</p>
             <div className="grid gap-3">
               <label className="grid gap-1 text-sm">
                 <span>Service / betaaltype</span>
@@ -128,7 +126,7 @@ export default function Aanvraag(){
               </label>
 
               <label className="flex items-center gap-2 text-sm">
-                <input type="checkbox" checked={sendPaylink} onChange={e=>setSendPaylink(e.target.checked)} /> Stuur online betaal-link
+                <input type="checkbox" checked={sendPaylink} onChange={e=>setSendPaylink(e.target.checked)} /> Factuur mailen met betaal-link
               </label>
 
               <label className="flex items-center gap-2 text-sm">
@@ -142,10 +140,10 @@ export default function Aanvraag(){
                 </div>
               )}
 
-              <button type="submit" disabled={loading} className="bg-turbo-red text-white px-4 py-2 rounded mt-2 disabled:opacity-60">
-                {loading ? 'Verzenden…' : 'Aanvraag versturen'}
+              <button type="submit" disabled={loading} className="bg-black text-white px-4 py-2 rounded mt-2 disabled:opacity-60">
+                {loading ? 'Verwerken…' : 'Aanvraag versturen'}
               </button>
-              <p className="text-xs text-slate-500">We bevestigen jouw tijdsvenster via sms/WhatsApp. Geen publieke agenda.</p>
+              <p className="text-xs text-slate-500">We bevestigen jouw tijdsvenster via sms/WhatsApp.</p>
             </div>
           </div>
         </form>
@@ -153,8 +151,10 @@ export default function Aanvraag(){
 
       {submitted && (
         <div className="border rounded-xl p-6 bg-slate-50">
-          <h2 className="text-xl font-semibold mb-2">Bedankt! Aanvraag ontvangen.</h2>
-          <p className="text-sm mb-2">{submitted.message || 'We sturen snel een bevestiging.'}</p>
+          <h2 className="text-xl font-semibold mb-2">Bedankt! Aanvraag ontvangen ✅</h2>
+          <p className="text-sm mb-2">
+            {submitted.message || 'We sturen zo meteen een bevestiging.'}
+          </p>
           {submitted.pay?.url && (
             <p className="text-sm">Betaal-link: <a className="underline" href={submitted.pay.url}>{submitted.pay.url}</a></p>
           )}
