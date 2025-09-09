@@ -6,6 +6,18 @@ export default function BetalenPage() {
   const [isCompany, setIsCompany] = useState(false);
   const [privateVat, setPrivateVat] = useState<'6' | '21'>('6');
 
+  // Prefill vanuit URL-parameters
+  const [prefill, setPrefill] = useState<{ amount?: string; description?: string }>({});
+  // @ts-ignore: window bestaat enkel in browser
+  React.useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const amount = params.get('amount') || undefined;
+      const description = params.get('description') || undefined;
+      setPrefill({ amount: amount ?? undefined, description: description ?? undefined });
+    } catch {}
+  }, []);
+
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
