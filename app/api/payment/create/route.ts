@@ -6,14 +6,14 @@ type Body = {
   amount: number;
   description?: string;
   customer: {
-    name: string;
+    name: string;           // volledige naam
     email: string;
     phone?: string;
     street?: string;
     postalCode?: string;
     city?: string;
-    country?: string; // 'BE'
-    company?: string;
+    country?: string;       // bv. 'BE'
+    company?: string;       // bedrijfsnaam
     vatNumber?: string;
     isCompany: boolean;
     privateVat?: '6' | '21';
@@ -24,11 +24,21 @@ function eur(v: number) {
   return { currency: 'EUR', value: v.toFixed(2) };
 }
 
-// ➜ NIEUW: eenvoudige E.164 normalisatie (default BE)
+// --- NIEUW: naam splitten naar givenName/familyName ---
+function splitName(full: string) {
+  const s = (full || '').trim().replace(/\s+/g, ' ');
+  if (!s) return { givenName: '-', familyName: '-' };
+  const parts = s.split(' ');
+  if (parts.length === 1) return { givenName: parts[0], familyName: '-' };
+  const familyName = parts.pop() as string;
+  return { givenName: parts.join(' '), familyName };
+}
+
+// --- E.164 normalisatie voor telefoon (default BE) ---
 function toE164(raw: string | undefined, country: string | undefined) {
   if (!raw) return undefined;
   const c = (country || 'BE').toUpperCase();
-  let s = raw.replace(/[^\d+]/g, ''); // laat + en digits toe
+  let s = raw.replace(/[^\d+]/g, ''); // enkel + en cijfers
 
   if (!s) return undefined;
 
@@ -40,10 +50,9 @@ function toE164(raw: string | undefined, country: string | undefined) {
   const digits = s.replace(/\D/g, '');
 
   if (c === 'BE') {
-    // BE: 0xxxxxxxxx => +32 xxxxxxxxx
+    // 04xxxxxxxx -> +324xxxxxxxx
     if (digits.startsWith('0') && digits.length >= 9) {
-      const d = '+32' + digits.slice(1);
-      return d;
+      return '+32' + digits.slice(1);
     }
     if (digits.startsWith('32')) {
       const d = '+' + digits;
@@ -51,9 +60,7 @@ function toE164(raw: string | undefined, country: string | undefined) {
     }
   }
 
-  // fallback: als het er op lijkt, prefixed met +
   if (digits.length >= 8 && digits.length <= 15) return '+' + digits;
-
   return undefined;
 }
 
@@ -91,10 +98,12 @@ export async function POST(req: Request) {
 
     const country = (customer.country || 'BE').toUpperCase();
     const phoneE164 = toE164(customer.phone, country);
+    const { givenName, familyName } = splitName(customer.name);
 
-    // Belangrijk: stuur phone ALLEEN mee als het geldig E.164 is
+    // Belangrijk: Mollie verwacht givenName EN familyName
     const billingAddress: any = {
-      givenName: customer.name,
+      givenName,
+      familyName,                           // <-- toegevoegd
       organizationName: customer.company || undefined,
       email: customer.email,
       streetAndNumber: customer.street || undefined,
