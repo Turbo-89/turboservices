@@ -1,20 +1,17 @@
 'use client';
 import React, { useState } from 'react';
 
-type WindowChoice = 'vandaag' | 'morgen' | 'andere';
-type DayPart = 'ochtend' | 'namiddag' | 'avond';
-
 export default function BoekenPage() {
-  // Form state
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setMsg(null); setError(null);
-    const fd = new FormData(e.currentTarget);
+    setMsg(null);
+    setError(null);
 
+    const fd = new FormData(e.currentTarget);
     const payload = {
       contactName: String(fd.get('contactName') || '').trim(),
       phone: String(fd.get('phone') || '').trim(),
@@ -22,9 +19,9 @@ export default function BoekenPage() {
       address: String(fd.get('address') || '').trim(),
       desc: String(fd.get('desc') || '').trim(),
       urgent: fd.get('urgent') === 'on',
-      windowChoice: String(fd.get('windowChoice') || 'vandaag') as WindowChoice,
+      windowChoice: String(fd.get('windowChoice') || 'vandaag'),
       date: String(fd.get('date') || ''),
-      dayPart: String(fd.get('dayPart') || 'ochtend') as DayPart,
+      dayPart: String(fd.get('dayPart') || 'ochtend'),
       withCamera: fd.get('withCamera') === 'on',
       serviceType: String(fd.get('serviceType') || 'ontstopping'),
     };
@@ -38,30 +35,24 @@ export default function BoekenPage() {
       setLoading(true);
       const res = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type':'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json?.message || 'Versturen mislukt.');
       setMsg('Dank je! Je aanvraag is verzonden. We nemen snel contact op.');
       (e.target as HTMLFormElement).reset();
-    } catch (err:any) {
+    } catch (err: any) {
       setError(err?.message || 'Er ging iets mis. Probeer opnieuw.');
     } finally {
       setLoading(false);
     }
   }
 
-  // Snelknoppen voor betalen (prefill van bedrag + omschrijving)
-  function payLink(amount: number, description: string) {
-    const p = new URLSearchParams({ amount: String(amount), description });
-    return `/betalen?${p.toString()}`;
-  }
-
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold">Afspraak maken & online betalen</h1>
+        <h1 className="text-3xl font-bold">Afspraak maken &amp; online betalen</h1>
         <p className="mt-2 text-slate-600">
           Vul links je gegevens in om een <strong>afspraak</strong> aan te vragen.
           Rechts kan je, volledig <strong>los van de boeking</strong>, meteen <strong>online betalen</strong>.
@@ -147,13 +138,25 @@ export default function BoekenPage() {
             {/* Beschrijving */}
             <div>
               <label className="block text-sm font-medium">Beschrijving</label>
-              <textarea name="desc" rows={4} placeholder="Kort probleem omschrijven..."
-                        className="mt-1 w-full resize-y rounded-md border px-3 py-2" />
+              <textarea
+                name="desc"
+                rows={4}
+                placeholder="Kort probleem omschrijven..."
+                className="mt-1 w-full resize-y rounded-md border px-3 py-2"
+              />
             </div>
 
             {/* Feedback */}
-            {msg && <p className="rounded-md bg-emerald-50 px-3 py-2 text-sm text-emerald-700">{msg}</p>}
-            {error && <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
+            {msg && (
+              <p className="rounded-md bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+                {msg}
+              </p>
+            )}
+            {error && (
+              <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
+                {error}
+              </p>
+            )}
 
             <button
               disabled={loading}
@@ -165,39 +168,22 @@ export default function BoekenPage() {
         </div>
 
         {/* RECHTERKOLOM – ENKEL ÉÉN KNOP */}
-<div className="rounded-2xl border p-5">
-  <h2 className="text-xl font-semibold">Online betalen</h2>
-  <p className="text-sm text-slate-600">
-    Betalen kan volledig los van je boeking. Klik hieronder en vul het <strong>bedrag</strong> en je <strong>gegevens</strong> in.
-  </p>
+        <div className="rounded-2xl border p-5">
+          <h2 className="text-xl font-semibold">Online betalen</h2>
+          <p className="text-sm text-slate-600">
+            Betalen kan volledig los van je boeking. Klik hieronder en vul het <strong>bedrag</strong> en je <strong>gegevens</strong> in.
+          </p>
 
-  <a
-    href="/betalen"
-    className="mt-5 inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
-  >
-    Online betalen
-  </a>
+          <a
+            href="/betalen"
+            className="mt-5 inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
+          >
+            Online betalen
+          </a>
 
-  <p className="mt-3 text-xs text-slate-500">
-    Op de betaalpagina kies je: particulier (6% of 21%) of bedrijf (0% btw).
-  </p>
-</div>
-
-
-          <div className="mt-6 rounded-lg border p-4">
-            <p className="text-sm text-slate-700">
-              Liever een ander bedrag? Klik hieronder en vul **bedrag** en **omschrijving** zelf in.
-            </p>
-            <a
-              href="/betalen"
-              className="mt-3 inline-flex items-center justify-center rounded-xl border px-4 py-2 hover:bg-slate-50"
-            >
-              Ga naar betaalpagina
-            </a>
-            <p className="mt-3 text-xs text-slate-500">
-              Op de betaalpagina kan je kiezen: particulier (6% of 21%) of bedrijf (0% btw).
-            </p>
-          </div>
+          <p className="mt-3 text-xs text-slate-500">
+            Op de betaalpagina kies je: particulier (6% of 21%) of bedrijf (0% btw).
+          </p>
         </div>
       </section>
     </main>
