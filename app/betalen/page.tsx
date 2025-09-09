@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function BetalenPage() {
   const [loading, setLoading] = useState(false);
@@ -8,21 +8,35 @@ export default function BetalenPage() {
 
   // Prefill vanuit URL-parameters
   const [prefill, setPrefill] = useState<{ amount?: string; description?: string }>({});
-  // @ts-ignore: window bestaat enkel in browser
-  React.useEffect(() => {
+  useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
       const amount = params.get('amount') || undefined;
       const description = params.get('description') || undefined;
-      setPrefill({ amount: amount ?? undefined, description: description ?? undefined });
-    } catch {}
+      setPrefill({ amount, description });
+    } catch {
+      // ignore
+    }
   }, []);
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
+
+    const amountNum = Number(fd.get('amount'));
+    if (!amountNum || isNaN(amountNum) || amountNum <= 0) {
+      alert('Vul een geldig bedrag (> 0) in.');
+      return;
+    }
+
+    const customerVat = isCompany ? String(fd.get('vatNumber') || '').trim() : '';
+    if (isCompany && !customerVat) {
+      alert('BTW-nummer is verplicht voor bedrijven (0% btw).');
+      return;
+    }
+
     const payload = {
-      amount: Number(fd.get('amount')),
+      amount: amountNum,
       description: String(fd.get('description') || ''),
       customer: {
         name: String(fd.get('name') || ''),
@@ -33,7 +47,7 @@ export default function BetalenPage() {
         city: String(fd.get('city') || ''),
         country: String(fd.get('country') || 'BE'),
         company: isCompany ? String(fd.get('company') || '') : '',
-        vatNumber: isCompany ? String(fd.get('vatNumber') || '') : '',
+        vatNumber: customerVat,
         isCompany,
         privateVat: isCompany ? undefined : privateVat,
       },
@@ -43,13 +57,13 @@ export default function BetalenPage() {
       setLoading(true);
       const res = await fetch('/api/payment/create', {
         method: 'POST',
-        headers: { 'Content-Type':'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
       const json = await res.json();
       if (!json.ok) throw new Error(json.message || 'Fout bij aanmaken betaling');
       window.location.href = json.url; // naar Mollie
-    } catch (err:any) {
+    } catch (err: any) {
       alert(err.message || 'Er ging iets mis');
     } finally {
       setLoading(false);
@@ -59,26 +73,43 @@ export default function BetalenPage() {
   return (
     <main className="mx-auto max-w-2xl px-4 py-8">
       <h1 className="text-2xl font-bold">Online betalen</h1>
-      <p className="text-sm text-slate-600">Vul je gegevens in en kies het gewenste btw-regime. Het bedrag is vrij in te vullen.</p>
+      <p className="text-sm text-slate-600">
+        Vul je gegevens in en kies het gewenste btw-regime. Het bedrag is vrij in te vullen.
+      </p>
+
       <form onSubmit={submit} className="mt-6 space-y-4">
         <div>
           <label className="block text-sm font-medium">Bedrag (EUR)</label>
-          <input name="amount" type="number" step="0.01" min="1" required className="mt-1 w-full rounded-md border px-3 py-2"/>
+          <input
+            name="amount"
+            type="number"
+            step="0.01"
+            min="1"
+            required
+            defaultValue={prefill.amount}
+            className="mt-1 w-full rounded-md border px-3 py-2"
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium">Omschrijving (optioneel)</label>
-          <input name="description" type="text" placeholder="bv. Ontstopping, interventie..." className="mt-1 w-full rounded-md border px-3 py-2"/>
+          <input
+            name="description"
+            type="text"
+            placeholder="bv. Ontstopping, interventie..."
+            defaultValue={prefill.description}
+            className="mt-1 w-full rounded-md border px-3 py-2"
+          />
         </div>
 
         <div className="rounded-lg border p-3">
           <div className="flex items-center gap-4">
             <label className="flex items-center gap-2">
-              <input type="radio" checked={!isCompany} onChange={()=>setIsCompany(false)} />
+              <input type="radio" checked={!isCompany} onChange={() => setIsCompany(false)} />
               Particulier
             </label>
             <label className="flex items-center gap-2">
-              <input type="radio" checked={isCompany} onChange={()=>setIsCompany(true)} />
+              <input type="radio" checked={isCompany} onChange={() => setIsCompany(true)} />
               Bedrijf (0% btw)
             </label>
           </div>
@@ -86,11 +117,21 @@ export default function BetalenPage() {
           {!isCompany ? (
             <div className="mt-3 flex gap-4">
               <label className="flex items-center gap-2">
-                <input type="radio" name="privateVat" checked={privateVat==='6'} onChange={()=>setPrivateVat('6')} />
+                <input
+                  type="radio"
+                  name="privateVat"
+                  checked={privateVat === '6'}
+                  onChange={() => setPrivateVat('6')}
+                />
                 6% (herstelling/renovatie voorwaarden)
               </label>
               <label className="flex items-center gap-2">
-                <input type="radio" name="privateVat" checked={privateVat==='21'} onChange={()=>setPrivateVat('21')} />
+                <input
+                  type="radio"
+                  name="privateVat"
+                  checked={privateVat === '21'}
+                  onChange={() => setPrivateVat('21')}
+                />
                 21%
               </label>
             </div>
@@ -102,7 +143,13 @@ export default function BetalenPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium">BTW-nummer</label>
-                <input name="vatNumber" type="text" placeholder="BE0XXXXXXXXX" className="mt-1 w-full rounded-md border px-3 py-2" />
+                <input
+                  name="vatNumber"
+                  type="text"
+                  placeholder="BE0XXXXXXXXX"
+                  required={isCompany}
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                />
               </div>
             </div>
           )}
@@ -147,7 +194,9 @@ export default function BetalenPage() {
           Of stuur ons meteen via WhatsApp:{' '}
           <a
             className="underline"
-            href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || ''}?text=${encodeURIComponent('Hallo Turbo Services, ik wil online betalen.')}`}
+            href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || ''}?text=${encodeURIComponent(
+              'Hallo Turbo Services, ik wil online betalen.'
+            )}`}
             target="_blank"
           >
             WhatsApp openen
