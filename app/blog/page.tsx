@@ -9,6 +9,13 @@ export const metadata: Metadata = {
 };
 
 const items = [
+  // ── Losse kennisbank-artikels (niet in /ontstopping)
+  { href: "/kennisbank/spoed-loodgieter", label: "Spoed loodgieter Antwerpen: 24/7 bereikbaarheid" },
+  { href: "/kennisbank/spoed-waterlek", label: "Waterlek spoed: wat nu doen?" },
+  { href: "/kennisbank/verwarmingsketel-vervangen", label: "Verwarmingsketel vervangen: prijs, timing & subsidies" },
+  { href: "/kennisbank/ketel-herstellen-of-vervangen", label: "Ketel herstellen of vervangen? Checklist & advies" },
+
+  // ── Ontstopping (submap)
   { href: "/kennisbank/ontstopping/verstopte-wc", label: "Wat te doen bij een verstopte wc?" },
   { href: "/kennisbank/ontstopping/gootsteen-ontstoppen", label: "Zelf je gootsteen ontstoppen of loodgieter bellen?" },
   { href: "/kennisbank/ontstopping/afvoer-borrelt", label: "Waarom borrelt mijn afvoer? Oorzaken & oplossingen" },
