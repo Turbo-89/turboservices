@@ -95,7 +95,7 @@ export default function SiteHeader() {
           <Link href="/diensten" onClick={() => setOpen(false)}>Diensten</Link>
           <Link href="/prijzen" onClick={() => setOpen(false)}>Prijzen</Link>
           <Link href="/over-ons" onClick={() => setOpen(false)}>Over ons</Link>
-          <Link href="/weetjes" onClick={() => setOpen(false)}>Weetjes</Link>
+          <Link href="/blog" onClick={() => setOpen(false)}>Weetjes</Link>
 
           {/* Snelle belknop (blijft ook hier staan voor mensen die het menu openklikken) */}
           <a
