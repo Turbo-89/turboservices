@@ -19,30 +19,28 @@ export default function SiteHeader() {
 
         {/* Logo links */}
         <Link href="/" className="flex items-center gap-2 min-w-0">
-          {/* Desktop: liggend logo */}
           {/* Desktop: liggend logo + merknaam ernaast */}
-  <span className="hidden md:flex items-center gap-2">
-  <Image
-    src="/logo-horizontal.png"
-    alt="Turbo Services"
-    width={220}
-    height={48}
-    priority
-  />
-  {/* Titel expliciet zichtbaar naast het logo */}
-  <span className="font-extrabold text-xl leading-none tracking-tight whitespace-nowrap">
-    Turbo Services
-  </span>
-</span>
+          <span className="hidden md:flex items-center gap-2">
+            <Image
+              src="/logo-horizontal.png"
+              alt="Turbo Services"
+              width={220}
+              height={48}
+              priority
+            />
+            {/* Titel expliciet zichtbaar naast het logo */}
+            <span className="font-extrabold text-xl leading-none tracking-tight whitespace-nowrap">
+              Turbo Services
+            </span>
+          </span>
 
-{/* Mobiel: staand logo + compacte naam */}
-<span className="md:hidden flex items-center gap-2">
-  <Image src="/logo.png" alt="Turbo Services" width={42} height={42} />
-  <span className="font-extrabold text-base leading-none whitespace-nowrap">
-    Turbo&nbsp;Services
-  </span>
-</span>
-
+          {/* Mobiel: staand logo + compacte naam */}
+          <span className="md:hidden flex items-center gap-2">
+            <Image src="/logo.png" alt="Turbo Services" width={42} height={42} />
+            <span className="font-extrabold text-base leading-none whitespace-nowrap">
+              Turbo&nbsp;Services
+            </span>
+          </span>
         </Link>
 
         {/* Desktop menu */}
@@ -50,11 +48,19 @@ export default function SiteHeader() {
           <Link href="/diensten" className="hover:text-slate-900">Diensten</Link>
           <Link href="/prijzen" className="hover:text-slate-900">Prijzen</Link>
           <Link href="/over-ons" className="hover:text-slate-900">Over ons</Link>
-          <Link href="/blog" className="hover:text-slate-900">Weetjes</Link>
+          <Link href="/weetjes" className="hover:text-slate-900">Weetjes</Link>
         </nav>
 
         {/* Rechts: CTA + hamburger (CTA blijft altijd zichtbaar) */}
         <div className="flex items-center gap-2 shrink-0">
+          {/* Bel 24/7 knop */}
+          <a
+            href="tel:+32485031877"
+            className="hidden md:inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50"
+          >
+            Bel 24/7
+          </a>
+
           <Link
             href="/boeken"
             className="inline-flex items-center rounded-lg bg-[var(--turbo-red,#E34D35)] px-3 py-2 text-white text-sm hover:opacity-90"
@@ -82,11 +88,21 @@ export default function SiteHeader() {
           <Link href="/diensten" onClick={() => setOpen(false)}>Diensten</Link>
           <Link href="/prijzen" onClick={() => setOpen(false)}>Prijzen</Link>
           <Link href="/over-ons" onClick={() => setOpen(false)}>Over ons</Link>
-          <Link href="/blog" onClick={() => setOpen(false)}>Weetjes</Link>
+          <Link href="/weetjes" onClick={() => setOpen(false)}>Weetjes</Link>
+
+          {/* Snelle belknop op mobiel */}
+          <a
+            href="tel:+32485031877"
+            onClick={() => setOpen(false)}
+            className="mt-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-center text-slate-800"
+          >
+            Bel 24/7
+          </a>
+
           <Link
             href="/boeken"
             onClick={() => setOpen(false)}
-            className="mt-1 rounded-lg bg-[var(--turbo-red,#E34D35)] px-3 py-2 text-center text-white"
+            className="rounded-lg bg-[var(--turbo-red,#E34D35)] px-3 py-2 text-center text-white"
           >
             Aanvraag 24u
           </Link>
