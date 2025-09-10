@@ -45,7 +45,7 @@ export default function Page() {
       {/* Positionering */}
       <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-5">
         <p className="text-slate-700">
-          <b>Waar we voor staan:</b> Turbo Services positioneert zich als <b>Riol-Expert</b> — gespecialiseerd in{" "}
+          <b>Waar we voor staan:</b> Turbo Services positioneert zich als <b>Riool-Expert</b> — gespecialiseerd in{" "}
           <Link href="/diensten/camera-inspectie-rapport" className="underline">
             camera-inspectie & rapport
           </Link>{" "}
