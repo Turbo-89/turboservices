@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 export default function CTA({
@@ -5,44 +7,54 @@ export default function CTA({
   subtitle = "Neem direct contact op met Turbo Services.",
   primaryHref = "/boeken",
   primaryLabel = "Direct interventie aanvragen",
+  phone = "+32485031877",
+  whatsapp = "+32485031877",
+  showWhatsapp = true,
 }: {
   title?: string;
   subtitle?: string;
   primaryHref?: string;
   primaryLabel?: string;
+  phone?: string;         // internationale vorm zonder spaties
+  whatsapp?: string;      // internationale vorm zonder spaties
+  showWhatsapp?: boolean;
 }) {
-  return (
-    <div className="mt-12 rounded-2xl bg-red-600 p-8 text-white shadow-lg">
-      <h2 className="text-2xl font-bold">{title}</h2>
-      <p className="mt-2">{subtitle}</p>
+  const waHref = `https://wa.me/${whatsapp.replace(/\D/g, "")}`;
 
-      <div className="mt-4 flex flex-wrap gap-4">
-        {/* Bel-knop (klikbaar telefoonnummer) */}
+  return (
+    <aside className="mt-10 rounded-2xl border bg-white p-6 shadow-sm">
+      <h3 className="text-xl font-semibold text-slate-900">{title}</h3>
+      <p className="mt-2 text-slate-600">{subtitle}</p>
+
+      <div className="mt-4 flex flex-wrap gap-3">
+        {/* Bel-knop */}
         <a
-          href="tel:+32485031877"
-          className="rounded-xl bg-white px-5 py-3 font-semibold text-red-600 shadow hover:bg-slate-100"
+          href={`tel:${phone.replace(/\s/g, "")}`}
+          className="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 font-medium text-slate-800 hover:bg-slate-50"
         >
           Bel ons 24/7
         </a>
 
-        {/* WhatsApp (optioneel, als je WhatsApp Business actief hebt) */}
-        <a
-          href="https://wa.me/32485031877"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-xl bg-green-500 px-5 py-3 font-semibold text-white shadow hover:bg-green-600"
-        >
-          WhatsApp
-        </a>
+        {/* WhatsApp (optioneel) */}
+        {showWhatsapp && (
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center rounded-xl bg-green-500 px-4 py-2 font-medium text-white hover:bg-green-600"
+          >
+            WhatsApp
+          </a>
+        )}
 
-        {/* Boekingsknop → /boeken */}
+        {/* Boeken */}
         <Link
           href={primaryHref}
-          className="rounded-xl bg-black px-5 py-3 font-semibold text-white shadow hover:bg-slate-800"
+          className="inline-flex items-center rounded-xl bg-slate-900 px-4 py-2 font-medium text-white hover:bg-slate-800"
         >
           {primaryLabel}
         </Link>
       </div>
-    </div>
+    </aside>
   );
 }
