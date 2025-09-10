@@ -1,7 +1,54 @@
-import fs from 'fs'; import path from 'path'; import RiveLogo from '@/components/RiveLogo';
-function getPosts(){ const dir=path.join(process.cwd(),'content'); if(!fs.existsSync(dir)) return []; return fs.readdirSync(dir).filter(f=>f.endsWith('.md')).map(f=>({slug:f.replace(/\.md$/,''), title:f.replace(/\.md$/,'').replace(/-/g,' ')})); }
-export default function Blog(){ const posts=getPosts(); return (<section className="container py-12">
-  <div className="flex items-center justify-between mb-6"><h1 className="text-3xl font-bold">Weetjes & tips</h1><RiveLogo variant="blog" className="w-12 h-12" /></div>
-  <p className="mb-4">Korte, praktische tips en cases. Handig voor klanten, én goed voor Google.</p>
-  <ul className="list-disc pl-6">{posts.map(p=>(<li key={p.slug}><a className="underline" href={`/blog/${p.slug}`}>{p.title}</a></li>))}</ul>
-</section>); }
+import type { Metadata } from "next";
+import Link from "next/link";
+import CTA from "@/components/kb/CTA";
+
+export const metadata: Metadata = {
+  title: "Weetjes: snelle tips over ontstopping en sanitair",
+  description:
+    "Een snel overzicht met de beste tips en handleidingen rond verstoppingen, geurproblemen, camera-inspectie en meer.",
+};
+
+const items = [
+  { href: "/kennisbank/ontstopping/verstopte-wc", label: "Wat te doen bij een verstopte wc?" },
+  { href: "/kennisbank/ontstopping/gootsteen-ontstoppen", label: "Zelf je gootsteen ontstoppen of loodgieter bellen?" },
+  { href: "/kennisbank/ontstopping/afvoer-borrelt", label: "Waarom borrelt mijn afvoer? Oorzaken & oplossingen" },
+  { href: "/kennisbank/ontstopping/keukenafvoer-voorkomen", label: "Verstopte keukenafvoer voorkomen" },
+  { href: "/kennisbank/ontstopping/chemische-ontstoppers", label: "Chemische ontstoppers: gebruiken of vermijden?" },
+  { href: "/kennisbank/ontstopping/ontstopping-kost", label: "Wat kost een ontstopping in Vlaanderen?" },
+  { href: "/kennisbank/ontstopping/camera-inspectie", label: "Camera-inspectie: hoe werkt dat & wanneer nodig?" },
+  { href: "/kennisbank/ontstopping/riool-verstopt-signalen", label: "Riool verstopt: eerste signalen" },
+  { href: "/kennisbank/ontstopping/leidingen-hoe-vaak-reinigen", label: "Hoe vaak leidingen reinigen?" },
+  { href: "/kennisbank/ontstopping/terugstromend-toilet-douche", label: "Terugstromend toilet of douche" },
+  { href: "/kennisbank/ontstopping/appartement-gedeelde-riolering", label: "Appartement: wie betaalt de ontstopping?" },
+  { href: "/kennisbank/ontstopping/gereedschap-ontstopping", label: "Welk gereedschap werkt echt?" },
+  { href: "/kennisbank/ontstopping/stank-uit-afvoer", label: "Stank uit afvoer: oorzaken & oplossingen" },
+  { href: "/kennisbank/ontstopping/leiding-vervangen-of-ontstoppen", label: "Leiding vervangen of ontstoppen?" },
+  { href: "/kennisbank/ontstopping/septische-put-onderhoud", label: "Septische put: wanneer (niet) ruimen" },
+];
+
+export default function Page() {
+  return (
+    <main className="mx-auto max-w-4xl px-4 py-12">
+      <h1 className="text-3xl font-bold tracking-tight text-slate-900">Weetjes</h1>
+      <p className="mt-3 text-slate-700">
+        Snelle, praktische tips en how-to’s. Klik door naar de volledige handleidingen zodat je meteen geholpen bent of
+        gericht een interventie kan aanvragen.
+      </p>
+
+      <div className="mt-8 grid gap-3 sm:grid-cols-2">
+        {items.map((it) => (
+          <Link
+            key={it.href}
+            href={it.href}
+            className="rounded-xl border p-4 hover:bg-slate-50"
+          >
+            <span className="font-medium text-slate-900">{it.label}</span>
+            <span className="block text-sm text-slate-600">Lees meer →</span>
+          </Link>
+        ))}
+      </div>
+
+      <CTA />
+    </main>
+  );
+}
