@@ -22,17 +22,19 @@ export default function Home() {
               <span className="text-[var(--turbo-red,#E34D35)]">Transparant geprijsd.</span>
             </h1>
             <p className="mt-4 max-w-xl text-lg text-slate-600">
-              Ontstopping <strong>€160</strong> (eerste uur incl.) · Camera-inspectie <strong>€90</strong> ·
-              Rookmachine/zender <strong>€90</strong> · Extra 1/2 uur / Officieel verslag <strong>€50</strong>.
+              Ontstopping <strong>€160</strong> (eerste uur incl.) · Camera-inspectie <strong>+€90</strong> ·
+              Rookmachine/zender <strong>+€90</strong> · Extra 1/2 uur / Officieel verslag <strong>+€50</strong>.
             </p>
 
             {/* Chips – wrapt netjes op mobiel */}
             <div className="mt-5 flex flex-wrap gap-2">
               {[
                 "Ontstoppingen",
-                "Camera-inspectie",
+                "Camera-inspectie & rapport",
                 "Gerichte rioolherstellingen",
-                "Ketels & loodgieterij (spoed)",
+                "Septische putten",
+                "Spoed loodgieterij (24/7)",
+                "Verwarmingsketels",
               ].map((x) => (
                 <span
                   key={x}
@@ -141,43 +143,70 @@ export default function Home() {
           </p>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {/* Ontstoppingen */}
             <div className="rounded-2xl border p-6 shadow-sm">
               <h3 className="text-lg font-semibold">Ontstoppingen</h3>
               <p className="mt-2 text-slate-600">
-                Snelle interventies voor wc, gootsteen, douche en afvoer. Basis <strong>€160</strong>.
+                Snelle interventies voor wc, gootsteen, douche en afvoer. Richtprijs <strong>vanaf €160</strong>.
+                Optioneel camera-inspectie <strong>+€90</strong>.
               </p>
-              <Link href="/boeken" className="mt-4 inline-block text-[var(--turbo-red,#E34D35)] underline">
-                Afspraak binnen 24u
+              <Link href="/diensten/ontstoppingen" className="mt-4 inline-block text-[var(--turbo-red,#E34D35)] underline">
+                Meer over Ontstoppingen →
               </Link>
             </div>
 
+            {/* Camera-inspectie & rapport */}
             <div className="rounded-2xl border p-6 shadow-sm">
-              <h3 className="text-lg font-semibold">Camera-inspectie & rapport</h3>
+              <h3 className="text-lg font-semibold">Camera-inspectie &amp; rapport</h3>
               <p className="mt-2 text-slate-600">
-                Exacte lokalisatie en duidelijke diagnose. Optioneel bij ontstopping <strong>+€90</strong>.
+                Exacte lokalisatie en duidelijke diagnose met beelden en advies. Ideaal bij moeilijke dossiers.
               </p>
-              <Link href="/diensten" className="mt-4 inline-block text-[var(--turbo-red,#E34D35)] underline">
-                Meer info
+              <Link href="/diensten/camera-inspectie-rapport" className="mt-4 inline-block text-[var(--turbo-red,#E34D35)] underline">
+                Meer over Camera-inspectie &amp; rapport →
               </Link>
             </div>
 
+            {/* Gerichte rioolherstellingen */}
             <div className="rounded-2xl border p-6 shadow-sm">
               <h3 className="text-lg font-semibold">Gerichte rioolherstellingen</h3>
               <p className="mt-2 text-slate-600">
-                We herstellen het essentiële zodat je jaren verder kan. Geen volledige relining als dat niet hoeft.
+                We pakken het échte probleem aan zonder meteen alles te vervangen. Perfect om te overbruggen tot renovatie.
               </p>
-              <Link href="/diensten" className="mt-4 inline-block text-[var(--turbo-red,#E34D35)] underline">
-                Meer info
+              <Link href="/diensten/gerichte-rioolherstellingen" className="mt-4 inline-block text-[var(--turbo-red,#E34D35)] underline">
+                Meer over Gerichte rioolherstellingen →
               </Link>
             </div>
 
+            {/* Septische putten */}
             <div className="rounded-2xl border p-6 shadow-sm">
-              <h3 className="text-lg font-semibold">Ketels & loodgieterij (spoed)</h3>
+              <h3 className="text-lg font-semibold">Septische putten</h3>
               <p className="mt-2 text-slate-600">
-                Standaard ketelvervanging richtprijs <strong>€3.500 all-in</strong>. Spoedplaatsing mogelijk.
+                Dringende interventies en structurele oplossingen. Herstel/vervanging van ingezakte of beschadigde putten.
               </p>
-              <Link href="/prijzen" className="mt-4 inline-block text-[var(--turbo-red,#E34D35)] underline">
-                Bekijk prijzen
+              <Link href="/diensten/septische-putten" className="mt-4 inline-block text-[var(--turbo-red,#E34D35)] underline">
+                Meer over Septische putten →
+              </Link>
+            </div>
+
+            {/* Spoed loodgieterij */}
+            <div className="rounded-2xl border p-6 shadow-sm">
+              <h3 className="text-lg font-semibold">Spoed loodgieterij (24/7)</h3>
+              <p className="mt-2 text-slate-600">
+                Gesprongen kraan, waterlek of terugslag? Bel direct – transparante richtprijs en snelle interventie.
+              </p>
+              <Link href="/diensten/spoed-loodgieterij" className="mt-4 inline-block text-[var(--turbo-red,#E34D35)] underline">
+                Meer over Spoed loodgieterij →
+              </Link>
+            </div>
+
+            {/* Verwarmingsketels */}
+            <div className="rounded-2xl border p-6 shadow-sm">
+              <h3 className="text-lg font-semibold">Verwarmingsketels</h3>
+              <p className="mt-2 text-slate-600">
+                Dringend vervangen? Richtprijs <strong>28 kW ≈ €3.500 excl.</strong> Plaatsing vaak mogelijk <strong>binnen 24u</strong>.
+              </p>
+              <Link href="/diensten/verwarmingsketels" className="mt-4 inline-block text-[var(--turbo-red,#E34D35)] underline">
+                Meer over Verwarmingsketels →
               </Link>
             </div>
           </div>
