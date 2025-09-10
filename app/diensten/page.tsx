@@ -1,71 +1,145 @@
+import * as React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import CTA from "@/components/kb/CTA";
+import FAQJsonLd from "@/components/seo/FAQJsonLd";
 
 export const metadata: Metadata = {
-  title: "Diensten | Turbo Services",
+  title: "Ontstoppingen | Turbo Services",
   description:
-    "Ontstoppingen, camera-inspectie & rapport, gerichte rioolherstellingen, septische putten, spoedloodgieterij en verwarmingsketels. 24/7 hulp in Antwerpen en omgeving.",
+    "Snelle, schadevrije ontstoppingen in de opstartfase. Kernexpertise: rioolcamera & gerichte rioolherstellingen voor moeilijke dossiers.",
 };
 
-const services = [
-  {
-    href: "/diensten/ontstoppingen",
-    title: "Ontstoppingen",
-    desc: "Snelle interventies voor wc, gootsteen, douche, afvoer. Camera-inspectie mogelijk al bij opstart.",
-  },
-  {
-    href: "/diensten/camera-inspectie-rapport",
-    title: "Camera-inspectie & rapport",
-    desc: "Exacte lokalisatie en diagnose met beelden en onderbouwd advies. Rioolexpert voor moeilijke dossiers.",
-  },
-  {
-    href: "/diensten/gerichte-rioolherstellingen",
-    title: "Gerichte rioolherstellingen",
-    desc: "We pakken het échte probleem aan zonder meteen alles te vervangen. Perfect om te overbruggen tot renovatie.",
-  },
-  {
-    href: "/diensten/septische-putten",
-    title: "Septische putten",
-    desc: "Herstel/vervanging van ingezakte of beschadigde putten. Vaak dringend – snel ingepland.",
-  },
-  {
-    href: "/diensten/spoed-loodgieterij",
-    title: "Spoed loodgieterij (24/7)",
-    desc: "Gesprongen kraan, waterlek, terugstroming. Bel direct – transparante richtprijs.",
-  },
-  {
-    href: "/diensten/verwarmingsketels",
-    title: "Verwarmingsketels",
-    desc: "Vervanging/plaatsing met keuring en inregeling. Advies op maat en snelle planning.",
-  },
-];
-
 export default function Page() {
-  return (
-    <main className="mx-auto max-w-6xl px-4 py-12">
-      <h1 className="text-3xl font-bold text-slate-900">Onze diensten</h1>
-      <p className="mt-3 text-slate-700">
-        Snel geholpen door ervaren techniekers. Transparante prijzen en duidelijke communicatie.
-      </p>
+  const faqs = [
+    {
+      question: "Blijven jullie standaard ontstoppingen doen?",
+      answer:
+        "In deze opstartfase wel. Onze kernexpertise is camera-inspectie en gerichte rioolherstellingen. Als de vraag te groot wordt, focussen we opnieuw op complexe interventies met camera.",
+    },
+    {
+      question: "Kunnen jullie meteen camera-inspectie doen?",
+      answer:
+        "Ja. Op aanvraag voeren we tijdens de interventie ook een camera-inspectie uit en bezorgen we een kort rapport met bevindingen.",
+    },
+    {
+      question: "Gelden er toeslagen ’s avonds of in het weekend?",
+      answer:
+        "Buiten kantooruren kan een toeslag van toepassing zijn. We communiceren steeds vooraf een transparante richtprijs.",
+    },
+  ];
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((s) => (
-          <Link
-            key={s.href}
-            href={s.href}
-            className="rounded-2xl border p-5 hover:bg-slate-50"
-          >
-            <h2 className="text-lg font-semibold text-slate-900">{s.title}</h2>
-            <p className="mt-1 text-slate-600">{s.desc}</p>
-            <span className="mt-3 inline-block text-sm text-slate-700 underline">
-              Meer over {s.title} →
-            </span>
-          </Link>
-        ))}
+  const faqJson = [
+    {
+      question: "Wat kost een standaard ontstopping?",
+      answer:
+        "Richtprijs vanaf €160 (typische woning, goed bereikbaar). Camera-inspectie als optie: +€90. Buiten kantooruren kan een toeslag gelden.",
+    },
+    ...faqs,
+  ];
+
+  return (
+    <main className="mx-auto max-w-4xl px-4 py-12">
+      <h1 className="text-3xl font-bold text-slate-900">Ontstoppingen</h1>
+
+      {/* Positionering */}
+      <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-5">
+        <p className="text-slate-700">
+          <b>Waar we voor staan:</b> Turbo Services positioneert zich als <b>Riol-Expert</b> — gespecialiseerd in{" "}
+          <Link href="/diensten/camera-inspectie-rapport" className="underline">
+            camera-inspectie & rapport
+          </Link>{" "}
+          en in{" "}
+          <Link href="/diensten/gerichte-rioolherstellingen" className="underline">
+            gerichte rioolherstellingen
+          </Link>{" "}
+          voor de écht moeilijke gevallen (terugkerende verstoppingen, breuken, doorhang, discussies met verzekeraar of gemeente).
+        </p>
+        <p className="mt-3 text-slate-700">
+          <b>Opstartfase:</b> om nieuwe klanten te helpen bieden we nu ook <b>klassieke ontstoppingen</b> aan
+          (wc, gootsteen, douche, afvoer). Als de vraag onze kwaliteit of beschikbaarheid voor expert-dossiers zou
+          hypothekeren, schakelen we terug naar <b>alleen complexe interventies met camera</b>.
+        </p>
       </div>
 
-      <CTA />
+      {/* Wat we oplossen / aanpak */}
+      <section className="mt-8 grid gap-4 sm:grid-cols-2">
+        <div className="rounded-xl border p-5">
+          <h2 className="text-lg font-semibold">Wat we nu oplossen</h2>
+          <ul className="mt-2 list-disc pl-5 text-slate-700">
+            <li>Wc, gootsteen, douche en bad</li>
+            <li>Hoofdriolering en regenafvoer</li>
+            <li>Gorgelende afvoer en rioolgeur</li>
+          </ul>
+        </div>
+        <div className="rounded-xl border p-5">
+          <h2 className="text-lg font-semibold">Onze werkwijze</h2>
+          <ul className="mt-2 list-disc pl-5 text-slate-700">
+            <li>Veilige eerste hulp en diagnose</li>
+            <li>Mechanische/hogedruk reiniging (geen agressieve chemicaliën)</li>
+            <li>
+              Optioneel:{" "}
+              <Link href="/diensten/camera-inspectie-rapport" className="underline">
+                camera-inspectie & kort rapport
+              </Link>{" "}
+              om de échte oorzaak te objectiveren
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Prijzenblok */}
+      <section className="mt-8 rounded-2xl border p-5">
+        <h2 className="text-lg font-semibold text-slate-900">Richtprijzen</h2>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <div className="rounded-xl border p-4">
+            <div className="text-slate-900 font-medium">Standaard ontstopping</div>
+            <div className="mt-1 text-2xl font-bold">vanaf €160</div>
+            <ul className="mt-2 list-disc pl-5 text-slate-700 text-sm">
+              <li>Typische woning, goed bereikbare leiding</li>
+              <li>Mechanisch/hogedruk, 30–90 min is vaak voldoende</li>
+              <li>Transparante prijs vóór we starten</li>
+            </ul>
+          </div>
+          <div className="rounded-xl border p-4">
+            <div className="text-slate-900 font-medium">Camera-inspectie (optioneel)</div>
+            <div className="mt-1 text-2xl font-bold">+ €90</div>
+            <ul className="mt-2 list-disc pl-5 text-slate-700 text-sm">
+              <li>Live beelden, lokalisatie en kort verslag</li>
+              <li>Ideaal bij terugkerende klachten of twijfel</li>
+              <li>Onderbouwd advies (verzekeraar/aannemer)</li>
+            </ul>
+          </div>
+        </div>
+        <p className="mt-3 text-sm text-slate-600">
+          <b>Opmerking:</b> avond/weekend kan een toeslag hebben. Complexe of slecht bereikbare situaties kunnen afwijken —
+          we communiceren dit altijd vooraf.
+        </p>
+      </section>
+
+      {/* Kennisbank links */}
+      <div className="mt-8 rounded-xl bg-slate-50 p-5 text-slate-700">
+        <b>Zelf eerst proberen?</b> Lees onze stap-voor-stap gidsen:{" "}
+        <Link href="/kennisbank/ontstopping/verstopte-wc" className="underline">
+          verstopte wc
+        </Link>
+        {", "}
+        <Link href="/kennisbank/ontstopping/gootsteen-ontstoppen" className="underline">
+          gootsteen ontstoppen
+        </Link>
+        {", "}
+        <Link href="/kennisbank/ontstopping/afvoer-borrelt" className="underline">
+          afvoer borrelt
+        </Link>
+        .
+      </div>
+
+      <CTA
+        title="Hulp nodig bij een verstopping?"
+        subtitle="Bel 24/7 of vraag direct een interventie aan. Camera-inspectie & rapport kan meteen tijdens de interventie."
+      />
+
+      <FAQJsonLd items={faqJson} />
     </main>
   );
 }
