@@ -51,14 +51,19 @@ export default function SiteHeader() {
           <Link href="/weetjes" className="hover:text-slate-900">Weetjes</Link>
         </nav>
 
-        {/* Rechts: CTA + hamburger (CTA blijft altijd zichtbaar) */}
+        {/* Rechts: call/cta + hamburger */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* Bel 24/7 knop */}
+          {/* Bel 24/7 - altijd zichtbaar; op mobiel icon-only, op desktop met tekst */}
           <a
             href="tel:+32485031877"
-            className="hidden md:inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50"
+            className="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50"
           >
-            Bel 24/7
+            {/* Phone icon */}
+            <svg className="h-4 w-4 md:mr-1" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3 5c0-1.1.9-2 2-2h2a1 1 0 0 1 1 .8l.7 3a1 1 0 0 1-.3.9L7.6 9.2a12.8 12.8 0 0 0 7.2 7.2l1.5-1.8a1 1 0 0 1 .9-.3l3 .7a1 1 0 0 1 .8 1v2a2 2 0 0 1-2 2h-1C9.7 21 3 14.3 3 6V5z" fill="currentColor"/>
+            </svg>
+            <span className="hidden md:inline">Bel 24/7</span>
+            <span className="sr-only md:not-sr-only md:hidden">Bel</span>
           </a>
 
           <Link
@@ -90,7 +95,7 @@ export default function SiteHeader() {
           <Link href="/over-ons" onClick={() => setOpen(false)}>Over ons</Link>
           <Link href="/weetjes" onClick={() => setOpen(false)}>Weetjes</Link>
 
-          {/* Snelle belknop op mobiel */}
+          {/* Snelle belknop (blijft ook hier staan voor mensen die het menu openklikken) */}
           <a
             href="tel:+32485031877"
             onClick={() => setOpen(false)}
