@@ -22,14 +22,14 @@ export default function Home() {
               <span className="text-[var(--turbo-red,#E34D35)]">Transparant geprijsd.</span>
             </h1>
             <p className="mt-4 max-w-xl text-lg text-slate-600">
-              Ontstopping <strong>€160</strong> (eerste uur incl.) · Camera-inspectie <strong>+€90</strong> ·
+              Inspectie afvoeren. Inclusief reinigen en inspecteren met camera<strong>€250</strong> (eerste uur incl.)  ·
               Rookmachine/zender <strong>+€90</strong> · Extra 1/2 uur / Officieel verslag <strong>+€50</strong>.
             </p>
 
             {/* Chips – wrapt netjes op mobiel */}
             <div className="mt-5 flex flex-wrap gap-2">
               {[
-                "Ontstoppingen",
+                "Reinigen riool",
                 "Camera-inspectie & rapport",
                 "Gerichte rioolherstellingen",
                 "Septische putten",
@@ -90,7 +90,7 @@ export default function Home() {
             transparante prijzen en focus op <em>snelle, degelijke oplossingen</em>.
           </p>
           <p className="text-md text-slate-600 mb-8">
-            Of het nu gaat om een dringende ontstopping, camera-inspectie, of spoed bij verwarmingsketels:
+            Of het nu gaat om een dringende terugkerende ontstopping, camera-inspectie, of spoed bij verwarmingsketels:
             u kan rekenen op de vakman waar al talloze klanten beroep op deden.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
