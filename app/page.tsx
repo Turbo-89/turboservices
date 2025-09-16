@@ -84,7 +84,7 @@ export default function Home() {
         <div className="container mx-auto max-w-5xl px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Nieuwe naam, dezelfde expertise</h2>
           <p className="text-lg md:text-xl text-slate-700 mb-6">
-            Ik ben <strong>Wim Verloo</strong>, oprichter van <strong>Turbo Ontstoppingen &amp; Ruimingen</strong>.
+            Ik ben <strong>Wim Verloo</strong>, oprichter van <strong>Turbo. Services</strong> leveren en klanten helpen was vanaf het begin mijn doelstelling.
             Met jarenlange ervaring in complexe ontstoppingen en rioolherstellingen start ik nu
             <strong> Turbo Services</strong> – een frisse aanpak met dezelfde vakkennis,
             transparante prijzen en focus op <em>snelle, degelijke oplossingen</em>.
