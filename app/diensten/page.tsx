@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 const services = [
   {
     href: "/diensten/ontstoppingen",
-    title: "Ontstoppingen",
-    desc: "Snelle interventies voor wc, gootsteen, douche, afvoer. Camera-inspectie mogelijk al bij opstart.",
+    title: "Riool interventie",
+    desc: "Snelle interventies voor wc, gootsteen, douche, afvoer inclusief camera-inspectie.",
   },
   {
     href: "/diensten/camera-inspectie-rapport",
