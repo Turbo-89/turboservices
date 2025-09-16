@@ -4,7 +4,7 @@ export default function OverOns() {
       <h1 className="mb-6 text-3xl font-bold">Over ons</h1>
 
       <p className="mb-4 text-slate-700">
-        Ik ben <strong>Wim Verloo</strong>, oprichter van <em>Turbo Ontstoppingen en Ruimingen</em>.
+        Ik ben <strong>Wim Verloo</strong>, oprichter van <em>Turbo</em>. <strong>Services</strong> leveren was vanaf aanvang al mijn doelstelling.
         Met meer dan 20 jaar ervaring in ontstoppingen, rioolinspecties en herstellingen
         heb ik duizenden klanten geholpen in heel Vlaanderen. Vaak werd ik ingeschakeld
         voor de moeilijke gevallen die anderen niet opgelost kregen.
