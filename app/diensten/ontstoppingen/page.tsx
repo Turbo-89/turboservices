@@ -40,7 +40,7 @@ export default function Page() {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-12">
-      <h1 className="text-3xl font-bold text-slate-900">Ontstoppingen</h1>
+      <h1 className="text-3xl font-bold text-slate-900">Riool interventie</h1>
 
       {/* Positionering */}
       <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-5">
