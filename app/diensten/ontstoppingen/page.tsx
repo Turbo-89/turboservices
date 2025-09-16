@@ -55,11 +55,7 @@ export default function Page() {
           </Link>{" "}
           voor de écht moeilijke gevallen (terugkerende verstoppingen, breuken, doorhang, discussies met verzekeraar of gemeente).
         </p>
-        <p className="mt-3 text-slate-700">
-          <b>Opstartfase:</b> om nieuwe klanten te helpen bieden we nu ook <b>klassieke ontstoppingen</b> aan
-          (wc, gootsteen, douche, afvoer). Als de vraag onze kwaliteit of beschikbaarheid voor expert-dossiers zou
-          hypothekeren, schakelen we terug naar <b>alleen complexe interventies met camera</b>.
-        </p>
+       
       </div>
 
       {/* Wat we oplossen / aanpak */}
@@ -78,7 +74,7 @@ export default function Page() {
             <li>Veilige eerste hulp en diagnose</li>
             <li>Mechanische/hogedruk reiniging (geen agressieve chemicaliën)</li>
             <li>
-              Optioneel:{" "}
+              {" "}
               <Link href="/diensten/camera-inspectie-rapport" className="underline">
                 camera-inspectie & kort rapport
               </Link>{" "}
@@ -102,7 +98,7 @@ export default function Page() {
             </ul>
           </div>
           <div className="rounded-xl border p-4">
-            <div className="text-slate-900 font-medium">Camera-inspectie (optioneel)</div>
+            <div className="text-slate-900 font-medium">Camera-inspectie </div>
             <div className="mt-1 text-2xl font-bold">+ €90</div>
             <ul className="mt-2 list-disc pl-5 text-slate-700 text-sm">
               <li>Live beelden, lokalisatie en kort verslag</li>
