@@ -145,7 +145,7 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* Ontstoppingen */}
             <div className="rounded-2xl border p-6 shadow-sm">
-              <h3 className="text-lg font-semibold">Ontstoppingen</h3>
+              <h3 className="text-lg font-semibold">Riool interventies</h3>
               <p className="mt-2 text-slate-600">
                 Snelle interventies voor wc, gootsteen, douche en afvoer. Richtprijs <strong>vanaf €160</strong>.
                 Optioneel camera-inspectie <strong>+€90</strong>.
