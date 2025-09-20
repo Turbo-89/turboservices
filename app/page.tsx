@@ -22,7 +22,7 @@ export default function Home() {
               <span className="text-[var(--turbo-red,#E34D35)]">Transparant geprijsd.</span>
             </h1>
             <p className="mt-4 max-w-xl text-lg text-slate-600">
-              Inspectie afvoeren. Inclusief reinigen en inspecteren met camera  <strong>€250</strong> (eerste uur incl.)  ·
+              Inspectie afvoeren. Inclusief reinigen <strong>€160</strong> (eerste uur incl.) inspecteren met camera  <strong>+€90</strong>  ·
               Rookmachine/zender <strong>+€90</strong> · Extra 1/2 uur / Officieel verslag <strong>+€50</strong>.
             </p>
 
