@@ -61,7 +61,7 @@ export default function Home() {
             </div>
 
             <p className="mt-3 text-xs text-slate-500">
-              We plannen intern en bevestigen je tijdsvenster via sms/WhatsApp (geen publieke agenda).
+              We plannen intern en bevestigen je tijdsvenster via sms/WhatsApp.
             </p>
           </div>
 
