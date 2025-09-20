@@ -10,9 +10,9 @@ export const metadata: Metadata = {
     "Een snel overzicht met de beste tips en handleidingen rond rioolproblemen, geurhinder, camera-inspectie, spoedherstellingen en meer.",
 };
 
-// Handmatig gedefinieerde titels per bestand (SEO-proof)
+// Handmatige, SEO-proof titels
 const LABELS: Record<string, string> = {
-  // ── Rioolproblemen (submap)
+  // ── Rioolproblemen (submap /ontstopping)
   "verstopte-wc": "Wat te doen bij een verstopte wc?",
   "gootsteen-ontstoppen": "Zelf je gootsteen ontstoppen of loodgieter bellen?",
   "afvoer-borrelt": "Waarom borrelt mijn afvoer? Oorzaken & oplossingen",
@@ -29,7 +29,7 @@ const LABELS: Record<string, string> = {
   "leiding-vervangen-of-ontstoppen": "Leiding vervangen of ontstoppen?",
   "septische-put-onderhoud": "Septische put: wanneer (niet) ruimen",
 
-  // ── Overige onderwerpen (hoofdmap)
+  // ── Overige onderwerpen (hoofdmap /kennisbank)
   "spoed-loodgieter": "Spoed loodgieter Antwerpen: 24/7 bereikbaarheid",
   "spoed-waterlek": "Waterlek spoed: wat nu doen?",
   "verwarmingsketel-vervangen": "Verwarmingsketel vervangen: prijs, timing & subsidies",
@@ -39,38 +39,36 @@ const LABELS: Record<string, string> = {
 // Fallback: slug → nette titel
 function formatLabel(slug: string): string {
   if (LABELS[slug]) return LABELS[slug];
-  return slug
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+// Geeft alle submap-namen terug die een page.tsx bevatten
+function listRouteSlugs(dir: string): string[] {
+  if (!fs.existsSync(dir)) return [];
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  return entries
+    .filter((e) => e.isDirectory())
+    .filter((e) => fs.existsSync(path.join(dir, e.name, "page.tsx")))
+    .map((e) => e.name);
 }
 
 export default function Page() {
   const baseDir = path.join(process.cwd(), "app/kennisbank");
-  const subDir = path.join(baseDir, "ontstopping");
+  const ontstoppingDir = path.join(baseDir, "ontstopping");
 
-  // Rioolproblemen (submap)
-  const rioolFiles = fs
-    .readdirSync(subDir)
-    .filter((f) => f.endsWith("page.tsx"))
-    .map((f) => {
-      const slug = f.replace("/page.tsx", "").replace("page.tsx", "");
-      return {
-        href: `/kennisbank/ontstopping/${slug}`,
-        label: formatLabel(slug),
-      };
-    });
+  // 1) Rioolproblemen (alles in /kennisbank/ontstopping/*/page.tsx)
+  const rioolSlugs = listRouteSlugs(ontstoppingDir);
+  const rioolFiles = rioolSlugs.map((slug) => ({
+    href: `/kennisbank/ontstopping/${slug}`,
+    label: formatLabel(slug),
+  }));
 
-  // Overige onderwerpen (hoofdmap)
-  const otherFiles = fs
-    .readdirSync(baseDir)
-    .filter((f) => f.endsWith("page.tsx"))
-    .map((f) => {
-      const slug = f.replace("/page.tsx", "").replace("page.tsx", "");
-      return {
-        href: `/kennisbank/${slug}`,
-        label: formatLabel(slug),
-      };
-    });
+  // 2) Overige onderwerpen (alle submappen in /kennisbank behalve 'ontstopping')
+  const otherSlugs = listRouteSlugs(baseDir).filter((slug) => slug !== "ontstopping");
+  const otherFiles = otherSlugs.map((slug) => ({
+    href: `/kennisbank/${slug}`,
+    label: formatLabel(slug),
+  }));
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-12">
@@ -84,30 +82,32 @@ export default function Page() {
       <h2 className="mt-10 mb-4 text-xl font-semibold text-slate-900">Rioolproblemen</h2>
       <div className="grid gap-3 sm:grid-cols-2">
         {rioolFiles.map((it) => (
-          <Link
-            key={it.href}
-            href={it.href}
-            className="rounded-xl border p-4 hover:bg-slate-50"
-          >
+          <Link key={it.href} href={it.href} className="rounded-xl border p-4 hover:bg-slate-50">
             <span className="font-medium text-slate-900">{it.label}</span>
             <span className="block text-sm text-slate-600">Lees meer →</span>
           </Link>
         ))}
+        {rioolFiles.length === 0 && (
+          <div className="rounded-xl border p-4 text-sm text-slate-600">
+            Momenteel geen artikels gevonden in <code>/kennisbank/ontstopping</code>.
+          </div>
+        )}
       </div>
 
       {/* Overige onderwerpen */}
       <h2 className="mt-12 mb-4 text-xl font-semibold text-slate-900">Overige onderwerpen</h2>
       <div className="grid gap-3 sm:grid-cols-2">
         {otherFiles.map((it) => (
-          <Link
-            key={it.href}
-            href={it.href}
-            className="rounded-xl border p-4 hover:bg-slate-50"
-          >
+          <Link key={it.href} href={it.href} className="rounded-xl border p-4 hover:bg-slate-50">
             <span className="font-medium text-slate-900">{it.label}</span>
             <span className="block text-sm text-slate-600">Lees meer →</span>
           </Link>
         ))}
+        {otherFiles.length === 0 && (
+          <div className="rounded-xl border p-4 text-sm text-slate-600">
+            Momenteel geen artikels gevonden in <code>/kennisbank</code> (behalve <code>/ontstopping</code>).
+          </div>
+        )}
       </div>
 
       <CTA />
