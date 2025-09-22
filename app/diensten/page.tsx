@@ -5,39 +5,29 @@ import CTA from "@/components/kb/CTA";
 export const metadata: Metadata = {
   title: "Diensten | Turbo Services",
   description:
-    "Ontstoppingen, camera-inspectie & rapport, gerichte rioolherstellingen, septische putten, spoedloodgieterij en verwarmingsketels. 24/7 hulp in Antwerpen en omgeving.",
+    "Spoedloodgieterij en verwarmingsketels. 24/7 hulp in Antwerpen en omgeving. Transparante service voor dringende herstellingen.",
 };
 
 const services = [
   {
-    href: "/diensten/ontstoppingen",
-    title: "Riool interventie",
-    desc: "Snelle interventies voor wc, gootsteen, douche, afvoer inclusief camera-inspectie.",
-  },
-  {
-    href: "/diensten/camera-inspectie-rapport",
-    title: "Camera-inspectie & rapport",
-    desc: "Exacte lokalisatie en diagnose met beelden en onderbouwd advies. Rioolexpert voor moeilijke dossiers.",
-  },
-  {
-    href: "/diensten/gerichte-rioolherstellingen",
-    title: "Gerichte rioolherstellingen",
-    desc: "We pakken het échte probleem aan zonder meteen alles te vervangen. Perfect om te overbruggen tot renovatie.",
-  },
-  {
-    href: "/diensten/septische-putten",
-    title: "Septische putten",
-    desc: "Herstel/vervanging van ingezakte of beschadigde putten. Vaak dringend – snel ingepland.",
-  },
-  {
     href: "/diensten/spoed-loodgieterij",
-    title: "Spoed loodgieterij (24/7)",
+    title: "Spoedloodgieterij (24/7)",
     desc: "Gesprongen kraan, waterlek, terugstroming. Bel direct – transparante richtprijs.",
   },
   {
     href: "/diensten/verwarmingsketels",
     title: "Verwarmingsketels",
-    desc: "Vervanging/plaatsing met keuring en inregeling. Advies op maat en snelle planning.",
+    desc: "Vervanging of herstelling met keuring en inregeling. Snel ingepland bij noodgevallen.",
+  },
+  {
+    href: "/diensten/sanitair-herstelling",
+    title: "Sanitair herstellingen",
+    desc: "Vervanging van kranen, sifons, leidingen of toestellen. Lokaal en efficiënt opgelost.",
+  },
+  {
+    href: "/diensten/drukverlies-leidingen",
+    title: "Drukverlies & ontluchten",
+    desc: "Problemen met circulatie of radiator? Wij lossen het snel op met minimale ingreep.",
   },
 ];
 
@@ -46,7 +36,7 @@ export default function Page() {
     <main className="mx-auto max-w-6xl px-4 py-12">
       <h1 className="text-3xl font-bold text-slate-900">Onze diensten</h1>
       <p className="mt-3 text-slate-700">
-        Snel geholpen door ervaren techniekers. Transparante prijzen en duidelijke communicatie.
+        Spoedinterventies voor sanitair en verwarming. Transparante prijzen, snel ter plaatse.
       </p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
