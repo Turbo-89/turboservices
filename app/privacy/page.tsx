@@ -1,4 +1,4 @@
-Privacy & Cookies – Turbo Services
+Privacy / Cookies – Turbo Services
 Registreren op onze site
 
 Om gebruik te kunnen maken van de digitale services van Turbo Services, verzoeken wij gebruikers om zich te registreren door online bepaalde gegevens in te vullen. De gegevens die de gebruiker invult in de vakjes die betrekking hebben op naam, bedrijf, eventueel adres, e-mailadres en telefoon, noemen wij de “registratiegegevens”.
