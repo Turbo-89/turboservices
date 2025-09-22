@@ -20,7 +20,7 @@ export default function OverOns() {
        <p className="mb-4 text-slate-700">
         Gezien de huidige juridische situatie is het momenteel enkel mogelijk 
         <strong> Spoedloodgieterij</strong> te doen. 
-        <em>Rioolproblemen</em> gaan er binnenkort opnieuw bijkomen.
+        <em>   Rioolproblemen</em> gaan er binnenkort opnieuw bijkomen.
       </p>
       
       <p className="mb-4 text-slate-700">
