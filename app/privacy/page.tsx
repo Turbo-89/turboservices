@@ -1,5 +1,14 @@
-Privacy / Cookies – Turbo Services
-Registreren op onze site
+export default function PrivacyPage() {
+  return (
+    <div className="prose max-w-3xl mx-auto py-12 px-4">
+      <h1>Privacy & Cookies – Turbo Services</h1>
+      <p>
+        Om gebruik te kunnen maken van de digitale services van Turbo Services, verzoeken wij gebruikers om zich te registreren door online bepaalde gegevens in te vullen. ...
+      </p>
+      {/* ...rest van je tekst */}
+    </div>
+  );
+}
 
 Om gebruik te kunnen maken van de digitale services van Turbo Services, verzoeken wij gebruikers om zich te registreren door online bepaalde gegevens in te vullen. De gegevens die de gebruiker invult in de vakjes die betrekking hebben op naam, bedrijf, eventueel adres, e-mailadres en telefoon, noemen wij de “registratiegegevens”.
 
