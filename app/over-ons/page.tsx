@@ -16,7 +16,13 @@ export default function OverOns() {
         Waar ik mij vooral richt op complexe rioolproblemen en camera-inspecties,
         focust Allan op verwarmingsketels, loodgieterij en spoedherstellingen.
       </p>
-
+      
+       <p className="mb-4 text-slate-700">
+        Gezien de huidige juridische situatie is het momenteel enkel mogelijk 
+        <strong> Spoedloodgieterij</strong> te doen. 
+        <em>Rioolproblemen</em> gaan er binnenkort opnieuw bijkomen.
+      </p>
+      
       <p className="mb-4 text-slate-700">
         Onze aanpak is eenvoudig maar doeltreffend: <strong>eerlijk advies</strong>,
         <strong> transparante prijzen</strong> en <strong>oplossingen die echt nodig zijn</strong>.
