@@ -62,7 +62,7 @@ export default function Home() {
         <div className="container mx-auto max-w-5xl px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Spoedservice zonder omwegen</h2>
           <p className="text-lg md:text-xl text-slate-700 mb-6">
-            Ik ben <strong>Alan Verloo</strong>, de vakman achter <strong>TurboServices</strong>. Met jarenlange ervaring in loodgieterij en herstellingen werk ik onafhankelijk en oplossingsgericht. Geen verwarring. Geen loze beloftes. Alleen snelle, degelijke service.
+            Ik ben <strong>Alan Debuyser</strong>, de vakman achter <strong>TurboServices</strong>. Met jarenlange ervaring in loodgieterij en herstellingen werk ik onafhankelijk en oplossingsgericht. Geen verwarring. Geen loze beloftes. Alleen snelle, degelijke service.
           </p>
           <p className="text-md text-slate-600 mb-8">
             Spoedinterventie nodig bij lek, defecte kraan, drukverlies of verwarmingsprobleem? Dan ben je hier aan het juiste adres.
