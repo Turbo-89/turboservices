@@ -15,14 +15,12 @@ export default function Home() {
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
-          {/* Tekstblok */}
           <div>
             <h1 className="text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
               Snel ter plaatse. Degelijk opgelost. <span className="text-[var(--turbo-red,#E34D35)]">Transparant geprijsd.</span>
             </h1>
             <p className="mt-4 max-w-xl text-lg text-slate-600">
-              Spoedinterventies sanitair & verwarmingsproblemen. Richtprijs <strong>vanaf €160</strong> (eerste uur incl.) ·
-              Vervanging kraan of toestel <strong>+€90</strong> · Drukverlies / ontluchten <strong>+€50</strong>.
+              Spoedinterventies sanitair & verwarmingsproblemen. Richtprijs <strong>vanaf €160</strong> (eerste uur incl.).
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
@@ -47,7 +45,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Mascotte rechts */}
           <div className="flex justify-center md:justify-end">
             <Image
               src="/logo.png"
@@ -61,13 +58,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* INTRO */}
       <section className="bg-slate-50 py-14">
         <div className="container mx-auto max-w-5xl px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Spoedservice zonder omwegen</h2>
           <p className="text-lg md:text-xl text-slate-700 mb-6">
-            Ik ben <strong>Wim Verloo</strong>, de vakman achter <strong>TurboServices</strong>. Met jarenlange ervaring in loodgieterij en herstellingen werk ik onafhankelijk en
-            oplossingsgericht. Geen verwarring. Geen loze beloftes. Alleen snelle, degelijke service.
+            Ik ben <strong>Alan Verloo</strong>, de vakman achter <strong>TurboServices</strong>. Met jarenlange ervaring in loodgieterij en herstellingen werk ik onafhankelijk en oplossingsgericht. Geen verwarring. Geen loze beloftes. Alleen snelle, degelijke service.
           </p>
           <p className="text-md text-slate-600 mb-8">
             Spoedinterventie nodig bij lek, defecte kraan, drukverlies of verwarmingsprobleem? Dan ben je hier aan het juiste adres.
@@ -83,7 +78,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* USP Strip */}
       <section className="border-y bg-white">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 py-6 text-sm text-slate-700 md:grid-cols-3">
           <div className="flex items-center gap-2">
@@ -101,12 +95,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIAL */}
       <section className="bg-slate-50">
         <div className="container mx-auto max-w-6xl px-4 py-12 md:py-16">
           <div className="rounded-2xl border bg-white p-6 shadow-sm md:p-8">
             <p className="text-slate-700">
-              “Wim was er sneller dan verwacht. Geen discussies, alles werd meteen correct opgelost. Eerlijk, snel, en vakwerk.”
+              “Alan was er sneller dan verwacht. Geen discussies, alles werd meteen correct opgelost. Eerlijk, snel, en vakwerk.”
             </p>
             <p className="mt-2 text-sm text-slate-500">— Klant uit Boom</p>
           </div>
