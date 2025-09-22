@@ -31,8 +31,7 @@ export default function OverOns() {
       </p>
 
       <p className="mb-4 text-slate-700">
-        Bij dringende problemen staan wij binnen 24 uur klaar. Of het nu gaat om een
-        verstopte afvoer, een lekkage die opgespoord moet worden of een ketel die dringend
+        Bij dringende problemen staan wij binnen 24 uur klaar. Of het nu gaat om een lekkage die opgespoord moet worden of een ketel die dringend
         vervangen moet worden: je kunt rekenen op Turbo Services.
       </p>
 
