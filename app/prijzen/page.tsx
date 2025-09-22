@@ -3,7 +3,8 @@ export default function Prijzen() {
     <section className="container mx-auto max-w-4xl px-4 py-12">
       <h1 className="mb-6 text-3xl font-bold">Prijzen</h1>
       <p className="mb-8 text-slate-700">
-        Transparant en duidelijk. Alle prijzen zijn exclusief btw. Afhankelijk van het type werk kan 6% of 21% btw van toepassing zijn conform de Belgische wetgeving.
+        Transparant en duidelijk. Alle prijzen zijn exclusief btw. Afhankelijk van het type werk kan 6% of 21% btw van toepassing zijn conform de Belgische wetgeving. 
+        Voor avond- en weekendinterventies gelden verhoogde tarieven.
       </p>
 
       <div className="space-y-8">
@@ -13,16 +14,6 @@ export default function Prijzen() {
           <ul className="mt-2 list-disc pl-5 text-slate-700">
             <li>Interventie sanitair of verwarming: <strong>€160</strong> (incl. eerste uur)</li>
             <li>Extra tijd: <strong>€50</strong> per bijkomend half uur</li>
-          </ul>
-        </div>
-
-        {/* Herstellingen & plaatsing */}
-        <div>
-          <h2 className="text-xl font-semibold">Sanitair & verwarming</h2>
-          <ul className="mt-2 list-disc pl-5 text-slate-700">
-            <li>Kraan of sifon vervangen: <strong>€90</strong></li>
-            <li>Ontluchten of drukverlies oplossen: <strong>€50</strong></li>
-            <li>Herstelling kleine lekkage (excl. materiaal): <strong>€160</strong></li>
           </ul>
         </div>
 
