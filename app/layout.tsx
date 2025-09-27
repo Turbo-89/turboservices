@@ -10,6 +10,20 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="nl">
+      <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-955338302"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-955338302');
+            `,
+          }}
+        />
+      </head>
       <body className="text-slate-800">
         <SiteHeader />
 
@@ -21,7 +35,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div>
               <p className="font-semibold text-slate-800">Turbo Services BV</p>
               <p>Rioolexpert & spoed-interventies</p>
-              <p className="mt-1">BTW <span className="whitespace-nowrap">BE 0803.431.994</span></p>
+              <p className="mt-1">
+                BTW <span className="whitespace-nowrap">BE 0803.431.994</span>
+              </p>
             </div>
 
             <div>
