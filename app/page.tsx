@@ -1,5 +1,6 @@
-import Image from "next/image";
+// app/page.tsx
 import Link from "next/link";
+import HeroLogo from "@/components/HeroLogo";
 
 export default function Home() {
   return (
@@ -59,14 +60,7 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center md:justify-end">
-            <Image
-              src="/logo.png"
-              alt="Turbo Services mascotte – RioolExpert"
-              width={480}
-              height={480}
-              className="h-auto max-h-[380px] w-auto object-contain md:max-h-[480px]"
-              priority
-            />
+            <HeroLogo variant="default" />
           </div>
         </div>
       </section>
@@ -126,7 +120,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIAL / CALL TO ACTION */}
+      {/* TESTIMONIAL / CTA */}
       <section className="bg-slate-50">
         <div className="container mx-auto max-w-6xl px-4 py-12 md:py-16">
           <div className="rounded-2xl border bg-white p-6 shadow-sm md:p-8">
