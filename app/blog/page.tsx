@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CTA from "@/components/kb/CTA";
+import HeroLogo from "@/components/HeroLogo";
 import fs from "fs";
 import path from "path";
 
 export const metadata: Metadata = {
-  title: "Weetjes: snelle tips over ontstopping en sanitair",
+  title: "Weetjes | Turbo Services – tips over ontstoppingen en rioolproblemen",
   description:
-    "Een snel overzicht met de beste tips en handleidingen rond rioolproblemen, geurhinder, camera-inspectie, spoedherstellingen en meer.",
+    "Praktische tips en handleidingen rond ontstoppingen, rioolproblemen, geurhinder en camera-inspecties. Artikels die je helpen te beslissen wanneer je zelf iets kan doen en wanneer Turbo Services moet langskomen.",
 };
 
 // Handmatige, SEO-proof titels
@@ -71,46 +72,105 @@ export default function Page() {
   }));
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-12">
-      <h1 className="text-3xl font-bold tracking-tight text-slate-900">Weetjes</h1>
-      <p className="mt-3 text-slate-700">
-        Snelle, praktische tips en handleidingen. Klik door naar de artikels zodat je meteen geholpen bent of
-        gericht een interventie kan aanvragen.
-      </p>
+    <>
+      {/* HERO */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white border-b">
+        <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
+          <div>
+            <h1 className="text-3xl font-bold leading-tight tracking-tight text-slate-900 md:text-5xl">
+              Weetjes over ontstoppingen
+              <span className="block mt-1">
+                en <span className="text-[var(--turbo-red,#E34D35)]">rioolproblemen</span>.
+              </span>
+            </h1>
+            <p className="mt-4 max-w-xl text-lg text-slate-600">
+              Praktische artikels over verstopte wc&apos;s, afvoeren, geurhinder en camera-inspecties. Zo weet je
+              wanneer je zelf iets kunt doen en wanneer <strong>Turbo Services</strong> beter langskomt.
+            </p>
 
-      {/* Rioolproblemen */}
-      <h2 className="mt-10 mb-4 text-xl font-semibold text-slate-900">Rioolproblemen</h2>
-      <div className="grid gap-3 sm:grid-cols-2">
-        {rioolFiles.map((it) => (
-          <Link key={it.href} href={it.href} className="rounded-xl border p-4 hover:bg-slate-50">
-            <span className="font-medium text-slate-900">{it.label}</span>
-            <span className="block text-sm text-slate-600">Lees meer →</span>
-          </Link>
-        ))}
-        {rioolFiles.length === 0 && (
-          <div className="rounded-xl border p-4 text-sm text-slate-600">
-            Momenteel geen artikels gevonden in <code>/kennisbank/ontstopping</code>.
+            <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row">
+              <Link
+                href="/boeken"
+                className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-sm text-white shadow-sm transition hover:opacity-90"
+              >
+                Vraag interventie aan →
+              </Link>
+              <a
+                href="tel:+32485031877"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm text-slate-700 hover:bg-slate-50"
+              >
+                Bel: 0485 03 18 77
+              </a>
+            </div>
+
+            <p className="mt-3 text-xs text-slate-500">
+              Artikels worden stapsgewijs aangevuld. Bij dringende problemen is een interventie meestal
+              de veiligste keuze.
+            </p>
           </div>
-        )}
-      </div>
 
-      {/* Overige onderwerpen */}
-      <h2 className="mt-12 mb-4 text-xl font-semibold text-slate-900">Overige onderwerpen</h2>
-      <div className="grid gap-3 sm:grid-cols-2">
-        {otherFiles.map((it) => (
-          <Link key={it.href} href={it.href} className="rounded-xl border p-4 hover:bg-slate-50">
-            <span className="font-medium text-slate-900">{it.label}</span>
-            <span className="block text-sm text-slate-600">Lees meer →</span>
-          </Link>
-        ))}
-        {otherFiles.length === 0 && (
-          <div className="rounded-xl border p-4 text-sm text-slate-600">
-            Momenteel geen artikels gevonden in <code>/kennisbank</code> (behalve <code>/ontstopping</code>).
+          <div className="flex justify-center md:justify-end">
+            {/* Blog/weetjes: algemene rioolfocus → default of ontstopping; hier bewust 'ontstopping' */}
+            <HeroLogo variant="ontstopping" />
           </div>
-        )}
-      </div>
+        </div>
+      </section>
 
-      <CTA />
-    </main>
+      {/* LIJST MET ARTIKELS */}
+      <main className="mx-auto max-w-4xl px-4 py-12">
+        <h2 className="text-2xl font-semibold text-slate-900">Rioolproblemen</h2>
+        <p className="mt-3 text-slate-700">
+          Deze artikels gaan specifiek over verstopte leidingen, rioolproblemen en geurhinder. Ze helpen je inschatten
+          wat je zelf kan proberen en waar de grens ligt waarop professionele hulp nodig is.
+        </p>
+
+        {/* Rioolproblemen */}
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          {rioolFiles.map((it) => (
+            <Link
+              key={it.href}
+              href={it.href}
+              className="rounded-xl border p-4 hover:bg-slate-50"
+            >
+              <span className="font-medium text-slate-900">{it.label}</span>
+              <span className="block text-sm text-slate-600">Lees meer →</span>
+            </Link>
+          ))}
+          {rioolFiles.length === 0 && (
+            <div className="rounded-xl border p-4 text-sm text-slate-600">
+              Momenteel geen artikels gevonden in <code>/kennisbank/ontstopping</code>.
+            </div>
+          )}
+        </div>
+
+        {/* Overige onderwerpen */}
+        <h2 className="mt-12 mb-2 text-2xl font-semibold text-slate-900">Overige onderwerpen</h2>
+        <p className="mb-4 text-slate-700">
+          Bijkomende thema&apos;s zoals spoed-loodgieterij, waterlekken en verwarming blijven hier toegankelijk,
+          maar de operationele focus van <strong>Turbo Services</strong> ligt vandaag op riool- en afvoerproblemen.
+        </p>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {otherFiles.map((it) => (
+            <Link
+              key={it.href}
+              href={it.href}
+              className="rounded-xl border p-4 hover:bg-slate-50"
+            >
+              <span className="font-medium text-slate-900">{it.label}</span>
+              <span className="block text-sm text-slate-600">Lees meer →</span>
+            </Link>
+          ))}
+          {otherFiles.length === 0 && (
+            <div className="rounded-xl border p-4 text-sm text-slate-600">
+              Momenteel geen artikels gevonden in <code>/kennisbank</code> (behalve <code>/ontstopping</code>).
+            </div>
+          )}
+        </div>
+
+        <div className="mt-10">
+          <CTA />
+        </div>
+      </main>
+    </>
   );
 }
