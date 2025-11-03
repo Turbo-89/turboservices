@@ -1,10 +1,11 @@
-import Image from "next/image";
+// app/over-ons/page.tsx
 import Link from "next/link";
+import HeroLogo from "@/components/HeroLogo";
 
 export default function OverOns() {
   return (
     <>
-      {/* HERO – zelfde structuur als home */}
+      {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white border-b">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
           <div>
@@ -13,8 +14,8 @@ export default function OverOns() {
             </h1>
             <p className="mt-4 max-w-xl text-lg text-slate-600">
               Meer dan twintig jaar ervaring in ontstoppingen, camera-inspecties en
-              noodherstellingen — nu met een vernieuwde aanpak en dezelfde
-              <strong> Turbo-kwaliteit</strong>.
+              noodherstellingen — nu met een vernieuwde aanpak en dezelfde{" "}
+              <strong>Turbo</strong>-kwaliteit.
             </p>
 
             <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row">
@@ -37,19 +38,12 @@ export default function OverOns() {
           </div>
 
           <div className="flex justify-center md:justify-end">
-            <Image
-              src="/logo.png"
-              alt="Turbo Services mascotte – RioolExpert"
-              width={420}
-              height={420}
-              className="h-auto max-h-[360px] w-auto object-contain md:max-h-[420px]"
-              priority
-            />
+            <HeroLogo variant="overmij" />
           </div>
         </div>
       </section>
 
-      {/* Inhoud Over mij */}
+      {/* INHOUD OVER MIJ */}
       <section className="container mx-auto max-w-4xl px-4 py-12">
         <h1 className="mb-6 text-3xl font-bold text-slate-900">Over mij</h1>
 
@@ -96,7 +90,6 @@ export default function OverOns() {
           </li>
         </ul>
 
-        {/* Call to action – identiek aan home */}
         <div className="mt-10 rounded-2xl border bg-slate-50 p-6 shadow-sm md:p-8">
           <h2 className="mb-3 text-2xl font-semibold text-slate-900">
             Verstopping of rioolprobleem?
