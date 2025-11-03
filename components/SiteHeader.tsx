@@ -24,8 +24,7 @@ export default function SiteHeader() {
           {/* Desktop: liggend logo + merknaam ernaast */}
           <span className="hidden md:flex items-center gap-2">
             <Image
-              // Vervang dit pad door je nieuwe horizontale logo (mascotte + TURBO SERVICES)
-              src="/assets/logo/turbo-services-logo-horizontal.png"
+              src="/logo-horizontal.png"
               alt="Turbo Services – RioolExpert"
               width={220}
               height={48}
@@ -36,11 +35,10 @@ export default function SiteHeader() {
             </span>
           </span>
 
-          {/* Mobiel: compact logo (bv. alleen mascottehoofd) + gestapelde naam */}
+          {/* Mobiel: compact logo + gestapelde naam */}
           <span className="md:hidden flex items-center gap-2">
             <Image
-              // Vervang dit pad door je vierkante/compacte mascotte
-              src="/assets/logo/turbo-services-logo-square.png"
+              src="/logo.png"
               alt="Turbo Services – RioolExpert"
               width={42}
               height={42}
@@ -54,19 +52,10 @@ export default function SiteHeader() {
 
         {/* Desktop menu */}
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <Link href="/diensten" className="hover:text-slate-900">
-            Diensten
-          </Link>
-          <Link href="/prijzen" className="hover:text-slate-900">
-            Prijzen
-          </Link>
-          {/* Route blijft /over-ons, label wordt Over mij */}
-          <Link href="/over-ons" className="hover:text-slate-900">
-            Over mij
-          </Link>
-          <Link href="/blog" className="hover:text-slate-900">
-            Weetjes
-          </Link>
+          <Link href="/diensten" className="hover:text-slate-900">Diensten</Link>
+          <Link href="/prijzen" className="hover:text-slate-900">Prijzen</Link>
+          <Link href="/over-ons" className="hover:text-slate-900">Over mij</Link>
+          <Link href="/blog" className="hover:text-slate-900">Weetjes</Link>
         </nav>
 
         {/* Rechts: call/cta + hamburger */}
@@ -119,18 +108,10 @@ export default function SiteHeader() {
         }`}
       >
         <nav className="flex flex-col gap-3 p-4 text-base">
-          <Link href="/diensten" onClick={() => setOpen(false)}>
-            Diensten
-          </Link>
-          <Link href="/prijzen" onClick={() => setOpen(false)}>
-            Prijzen
-          </Link>
-          <Link href="/over-ons" onClick={() => setOpen(false)}>
-            Over mij
-          </Link>
-          <Link href="/blog" onClick={() => setOpen(false)}>
-            Weetjes
-          </Link>
+          <Link href="/diensten" onClick={() => setOpen(false)}>Diensten</Link>
+          <Link href="/prijzen" onClick={() => setOpen(false)}>Prijzen</Link>
+          <Link href="/over-ons" onClick={() => setOpen(false)}>Over mij</Link>
+          <Link href="/blog" onClick={() => setOpen(false)}>Weetjes</Link>
 
           <a
             href="tel:+32485031877"
