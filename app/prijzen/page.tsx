@@ -1,9 +1,11 @@
+// app/prijzen/page.tsx
 import Link from "next/link";
+import HeroLogo from "@/components/HeroLogo";
 
 export default function Prijzen() {
   return (
     <>
-      {/* HERO – zelfde stijl als andere pagina's */}
+      {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white border-b">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
           <div>
@@ -37,6 +39,10 @@ export default function Prijzen() {
             <p className="mt-3 text-xs text-slate-500">
               We plannen intern en bevestigen je tijdsvenster via sms of WhatsApp.
             </p>
+          </div>
+
+          <div className="flex justify-center md:justify-end">
+            <HeroLogo variant="prijzen" />
           </div>
         </div>
       </section>
