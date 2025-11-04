@@ -35,7 +35,7 @@ export default function OntstoppingenPage() {
                 href="tel:+32485031877"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm text-slate-700 hover:bg-slate-50"
               >
-                Bel: 0485 03 18 77
+                Bel 24/7: 0485 03 18 77
               </a>
             </div>
             <p className="mt-3 text-xs text-slate-500">
@@ -83,8 +83,10 @@ export default function OntstoppingenPage() {
               <li><strong>Totaalpakket (ontstopping + camera):</strong> €250</li>
             </ul>
             <p className="mt-3 text-slate-700">
-              Bedragen exclusief btw. Afhankelijk van de aard van de werken is 6% of 21% btw van
-              toepassing conform de Belgische wetgeving.
+              Bedragen zijn <strong>exclusief btw</strong>. Voor particuliere woningen ouder dan 10 jaar
+              geldt doorgaans 6% btw, in andere privé-situaties 21%. Voor zakelijke klanten kan bij
+              medecontractantregeling een btw-verlegging (0%) van toepassing zijn. Dit wordt steeds correct
+              vermeld op offerte en factuur.
             </p>
 
             <h3 className="mt-8 text-xl font-semibold text-slate-900">Wanneer snel ingrijpen?</h3>
@@ -115,7 +117,7 @@ export default function OntstoppingenPage() {
               href="tel:+32485031877"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm text-slate-700 hover:bg-slate-50"
             >
-              Bel: 0485 03 18 77
+              Bel 24/7: 0485 03 18 77
             </a>
           </div>
         </div>
