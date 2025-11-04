@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import CTA from "@/components/kb/CTA";
 import HeroLogo from "@/components/HeroLogo";
 import fs from "fs";
 import path from "path";
@@ -29,12 +28,6 @@ const LABELS: Record<string, string> = {
   "stank-uit-afvoer": "Stank uit afvoer: oorzaken & oplossingen",
   "leiding-vervangen-of-ontstoppen": "Leiding vervangen of ontstoppen?",
   "septische-put-onderhoud": "Septische put: wanneer (niet) ruimen",
-
-  // ── Overige onderwerpen (hoofdmap /kennisbank)
-  "spoed-loodgieter": "Spoed loodgieter Antwerpen: 24/7 bereikbaarheid",
-  "spoed-waterlek": "Waterlek spoed: wat nu doen?",
-  "verwarmingsketel-vervangen": "Verwarmingsketel vervangen: prijs, timing & subsidies",
-  "ketel-herstellen-of-vervangen": "Ketel herstellen of vervangen? Checklist & advies",
 };
 
 // Fallback: slug → nette titel
@@ -57,17 +50,10 @@ export default function Page() {
   const baseDir = path.join(process.cwd(), "app/kennisbank");
   const ontstoppingDir = path.join(baseDir, "ontstopping");
 
-  // 1) Rioolproblemen (alles in /kennisbank/ontstopping/*/page.tsx)
+  // Alleen riool-/ontstoppingsartikels
   const rioolSlugs = listRouteSlugs(ontstoppingDir);
   const rioolFiles = rioolSlugs.map((slug) => ({
     href: `/kennisbank/ontstopping/${slug}`,
-    label: formatLabel(slug),
-  }));
-
-  // 2) Overige onderwerpen (alle submappen in /kennisbank behalve 'ontstopping')
-  const otherSlugs = listRouteSlugs(baseDir).filter((slug) => slug !== "ontstopping");
-  const otherFiles = otherSlugs.map((slug) => ({
-    href: `/kennisbank/${slug}`,
     label: formatLabel(slug),
   }));
 
@@ -99,7 +85,7 @@ export default function Page() {
                 href="tel:+32485031877"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm text-slate-700 hover:bg-slate-50"
               >
-                Bel: 0485 03 18 77
+                Bel 24/7: 0485 03 18 77
               </a>
             </div>
 
@@ -110,21 +96,19 @@ export default function Page() {
           </div>
 
           <div className="flex justify-center md:justify-end">
-            {/* Blog/weetjes: algemene rioolfocus → default of ontstopping; hier bewust 'ontstopping' */}
             <HeroLogo variant="ontstopping" />
           </div>
         </div>
       </section>
 
-      {/* LIJST MET ARTIKELS */}
+      {/* LIJST MET ARTIKELS – ONTSTOPPINGEN */}
       <main className="mx-auto max-w-4xl px-4 py-12">
-        <h2 className="text-2xl font-semibold text-slate-900">Rioolproblemen</h2>
+        <h2 className="text-2xl font-semibold text-slate-900">Artikels rond riool- en afvoerproblemen</h2>
         <p className="mt-3 text-slate-700">
           Deze artikels gaan specifiek over verstopte leidingen, rioolproblemen en geurhinder. Ze helpen je inschatten
           wat je zelf kan proberen en waar de grens ligt waarop professionele hulp nodig is.
         </p>
 
-        {/* Rioolproblemen */}
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           {rioolFiles.map((it) => (
             <Link
@@ -143,32 +127,30 @@ export default function Page() {
           )}
         </div>
 
-        {/* Overige onderwerpen */}
-        <h2 className="mt-12 mb-2 text-2xl font-semibold text-slate-900">Overige onderwerpen</h2>
-        <p className="mb-4 text-slate-700">
-          Bijkomende thema&apos;s zoals spoed-loodgieterij, waterlekken en verwarming blijven hier toegankelijk,
-          maar de operationele focus van <strong>Turbo Services</strong> ligt vandaag op riool- en afvoerproblemen.
-        </p>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {otherFiles.map((it) => (
+        {/* Onderste CTA, uniform met de rest van de site */}
+        <div className="mt-12 rounded-2xl border bg-slate-50 p-6 shadow-sm md:p-8">
+          <h2 className="mb-3 text-2xl font-semibold text-slate-900">
+            Twijfel je of je nog zelf iets kan proberen?
+          </h2>
+          <p className="mb-5 text-slate-700">
+            Als het water blijft staan, terugkomt of er geurhinder is, is een professionele interventie meestal
+            de veiligste en uiteindelijk goedkopere keuze. Beschrijf kort de situatie en voeg indien mogelijk
+            een foto toe.
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row">
             <Link
-              key={it.href}
-              href={it.href}
-              className="rounded-xl border p-4 hover:bg-slate-50"
+              href="/boeken"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
             >
-              <span className="font-medium text-slate-900">{it.label}</span>
-              <span className="block text-sm text-slate-600">Lees meer →</span>
+              Vraag ontstopping aan →
             </Link>
-          ))}
-          {otherFiles.length === 0 && (
-            <div className="rounded-xl border p-4 text-sm text-slate-600">
-              Momenteel geen artikels gevonden in <code>/kennisbank</code> (behalve <code>/ontstopping</code>).
-            </div>
-          )}
-        </div>
-
-        <div className="mt-10">
-          <CTA />
+            <a
+              href="tel:+32485031877"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm text-slate-700 hover:bg-slate-50"
+            >
+              Bel 24/7: 0485 03 18 77
+            </a>
+          </div>
         </div>
       </main>
     </>
