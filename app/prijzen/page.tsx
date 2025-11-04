@@ -33,7 +33,7 @@ export default function Prijzen() {
                 href="tel:+32485031877"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
               >
-                Bel: 0485 03 18 77
+                Bel 24/7: 0485 03 18 77
               </a>
             </div>
             <p className="mt-3 text-xs text-slate-500">
@@ -51,9 +51,10 @@ export default function Prijzen() {
       <section className="container mx-auto max-w-4xl px-4 py-12">
         <h2 className="mb-4 text-2xl font-semibold text-slate-900">Basisprijzen</h2>
         <p className="mb-6 text-slate-700">
-          Alle bedragen zijn <strong>exclusief btw</strong>. Afhankelijk van de aard van de werken kan{" "}
-          <strong>6%</strong> of <strong>21%</strong> btw van toepassing zijn conform de Belgische
-          wetgeving. Dit wordt op de offerte of factuur correct aangegeven.
+          Alle bedragen zijn <strong>exclusief btw</strong>. Voor particuliere klanten bedraagt de btw
+          doorgaans <strong>6%</strong> bij woningen ouder dan 10 jaar en <strong>21%</strong> in andere situaties.
+          Voor zakelijke klanten kan bij medecontractantregeling een <strong>btw-verlegging (0%)</strong> toegepast worden.
+          Het juiste btw-tarief wordt steeds correct vermeld op offerte en factuur.
         </p>
 
         <div className="space-y-8">
@@ -128,7 +129,7 @@ export default function Prijzen() {
               href="tel:+32485031877"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm text-slate-700 hover:bg-slate-50"
             >
-              Bel: 0485 03 18 77
+              Bel 24/7: 0485 03 18 77
             </a>
           </div>
           <p className="mt-3 text-xs text-slate-500">
