@@ -1,3 +1,4 @@
+import ClientChat from './ClientChat';
 import './globals.css';
 import SiteHeader from '@/components/SiteHeader';
 
@@ -28,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader />
 
         <main>{children}</main>
-
+        <ClientChat />
         {/* Footer (bijgewerkt) */}
         <footer className="mt-16 border-t bg-white">
           <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 py-10 text-sm text-slate-600 md:grid-cols-3">
