@@ -29,7 +29,7 @@ export default function OverOns() {
                 href="tel:+32485031877"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
               >
-                Bel: 0485 03 18 77
+                Bel 24/7: 0485 03 18 77
               </a>
             </div>
             <p className="mt-3 text-xs text-slate-500">
@@ -45,7 +45,7 @@ export default function OverOns() {
 
       {/* INHOUD OVER MIJ */}
       <section className="container mx-auto max-w-4xl px-4 py-12">
-        <h1 className="mb-6 text-3xl font-bold text-slate-900">Over mij</h1>
+        <h2 className="mb-6 text-3xl font-bold text-slate-900">Over mij</h2>
 
         <p className="mb-4 text-slate-700">
           Ik ben <strong>Wim Verloo</strong>, oprichter van <strong>Turbo</strong>.{" "}
@@ -112,7 +112,7 @@ export default function OverOns() {
               href="tel:+32485031877"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm text-slate-700 hover:bg-slate-50"
             >
-              Bel: 0485 03 18 77
+              Bel 24/7: 0485 03 18 77
             </a>
           </div>
           <p className="mt-3 text-xs text-slate-500">
