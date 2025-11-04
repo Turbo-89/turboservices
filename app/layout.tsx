@@ -1,6 +1,7 @@
 import ClientChat from './ClientChat';
 import './globals.css';
 import SiteHeader from '@/components/SiteHeader';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Turbo Services – Rioolexpert & Spoed',
@@ -30,7 +31,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <main>{children}</main>
         <ClientChat />
-        {/* Footer (bijgewerkt) */}
+
+        {/* Footer */}
         <footer className="mt-16 border-t bg-white">
           <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 py-10 text-sm text-slate-600 md:grid-cols-3">
             <div>
@@ -70,6 +72,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div>
               <p>Ontstoppingen · Camera · Gerichte herstellingen</p>
               <p>Ketels & loodgieterij (spoed)</p>
+              {/* Stap 6.3 – link naar kennisbank */}
+              <p className="mt-2">
+                <Link href="/kennisbank" className="underline text-slate-700 hover:text-slate-900">
+                  Weetjes & kennisbank
+                </Link>
+              </p>
             </div>
           </div>
 
