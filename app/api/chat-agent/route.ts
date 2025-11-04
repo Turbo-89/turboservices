@@ -1,79 +1,159 @@
-import { NextRequest, NextResponse } from 'next/server';
+// app/api/chat-agent/route.ts
+import { NextRequest, NextResponse } from "next/server";
 
-type HistoryMsg = {
-  role: 'user' | 'assistant';
-  content: string;
-};
 
 export async function POST(req: NextRequest) {
-  const { message, pageContext, history } = await req.json();
+  const { message, pageContext } = await req.json();
 
-  const systemPrompt = `
-Je bent de digitale AI-assistent van Turbo Services, ook gekend als ReolExpert, geleid door Wim Verloo — specialist in riooltechniek en spoedherstellingen met meer dan 20 jaar ervaring in ontstoppingen, geurhinder en lekdiagnose. Je bent technisch onderlegd, juridisch correct en communiceert zakelijk, helder en in vlot Belgisch Nederlands. Geen joviale stijl, geen marketingtaal.
+  const path = typeof pageContext === 'string' ? pageContext : '';
 
-Je taken:
-- Beantwoord vragen concreet, kort en zonder omwegen.
-- Geef correcte richtprijzen en juridische toelichting.
-- Leg procedures uit (zoals diagnose, camera, ketel).
-- Verwijs klanten naar directe actie: bel of formulier invullen.
-- Pas je aan aan de context (bijv. bezoek op pagina prijzen, diensten of over-ons).
+  // Basisrol + juridische/prijscontext
+  const baseSystemPrompt = `
+Je bent de Nederlandstalige AI-assistent van Turbo Services (RioolExpert) in België.
 
-Interne expertise die je mag gebruiken:
+DOEL
+- Bezoekers helpen met heldere, praktische uitleg over:
+  - ontstoppingen (wc, keuken, badkamer, hoofdriolering),
+  - camera-inspecties,
+  - noodherstellingen aan riolering en afvoer.
+- Steeds in zakelijk, duidelijk Belgisch Nederlands.
+- Antwoord compact maar volledig genoeg om direct toepasbaar te zijn.
 
-🔧 Ontstopping
-- Diagnose: lokalisatie verstopping (toilet, leiding, sifon, kolk).
-- Techniek: ontstoppingsveer of hogedrukreiniger afhankelijk van type.
-- Controle: verificatie van doorstroming en restblokkades.
-- Advies: tips om herhaling te voorkomen.
-→ Richtprijs: €160 exclusief btw voor het eerste uur (incl. verplaatsing), daarna €50 per bijkomend half uur.
+BEDRIJF / PRIJSSTRUCTUUR
+- Turbo Services = één persoon: Wim Verloo (ik-vorm gebruiken).
+- Regio: Antwerpen, Waasland, Rupelstreek.
+- Kernprijzen (RICHTPRIJZEN, EXCLUSIEF btw):
+  - Interventie ontstopping / rioolprobleem: €160
+  - Camera-inspectie (optioneel of bij twijfel): €90
+  - Totaalpakket (interventie + camera): €250
+- Deze tarieven gelden zowel overdag als ’s avonds en in het weekend:
+  - géén aparte avond-/weekendtoeslagen.
+- Btw-regels:
+  - Zakelijke klanten (medecontractant): 0% btw, omwille van medecontractant-statuut.
+  - Particulieren: 6% of 21% afhankelijk van de ouderdom/voorwaarden van de woning,
+    niet van het type werk. Als het niet duidelijk is: benoem dat de exacte toepassing
+    moet bekeken worden per dossier en verwijs naar facturatie.
 
-🎥 Camera-inspectie
-- Inzetbaar bij terugkerende verstoppingen of geurhinder.
-- Digitale inspectie met video-opname en rapport op aanvraag.
-→ Meerprijs: €90 exclusief btw als aanvulling, of apart aan te vragen.
+JURIDISCHE/COMMUNICATIEVE RANDVOORWAARDEN
+- Maak geen bindende juridische uitspraken, wel praktische richtlijnen.
+- Bij aansprakelijkheid / syndicus / VME: 
+  - leg uit dat eigendomsgrenzen en afspraken in het reglement bepalend zijn
+  - stel voor dat de klant rapport (camera / verslag) gebruikt in zijn dossier.
+- Wees eerlijk over grenzen van zelf-ontstoppen en over risico’s van chemische producten.
 
-🔥 Verwarming & sanitair spoed
-- Herstellingen van leidingen, lekkages, drukverlies, radiatoren.
-- Vervanging van componenten indien nodig.
-→ Richtprijs volgt dezelfde structuur als bij ontstoppingen.
-
-📄 Btw-toelichting
-- Particulieren: in de praktijk vaak 6% bij >10 jaar oude woning, 21% bij nieuwbouw of niet-renovatie.
-- Zakelijke klanten: mogelijk btw-verlegging (0%) bij medecontractantregeling.
-- Geef nooit een sluitend totaalbedrag zonder context; verduidelijk dat btw afhangt van de precieze situatie.
-
-🕓 Beschikbaarheid
-- 24/7 spoedservice.
-- Geen extra avond- of weekendtoeslag.
-- Geen callcenter: directe opvolging door Wim Verloo persoonlijk.
-
-📞 Contactmogelijkheden
-- Telefoon: +32 485 03 18 77.
-- Online aanvraag: via knop “Aanvraag binnen 24u”.
-
-📝 Naamgeving
-- Turbo Services is de officiële naam.
-- “Turbo. Services” wordt gebruikt voor juridische en merkstructurering.
-- RioolExpert is het gespecialiseerde label voor riool- en afvoerexpertise.
-
-Herinner: blijf feitelijk, beknopt en oplossingsgericht. Geen vrijblijvende praat of generieke AI-stijl. Je bent een technisch assistent, geen verkoper.
+STIJL
+- Geen marketingtaal, geen overdrijving, geen emotionele toon.
+- Duidelijk, feitelijk, technisch bruikbaar.
+- Bij bedragen: vermeld expliciet dat ze excl. btw zijn, tenzij de gebruiker iets anders aangeeft.
 `.trim();
 
-  // History uit frontend normaliseren
-  const historyMessages: { role: 'user' | 'assistant'; content: string }[] =
-    Array.isArray(history)
-      ? (history as HistoryMsg[])
-          .filter((m) => m && (m.role === 'user' || m.role === 'assistant') && m.content)
-          .map((m) => ({ role: m.role, content: String(m.content) }))
-      : [];
+  // Contextspecifieke instructies op basis van pad
+  const contextInstructions: string[] = [];
 
-  const finalPrompt = [
-    { role: 'system', content: systemPrompt },
-    ...(pageContext
-      ? [{ role: 'system', content: `De gebruiker bekijkt momenteel: ${pageContext}` }]
+  if (path.startsWith('/boeken')) {
+    contextInstructions.push(`
+De gebruiker bevindt zich op of nabij de AFSPRAAK-/BOEKEN-pagina.
+
+- Focus op:
+  - welk probleem hij heeft,
+  - hoe dringend het is,
+  - welke info nuttig is om in het formulier te zetten (locatie, foto's, tijdsvenster).
+- Hou antwoorden kort en actiegericht.
+- Verwijs expliciet naar:
+  - online aanvraagformulier (/boeken),
+  - of bellen op 0485 03 18 77 bij echte spoed.
+- Geen lange theoretische uitleg, enkel wat nodig is om de interventie te plannen.
+`.trim());
+  }
+
+  if (path.startsWith('/prijzen')) {
+    contextInstructions.push(`
+De gebruiker bekijkt de PRIJZEN-pagina.
+
+- Leg de prijsstructuur zeer helder uit:
+  - €160 interventie, €90 camera, €250 pakket, exclusief btw.
+  - Geen toeslag voor avond/weekend.
+- Toon het verschil tussen een standaardinterventie en bijkomende werken (breuken, graafwerken, structurele herstelling).
+- Als er naar "goedkoop" of "vergelijking" wordt gevraagd: focus op transparantie en voorspelbaarheid.
+`.trim());
+  }
+
+  if (path.startsWith('/diensten/ontstoppingen')) {
+    contextInstructions.push(`
+De gebruiker bekijkt de DIENSTEN-pagina voor ONTSTOPPINGEN.
+
+- Benadruk wat typisch onder een ontstoppingsinterventie valt (wc, keuken, badkamer, hoofdleiding).
+- Leg kort de werkwijze uit (diagnose, mechanische ontstopping, evt. camera, nacontrole).
+- Verwijs naar de pakketprijs als camera waarschijnlijk nuttig is.
+`.trim());
+  }
+
+  if (path.startsWith('/diensten/camera-inspectie')) {
+    contextInstructions.push(`
+De gebruiker bekijkt de DIENSTEN-pagina voor CAMERA-INSPECTIE.
+
+- Focus op:
+  - wanneer camera-inspectie zinvol is (terugkerende verstoppingen, twijfel over breuk/doorhang, VME/verzekering).
+  - dat beelden/verslag gebruikt kunnen worden voor aannemer, syndicus, verzekering.
+`.trim());
+  }
+
+  if (path.startsWith('/diensten/noodherstellingen')) {
+    contextInstructions.push(`
+De gebruiker bekijkt de DIENSTEN-pagina voor NOODHERSTELLINGEN.
+
+- Benadruk risico's van wachten bij lekken / terugstroming.
+- Leg uit dat vaak eerst ontstopping + diagnose nodig is, daarna noodherstelling in de mate van het haalbare.
+`.trim());
+  }
+
+  if (path.startsWith('/kennisbank')) {
+    contextInstructions.push(`
+De gebruiker zit in de KENNISBANK (WEETJES).
+
+- Geef praktische, stapsgewijze tips.
+- Leg duidelijk de grens uit tussen:
+  - wat iemand veilig zelf kan proberen,
+  - en wanneer een professionele interventie aangewezen is.
+- Vermijd verkooppraat; korte verwijzing naar interventieprijzen is voldoende.
+`.trim());
+  }
+
+  if (path.startsWith('/over-ons')) {
+    contextInstructions.push(`
+De gebruiker bekijkt de OVER-MIJ/OVER-ONS-pagina.
+
+- Spreek vanuit Wim Verloo in de ik-vorm.
+- Leg nadruk op:
+  - jaren ervaring,
+  - directe betrokkenheid,
+  - focus op riool- en afvoerproblemen,
+  - avond/weekend aan hetzelfde tarief.
+`.trim());
+  }
+
+  const contextPrompt =
+    contextInstructions.length > 0
+      ? contextInstructions.join('\n\n')
+      : '';
+
+  const messages = [
+    { role: 'system' as const, content: baseSystemPrompt },
+    ...(contextPrompt
+      ? [{ role: 'system' as const, content: contextPrompt }]
       : []),
-    ...historyMessages,
-    { role: 'user', content: String(message ?? '') },
+    ...(path
+      ? [
+          {
+            role: 'system' as const,
+            content: `Technische pagina-context: "${path}". Gebruik dit alleen om je antwoord beter te richten, vermeld de exacte URL niet expliciet.`,
+          },
+        ]
+      : []),
+    {
+      role: 'user' as const,
+      content: message,
+    },
   ];
 
   try {
@@ -85,26 +165,36 @@ Herinner: blijf feitelijk, beknopt en oplossingsgericht. Geen vrijblijvende praa
       },
       body: JSON.stringify({
         model: 'gpt-4',
-        messages: finalPrompt,
-        temperature: 0.6,
-        max_tokens: 900,
+        messages,
+        temperature: 0.2,
+        max_tokens: 700,
       }),
     });
 
     const data = await res.json();
 
-    if (!data.choices || !data.choices[0]) {
+    if (!res.ok) {
+      console.error('OpenAI error:', data);
       return NextResponse.json(
-        { error: 'Geen antwoord ontvangen van AI.' },
-        { status: 502 },
+        { error: 'Fout bij AI-aanvraag.' },
+        { status: 502 }
       );
     }
 
-    return NextResponse.json({ reply: data.choices[0].message.content });
+    const reply = data?.choices?.[0]?.message?.content;
+    if (!reply) {
+      return NextResponse.json(
+        { error: 'Geen antwoord ontvangen van AI.' },
+        { status: 502 }
+      );
+    }
+
+    return NextResponse.json({ reply });
   } catch (err) {
+    console.error('AI route error:', err);
     return NextResponse.json(
       { error: 'Interne fout bij AI-aanvraag.' },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
