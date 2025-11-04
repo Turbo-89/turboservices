@@ -13,7 +13,6 @@ type ArticleShellProps = {
   children: ReactNode;
   /**
    * Optioneel: pad van de pagina voor SEO (bv. "/kennisbank/ontstopping/verstopte-wc")
-   * Wordt gebruikt in de Article JSON-LD.
    */
   canonicalPath?: string;
 };
@@ -26,7 +25,6 @@ export default function ArticleShell({
   children,
   canonicalPath,
 }: ArticleShellProps) {
-  // JSON-LD data voor Article schema
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -127,7 +125,6 @@ export default function ArticleShell({
         {/* Article JSON-LD voor SEO */}
         <script
           type="application/ld+json"
-          // JSON.stringify voorkomt XSS en levert geldige JSON-LD
           dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
         />
       </main>
