@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
   const { message, pageContext } = await req.json();
 
-  // Vaste systeeminstructie – wordt altijd meegegeven
   const systemPrompt = `
 Je bent een professionele AI-assistent voor Turbo Services, een Belgisch bedrijf gespecialiseerd in:
 - spoedinterventies voor sanitair en verwarming
@@ -12,13 +11,23 @@ Je bent een professionele AI-assistent voor Turbo Services, een Belgisch bedrijf
 - cv-ketelproblemen
 - lekkages, geurhinder en drukverlies
 
-Gebruik klare taal, geef eerlijke richtprijzen (vb. €160 incl. eerste uur), en verwijs indien nodig door naar telefonisch contact of het aanvraagformulier. Gebruik vlot maar zakelijk Belgisch Nederlands. 
+Gebruik klare taal, geef eerlijke richtprijzen (vb. €160 incl. eerste uur), en verwijs indien nodig door naar telefonisch contact of het aanvraagformulier. Gebruik vlot maar zakelijk Belgisch Nederlands.
 
-Als iets niet duidelijk is, geef een nuttige vervolgvraag of stel voor om de aanvraag in te dienen.
-`;
+⚠️ Ontstopping – interne kennis:
+Bij een ontstopping gaat een van onze gespecialiseerde techniekers als volgt te werk:
+
+1. Diagnose: We identificeren eerst waar de blokkade zich bevindt. Dit kan in een afvoerpijp, de hoofdleiding, het toilet, etc. zijn.
+2. Ontstoppingsmethode: Afhankelijk van de locatie en aard van de verstopping kiezen we de meest efficiënte methode, zoals een ontstoppingsveer of hogedrukreiniger.
+3. Controle: Na afloop controleren we de doorstroming en zorgen we dat geen restblokkades achterblijven.
+4. Advies: We geven tips om herhaling te vermijden.
+
+Voor een ontstoppingsservice rekenen we een richtprijs van €160 (incl. btw en voorrijkosten, eerste uur inbegrepen). Extra tijd wordt transparant bijgerekend.
+
+Laat duidelijk weten dat klanten snel mogen bellen of het formulier mogen invullen.
+`.trim();
 
   const finalPrompt = [
-    { role: 'system', content: systemPrompt.trim() },
+    { role: 'system', content: systemPrompt },
     ...(pageContext
       ? [{ role: 'system', content: `De gebruiker bevindt zich op: ${pageContext}` }]
       : []),
