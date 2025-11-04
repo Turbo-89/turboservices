@@ -11,6 +11,11 @@ type ArticleShellProps = {
   intro: string;
   logoVariant?: "default" | "ontstopping" | "camera" | "herstelling" | "prijzen" | "overmij";
   children: ReactNode;
+  /**
+   * Optioneel: pad van de pagina voor SEO (bv. "/kennisbank/ontstopping/verstopte-wc")
+   * Wordt gebruikt in de Article JSON-LD.
+   */
+  canonicalPath?: string;
 };
 
 export default function ArticleShell({
@@ -19,7 +24,32 @@ export default function ArticleShell({
   intro,
   logoVariant = "ontstopping",
   children,
+  canonicalPath,
 }: ArticleShellProps) {
+  // JSON-LD data voor Article schema
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description: subtitle || intro,
+    author: {
+      "@type": "Person",
+      name: "Wim Verloo",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Turbo Services",
+    },
+    ...(canonicalPath
+      ? {
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": `https://www.turboservices.be${canonicalPath}`,
+          },
+        }
+      : {}),
+  };
+
   return (
     <>
       {/* HERO */}
@@ -93,6 +123,13 @@ export default function ArticleShell({
             </a>
           </div>
         </div>
+
+        {/* Article JSON-LD voor SEO */}
+        <script
+          type="application/ld+json"
+          // JSON.stringify voorkomt XSS en levert geldige JSON-LD
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        />
       </main>
     </>
   );
