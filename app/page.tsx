@@ -1,5 +1,4 @@
 // app/page.tsx
-import SmartCTA from '@/components/SmartCTA';
 import Link from "next/link";
 import HeroLogo from "@/components/HeroLogo";
 
@@ -51,7 +50,7 @@ export default function Home() {
                 href="tel:+32485031877"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
               >
-                Bel: 0485 03 18 77
+                Bel 24/7: 0485 03 18 77
               </a>
             </div>
 
@@ -69,7 +68,9 @@ export default function Home() {
       {/* OVER RIOOLEXPERT / INTRO */}
       <section className="bg-slate-50 py-14">
         <div className="container mx-auto max-w-5xl px-4 text-center">
-          <h2 className="mb-4 text-3xl font-extrabold md:text-4xl">Gespecialiseerd in riool- en afvoerproblemen</h2>
+          <h2 className="mb-4 text-3xl font-extrabold md:text-4xl">
+            Gespecialiseerd in riool- en afvoerproblemen
+          </h2>
           <p className="mb-6 text-lg text-slate-700 md:text-xl">
             Ik ben <strong>Wim Verloo</strong>, oprichter van <strong>Turbo</strong>.{" "}
             <strong>Services</strong> leveren was altijd de kern: technische precisie en betrouwbare interventies in
@@ -77,7 +78,7 @@ export default function Home() {
             ontstoppingen, camera-inspecties en noodherstellingen.
           </p>
           <p className="mb-8 text-md text-slate-600">
-            Geen callcenter, geen tussenpersonen. Rechtstreeks contact, duidelijke afspraken en transparante tarieven –
+            Geen callcenter, geen tussenpersonen. Rechtstreeks contact, duidelijke afspraken en transparante tarieven – 
             ook als je liever ’s avonds of in het weekend geholpen wordt.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
@@ -85,13 +86,13 @@ export default function Home() {
               href="/boeken"
               className="bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-sm font-medium text-white rounded-lg hover:opacity-90"
             >
-              Aanvraag binnen 24u
+              Vraag interventie aan →
             </Link>
             <a
               href="tel:+32485031877"
               className="border border-slate-300 px-6 py-3 text-sm rounded-lg hover:bg-slate-100"
             >
-              Bel direct: 0485 03 18 77
+              Bel 24/7: 0485 03 18 77
             </a>
           </div>
         </div>
@@ -142,7 +143,7 @@ export default function Home() {
               href="tel:+32485031877"
               className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
             >
-              Bel nu: +32 485 03 18 77
+              Bel 24/7: 0485 03 18 77
             </a>
           </div>
           <p className="mt-3 text-center text-xs text-slate-500">
@@ -150,7 +151,6 @@ export default function Home() {
           </p>
         </div>
       </section>
-       <SmartCTA />
     </>
   );
 }
