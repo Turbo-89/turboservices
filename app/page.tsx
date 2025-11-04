@@ -1,4 +1,5 @@
 // app/page.tsx
+import SmartCTA from '@/components/SmartCTA';
 import Link from "next/link";
 import HeroLogo from "@/components/HeroLogo";
 
@@ -149,6 +150,7 @@ export default function Home() {
           </p>
         </div>
       </section>
+       <SmartCTA />
     </>
   );
 }
