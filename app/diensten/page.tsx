@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import CTA from "@/components/kb/CTA";
 import HeroLogo from "@/components/HeroLogo";
+import SmartCTA from "@/components/SmartCTA";
 
 export const metadata: Metadata = {
   title: "Diensten | Turbo Services – RioolExpert",
@@ -49,12 +49,12 @@ export default function Page() {
               >
                 Vraag interventie aan →
               </Link>
-              <a
-                href="tel:+32485031877"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
-              >
-                Bel: 0485 03 18 77
-              </a>
+            <a
+              href="tel:+32485031877"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
+            >
+              Bel 24/7: 0485 03 18 77
+            </a>
             </div>
             <p className="mt-3 text-xs text-slate-500">
               We plannen intern en bevestigen je tijdsvenster via sms of WhatsApp.
@@ -93,8 +93,9 @@ export default function Page() {
           ))}
         </div>
 
+        {/* AI-gestuurde CTA, specifiek afgestemd op deze pagina */}
         <div className="mt-10">
-          <CTA />
+          <SmartCTA />
         </div>
       </main>
     </>
