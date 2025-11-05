@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { trackBookingSubmit } from "@/lib/analytics";
+import { trackBookingSubmit, trackEvent } from "@/lib/analytics";
 
 export default function BoekenPage() {
   const [loading, setLoading] = useState(false);
@@ -64,8 +64,10 @@ export default function BoekenPage() {
       <header className="mb-8">
         <h1 className="text-3xl font-bold">Afspraak maken &amp; online betalen</h1>
         <p className="mt-2 text-slate-600">
-          Vul links je gegevens in om een <strong>afspraak</strong> aan te vragen.
-          Rechts kan je, volledig <strong>los van de boeking</strong>, meteen <strong>online betalen</strong>.
+          Vul links je gegevens in om een <strong>interventie</strong> aan te vragen
+          (ontstopping, camera-inspectie of noodherstelling).
+          Rechts kan je, volledig <strong>los van de boeking</strong>, meteen
+          <strong> online betalen</strong>.
         </p>
       </header>
 
@@ -73,26 +75,41 @@ export default function BoekenPage() {
         {/* LINKERKOLOM – AFSPRAAKFORMULIER */}
         <div className="rounded-2xl border p-5">
           <h2 className="text-xl font-semibold">Afspraakformulier</h2>
-          <p className="text-sm text-slate-600">Wij bevestigen per e-mail of telefoon.</p>
+          <p className="text-sm text-slate-600">Wij bevestigen per sms, WhatsApp of telefoon.</p>
 
           <form onSubmit={submit} className="mt-5 space-y-4">
             {/* Persoonsgegevens */}
             <div className="grid gap-3 md:grid-cols-2">
               <div>
                 <label className="block text-sm font-medium">Naam *</label>
-                <input name="contactName" required className="mt-1 w-full rounded-md border px-3 py-2" />
+                <input
+                  name="contactName"
+                  required
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium">Telefoon *</label>
-                <input name="phone" required className="mt-1 w-full rounded-md border px-3 py-2" />
+                <input
+                  name="phone"
+                  required
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium">E-mail</label>
-                <input name="email" type="email" className="mt-1 w-full rounded-md border px-3 py-2" />
+                <input
+                  name="email"
+                  type="email"
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium">Adres (interventieplaats)</label>
-                <input name="address" className="mt-1 w-full rounded-md border px-3 py-2" />
+                <input
+                  name="address"
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                />
               </div>
             </div>
 
@@ -100,16 +117,21 @@ export default function BoekenPage() {
             <div className="grid gap-3 md:grid-cols-2">
               <div>
                 <label className="block text-sm font-medium">Dienst</label>
-                <select name="serviceType" className="mt-1 w-full rounded-md border px-3 py-2">
-                  <option value="herstelling">Herstelling</option>
-                  <option value="ketel_vervangen">Vervangen ketel</option>
-                  <option value="andere">Andere</option>
+                <select
+                  name="serviceType"
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                  defaultValue="ontstopping"
+                >
+                  <option value="ontstopping">Ontstopping / verstopping</option>
+                  <option value="camera_inspectie">Camera-inspectie</option>
+                  <option value="noodherstelling">Noodherstelling / lek</option>
+                  <option value="andere">Andere / advies</option>
                 </select>
               </div>
               <div className="flex items-center gap-2">
-                <input id="withCamera" name="withCamera" type="checkbox" defaultChecked />
+                <input id="withCamera" name="withCamera" type="checkbox" />
                 <label htmlFor="withCamera" className="text-sm">
-                  Camera gewenst
+                  Camera meteen gewenst
                 </label>
               </div>
             </div>
@@ -127,7 +149,11 @@ export default function BoekenPage() {
                 <label className="flex items-center gap-2 text-sm">
                   <input type="radio" name="windowChoice" value="andere" /> Andere datum
                 </label>
-                <input name="date" type="date" className="ml-auto rounded-md border px-3 py-1 text-sm" />
+                <input
+                  name="date"
+                  type="date"
+                  className="ml-auto rounded-md border px-3 py-1 text-sm"
+                />
               </div>
               <div className="mt-3 flex flex-wrap items-center gap-4">
                 <span className="text-sm font-medium">Dagdeel:</span>
@@ -152,7 +178,7 @@ export default function BoekenPage() {
               <textarea
                 name="desc"
                 rows={4}
-                placeholder="Kort probleem omschrijven..."
+                placeholder="Kort probleem omschrijven (bv. wc verstopt, water dat terugkomt, geurhinder)…"
                 className="mt-1 w-full resize-y rounded-md border px-3 py-2"
               />
             </div>
@@ -182,11 +208,15 @@ export default function BoekenPage() {
         <div className="rounded-2xl border p-5">
           <h2 className="text-xl font-semibold">Online betalen</h2>
           <p className="text-sm text-slate-600">
-            Betalen kan volledig los van je boeking. Klik hieronder en vul het <strong>bedrag</strong> en je <strong>gegevens</strong> in.
+            Betalen kan volledig los van je boeking. Klik hieronder en vul het{" "}
+            <strong>bedrag</strong> en je <strong>gegevens</strong> in.
           </p>
 
           <a
             href="/betalen"
+            onClick={() =>
+              trackEvent("pay_click", { source: "boeken_page", label: "online_betalen" })
+            }
             className="mt-5 inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
           >
             Online betalen
