@@ -118,8 +118,10 @@ export default function SiteHeader() {
 
           <a
             href="tel:+32485031877"
-            onClick={() => setOpen(false)}
-            onClick={() => trackEvent('phone_click', { source: 'mobile_menu' })}
+            onClick={() => {
+              trackEvent('phone_click', { source: 'mobile_menu' });
+              setOpen(false);
+            }}
             className="mt-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-center text-slate-800"
           >
             Bel 24/7
@@ -127,8 +129,10 @@ export default function SiteHeader() {
 
           <Link
             href="/boeken"
-            onClick={() => setOpen(false)}
-            onClick={() => trackEvent('cta_click', { source: 'mobile_menu', label: 'Aanvraag 24u' })}
+            onClick={() => {
+              trackEvent('cta_click', { source: 'mobile_menu', label: 'Aanvraag 24u' });
+              setOpen(false);
+            }}
             className="rounded-lg bg-[var(--turbo-red,#E34D35)] px-3 py-2 text-center text-white"
           >
             Aanvraag 24u
