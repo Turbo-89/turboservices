@@ -1,10 +1,9 @@
-'use client';
-
+// app/page.tsx
 import SmartCTA from '@/components/SmartCTA';
 import Link from "next/link";
 import HeroLogo from "@/components/HeroLogo";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
-import { trackEvent } from "@/lib/analytics";
+import CallButton from "@/components/CallButton"; // ← nieuw
 
 export default function Home() {
   return (
@@ -48,20 +47,18 @@ export default function Home() {
             <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row">
               <Link
                 href="/boeken"
-                onClick={() =>
-                  trackEvent('cta_click', { source: 'home_hero', label: 'Vraag interventie aan' })
-                }
                 className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-white shadow-sm transition hover:opacity-90"
               >
                 Vraag interventie aan →
               </Link>
-              <a
-                href="tel:+32485031877"
-                onClick={() => trackEvent('phone_click', { source: 'home_hero' })}
+
+              {/* hier gebruik je de callbutton met tracking */}
+              <CallButton
+                source="home_hero"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
               >
                 Bel 24/7: 0485 03 18 77
-              </a>
+              </CallButton>
             </div>
 
             <p className="mt-3 text-xs text-slate-500">
@@ -74,6 +71,13 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* rest van de pagina ongewijzigd… */}
+      {/* ... */}
+    </>
+  );
+}
+
 
       {/* OVER RIOOLEXPERT / INTRO */}
       <section className="bg-slate-50 py-14">
