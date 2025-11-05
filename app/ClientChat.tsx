@@ -1,5 +1,6 @@
 'use client';
 
+import { trackEvent } from '@/lib/analytics';
 import React, { useState, useRef, useEffect, FormEvent } from 'react';
 import { usePathname } from 'next/navigation';
 
@@ -61,11 +62,19 @@ export default function ClientChat() {
       }
 
       const assistantMessage: ChatMessage = {
-        id: ++idRef.current,
-        from: 'assistant',
-        text: String(json.reply),
-      };
-      setMessages(prev => [...prev, assistantMessage]);
+  id: ++idRef.current,
+  from: 'assistant',
+  text: String(json.reply),
+};
+setMessages(prev => [...prev, assistantMessage]);
+
+// tracking
+trackEvent('chat_question', {
+  page_path: pathname || '/',
+  message_length: text.length,
+  conversation_length: messages.length + 1, // inclusief huidige vraag
+});
+
     } catch (err: any) {
       const assistantMessage: ChatMessage = {
         id: ++idRef.current,
