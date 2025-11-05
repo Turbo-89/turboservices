@@ -1,15 +1,16 @@
-// app/page.tsx
+'use client';
+
 import SmartCTA from '@/components/SmartCTA';
 import Link from "next/link";
 import HeroLogo from "@/components/HeroLogo";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
-
+import { trackEvent } from "@/lib/analytics";
 
 export default function Home() {
   return (
-     <>
-     <LocalBusinessJsonLd />
-   
+    <>
+      <LocalBusinessJsonLd />
+
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
@@ -47,6 +48,9 @@ export default function Home() {
             <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row">
               <Link
                 href="/boeken"
+                onClick={() =>
+                  trackEvent('cta_click', { source: 'home_hero', label: 'Vraag interventie aan' })
+                }
                 className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-white shadow-sm transition hover:opacity-90"
               >
                 Vraag interventie aan →
@@ -90,12 +94,16 @@ export default function Home() {
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href="/boeken"
+              onClick={() =>
+                trackEvent('cta_click', { source: 'home_intro', label: 'Vraag interventie aan' })
+              }
               className="bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-sm font-medium text-white rounded-lg hover:opacity-90"
             >
               Vraag interventie aan →
             </Link>
             <a
               href="tel:+32485031877"
+              onClick={() => trackEvent('phone_click', { source: 'home_intro' })}
               className="border border-slate-300 px-6 py-3 text-sm rounded-lg hover:bg-slate-100"
             >
               Bel 24/7: 0485 03 18 77
@@ -141,12 +149,16 @@ export default function Home() {
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               href="/boeken"
+              onClick={() =>
+                trackEvent('cta_click', { source: 'home_testimonial', label: 'Vraag interventie aan' })
+              }
               className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-white shadow-sm transition hover:opacity-90"
             >
               Vraag interventie aan →
             </Link>
             <a
               href="tel:+32485031877"
+              onClick={() => trackEvent('phone_click', { source: 'home_testimonial' })}
               className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
             >
               Bel 24/7: 0485 03 18 77
@@ -157,6 +169,8 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      <SmartCTA />
     </>
   );
 }
