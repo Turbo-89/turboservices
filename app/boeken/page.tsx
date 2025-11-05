@@ -1,9 +1,7 @@
 'use client';
 
+import React, { useState } from 'react';
 import { trackEvent } from '@/lib/analytics';
-import { useState } from 'react';
-import Link from 'next/link';
-import HeroLogo from '@/components/HeroLogo';
 
 export default function BoekenPage() {
   const [loading, setLoading] = useState(false);
@@ -42,18 +40,23 @@ export default function BoekenPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      const json = await res.json();
-      if (!res.ok || !json.ok) throw new Error(json?.message || 'Versturen mislukt.');
-      setMsg('Dank je. Je aanvraag is verzonden. We nemen snel contact op.');
-      (e.target as HTMLFormElement).reset();
-      trackEvent('lead_form_submitted', {
-  service_type: payload.serviceType,
-  urgent: payload.urgent,
-  with_camera: payload.withCamera,
-  window_choice: payload.windowChoice,
-  day_part: payload.dayPart,
-});
 
+      const json = await res.json();
+
+      if (!res.ok || !json.ok) {
+        throw new Error(json?.message || 'Versturen mislukt.');
+      }
+
+      // ✔️ Succesvolle aanvraag: conversie-event
+      trackEvent('booking_submit', {
+        serviceType: payload.serviceType,
+        withCamera: payload.withCamera,
+        urgent: payload.urgent,
+        windowChoice: payload.windowChoice,
+      });
+
+      setMsg('Dank je! Je aanvraag is verzonden. We nemen snel contact op.');
+      (e.target as HTMLFormElement).reset();
     } catch (err: any) {
       setError(err?.message || 'Er ging iets mis. Probeer opnieuw.');
     } finally {
@@ -62,210 +65,218 @@ export default function BoekenPage() {
   }
 
   return (
-    <>
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white border-b">
-        <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
-          <div>
-            <h1 className="text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
-              Afspraak maken voor{" "}
-              <span className="text-[var(--turbo-red,#E34D35)]">ontstopping, camera-inspectie</span>
-              <span className="block mt-1">of noodherstelling.</span>
-            </h1>
-            <p className="mt-4 max-w-xl text-lg text-slate-600">
-              Vul je gegevens in en beschrijf kort het probleem. We plannen je interventie in en
-              bevestigen het tijdsvenster via sms of WhatsApp. Je kan ook altijd bellen voor directe
-              afstemming.
-            </p>
+    <main className="mx-auto max-w-6xl px-4 py-10">
+      <header className="mb-8">
+        <h1 className="text-3xl font-bold">Afspraak maken &amp; online betalen</h1>
+        <p className="mt-2 text-slate-600">
+          Vul links je gegevens in om een <strong>afspraak</strong> aan te vragen
+          voor ontstopping, camera-inspectie of een noodherstelling.
+          Rechts kan je, volledig <strong>los van de boeking</strong>, meteen
+          <strong> online betalen</strong>.
+        </p>
+      </header>
 
-            <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row">
-              <a
-                href="tel:+32485031877"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
-              >
-                Bel 24/7: 0485 03 18 77
-              </a>
-              <Link
-                href="/prijzen"
-                className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-white shadow-sm transition hover:opacity-90 text-sm"
-              >
-                Bekijk tarieven →
-              </Link>
-            </div>
-          </div>
-
-          <div className="flex justify-center md:justify-end">
-            <HeroLogo variant="ontstopping" />
-          </div>
-        </div>
-      </section>
-
-      {/* FORMULIER + ONLINE BETALEN */}
-      <main className="mx-auto max-w-6xl px-4 py-10">
-        <header className="mb-8">
-          <h2 className="text-2xl font-bold">Afspraak &amp; online betaling</h2>
-          <p className="mt-2 text-slate-600">
-            Links vraag je een <strong>interventie</strong> aan, rechts kan je – volledig los van de
-            boeking – een <strong>online betaling</strong> uitvoeren.
+      <section className="grid gap-8 md:grid-cols-2">
+        {/* LINKERKOLOM – AFSPRAAKFORMULIER */}
+        <div className="rounded-2xl border p-5">
+          <h2 className="text-xl font-semibold">Afspraakformulier</h2>
+          <p className="text-sm text-slate-600">
+            Wij bevestigen per sms, WhatsApp of telefoon met een concreet tijdsvenster.
           </p>
-        </header>
 
-        <section className="grid gap-8 md:grid-cols-2">
-          {/* LINKERKOLOM – AFSPRAAKFORMULIER */}
-          <div className="rounded-2xl border p-5">
-            <h3 className="text-xl font-semibold">Afspraakformulier</h3>
-            <p className="text-sm text-slate-600">Wij bevestigen per sms, WhatsApp of telefoon.</p>
-
-            <form onSubmit={submit} className="mt-5 space-y-4">
-              {/* Persoonsgegevens */}
-              <div className="grid gap-3 md:grid-cols-2">
-                <div>
-                  <label className="block text-sm font-medium">Naam *</label>
-                  <input
-                    name="contactName"
-                    required
-                    className="mt-1 w-full rounded-md border px-3 py-2"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium">Telefoon *</label>
-                  <input
-                    name="phone"
-                    required
-                    className="mt-1 w-full rounded-md border px-3 py-2"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium">E-mail</label>
-                  <input
-                    name="email"
-                    type="email"
-                    className="mt-1 w-full rounded-md border px-3 py-2"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium">Adres (interventieplaats)</label>
-                  <input
-                    name="address"
-                    className="mt-1 w-full rounded-md border px-3 py-2"
-                  />
-                </div>
-              </div>
-
-              {/* Dienst & opties */}
-              <div className="grid gap-3 md:grid-cols-2">
-                <div>
-                  <label className="block text-sm font-medium">Dienst</label>
-                  <select
-                    name="serviceType"
-                    className="mt-1 w-full rounded-md border px-3 py-2"
-                    defaultValue="ontstopping"
-                  >
-                    <option value="ontstopping">Ontstopping</option>
-                    <option value="camera_inspectie">Camera-inspectie</option>
-                    <option value="noodherstelling">Noodherstelling</option>
-                    <option value="andere">Andere</option>
-                  </select>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input id="withCamera" name="withCamera" type="checkbox" defaultChecked />
-                  <label htmlFor="withCamera" className="text-sm">
-                    Camera gewenst (indien relevant)
-                  </label>
-                </div>
-              </div>
-
-              {/* Tijdvenster */}
-              <div className="rounded-lg border p-3">
-                <div className="flex flex-wrap items-center gap-4">
-                  <span className="text-sm font-medium">Wanneer:</span>
-                  <label className="flex items-center gap-2 text-sm">
-                    <input type="radio" name="windowChoice" value="vandaag" defaultChecked /> Vandaag
-                  </label>
-                  <label className="flex items-center gap-2 text-sm">
-                    <input type="radio" name="windowChoice" value="morgen" /> Morgen
-                  </label>
-                  <label className="flex items-center gap-2 text-sm">
-                    <input type="radio" name="windowChoice" value="andere" /> Andere datum
-                  </label>
-                  <input
-                    name="date"
-                    type="date"
-                    className="ml-auto rounded-md border px-3 py-1 text-sm"
-                  />
-                </div>
-                <div className="mt-3 flex flex-wrap items-center gap-4">
-                  <span className="text-sm font-medium">Dagdeel:</span>
-                  <label className="flex items-center gap-2 text-sm">
-                    <input type="radio" name="dayPart" value="ochtend" defaultChecked /> Ochtend
-                  </label>
-                  <label className="flex items-center gap-2 text-sm">
-                    <input type="radio" name="dayPart" value="namiddag" /> Namiddag
-                  </label>
-                  <label className="flex items-center gap-2 text-sm">
-                    <input type="radio" name="dayPart" value="avond" /> Avond
-                  </label>
-                  <label className="ml-auto flex items-center gap-2 text-sm">
-                    <input type="checkbox" name="urgent" defaultChecked /> Spoed
-                  </label>
-                </div>
-              </div>
-
-              {/* Beschrijving */}
+          <form onSubmit={submit} className="mt-5 space-y-4">
+            {/* Persoonsgegevens */}
+            <div className="grid gap-3 md:grid-cols-2">
               <div>
-                <label className="block text-sm font-medium">Beschrijving</label>
-                <textarea
-                  name="desc"
-                  rows={4}
-                  placeholder="Kort probleem omschrijven… (bv. wc verstopt, water dat terugkomt, geurhinder)"
-                  className="mt-1 w-full resize-y rounded-md border px-3 py-2"
+                <label className="block text-sm font-medium">
+                  Naam *
+                </label>
+                <input
+                  name="contactName"
+                  required
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                  placeholder="Naam en voornaam"
                 />
               </div>
+              <div>
+                <label className="block text-sm font-medium">
+                  Telefoon *
+                </label>
+                <input
+                  name="phone"
+                  required
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                  placeholder="Gsm-nummer"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium">
+                  E-mail
+                </label>
+                <input
+                  name="email"
+                  type="email"
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                  placeholder="Optioneel"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium">
+                  Adres (interventieplaats)
+                </label>
+                <input
+                  name="address"
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                  placeholder="Straat, nummer, gemeente"
+                />
+              </div>
+            </div>
 
-              {/* Feedback */}
-              {msg && (
-                <p className="rounded-md bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
-                  {msg}
-                </p>
-              )}
-              {error && (
-                <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
-                  {error}
-                </p>
-              )}
+            {/* Dienst & opties */}
+            <div className="grid gap-3 md:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium">Type probleem</label>
+                <select
+                  name="serviceType"
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                  defaultValue="ontstopping"
+                >
+                  <option value="ontstopping">Ontstopping (wc, afvoer, riool)</option>
+                  <option value="camera_inspectie">Camera-inspectie</option>
+                  <option value="noodherstelling">Noodherstelling / lek / breuk</option>
+                  <option value="onzeker">Ik weet het niet zeker</option>
+                </select>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  id="withCamera"
+                  name="withCamera"
+                  type="checkbox"
+                  defaultChecked
+                />
+                <label htmlFor="withCamera" className="text-sm">
+                  Camera gewenst (indien zinvol)
+                </label>
+              </div>
+            </div>
 
-              <button
-                disabled={loading}
-                className="w-full rounded-md bg-[var(--turbo-red,#E34D35)] px-4 py-2 text-white text-sm font-medium disabled:opacity-50"
-              >
-                {loading ? 'Versturen…' : 'Aanvraag versturen'}
-              </button>
-            </form>
-          </div>
+            {/* Tijdvenster */}
+            <div className="rounded-lg border p-3">
+              <div className="flex flex-wrap items-center gap-4">
+                <span className="text-sm font-medium">Wanneer:</span>
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="radio"
+                    name="windowChoice"
+                    value="vandaag"
+                    defaultChecked
+                  />{' '}
+                  Vandaag
+                </label>
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="radio"
+                    name="windowChoice"
+                    value="morgen"
+                  />{' '}
+                  Morgen
+                </label>
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="radio"
+                    name="windowChoice"
+                    value="andere"
+                  />{' '}
+                  Andere datum
+                </label>
+                <input
+                  name="date"
+                  type="date"
+                  className="ml-auto rounded-md border px-3 py-1 text-sm"
+                />
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-4">
+                <span className="text-sm font-medium">Dagdeel:</span>
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="radio"
+                    name="dayPart"
+                    value="ochtend"
+                    defaultChecked
+                  />{' '}
+                  Ochtend
+                </label>
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="radio" name="dayPart" value="namiddag" />{' '}
+                  Namiddag
+                </label>
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="radio" name="dayPart" value="avond" />{' '}
+                  Avond
+                </label>
+                <label className="ml-auto flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    name="urgent"
+                    defaultChecked
+                  />{' '}
+                  Spoed
+                </label>
+              </div>
+            </div>
 
-          {/* RECHTERKOLOM – ONLINE BETALEN */}
-          <div className="rounded-2xl border p-5">
-            <h3 className="text-xl font-semibold">Online betalen</h3>
-            <p className="text-sm text-slate-600">
-              Betalen kan volledig los van je boeking. Klik hieronder en vul het{" "}
-              <strong>bedrag</strong> en je <strong>gegevens</strong> in. Dit is handig bij
-              voorschotten of afspraken op afstand.
-            </p>
+            {/* Beschrijving */}
+            <div>
+              <label className="block text-sm font-medium">Beschrijving</label>
+              <textarea
+                name="desc"
+                rows={4}
+                placeholder="Kort probleem omschrijven (bv. wc verstopt, water komt terug, geurhinder…). Je mag ook vermelden of er foto’s/filmpjes beschikbaar zijn."
+                className="mt-1 w-full resize-y rounded-md border px-3 py-2"
+              />
+            </div>
 
-            <a
-              href="/betalen"
-              className="mt-5 inline-flex items-center justify-center rounded-xl bg-[var(--turbo-red,#E34D35)] px-4 py-2 text-sm font-medium text-white hover:opacity-90"
+            {/* Feedback */}
+            {msg && (
+              <p className="rounded-md bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+                {msg}
+              </p>
+            )}
+            {error && (
+              <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
+                {error}
+              </p>
+            )}
+
+            <button
+              disabled={loading}
+              className="w-full rounded-md bg-[var(--turbo-red,#E34D35)] px-4 py-2 text-white text-sm font-medium disabled:opacity-50"
             >
-              Online betalen
-            </a>
+              {loading ? 'Versturen…' : 'Aanvraag versturen'}
+            </button>
+          </form>
+        </div>
 
-            <p className="mt-3 text-xs text-slate-500">
-              Op de betaalpagina kies je of je particulier bent (6% of 21% btw naargelang situatie) of
-              bedrijf (btw-verlegging mogelijk bij medecontractant).
-            </p>
-          </div>
-        </section>
-      </main>
-    </>
+        {/* RECHTERKOLOM – ENKEL ÉÉN KNOP */}
+        <div className="rounded-2xl border p-5">
+          <h2 className="text-xl font-semibold">Online betalen</h2>
+          <p className="text-sm text-slate-600">
+            Betalen kan volledig los van je boeking. Klik hieronder en vul het{' '}
+            <strong>bedrag</strong> en je <strong>gegevens</strong> in.
+          </p>
+
+          <a
+            href="/betalen"
+            className="mt-5 inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-white hover:opacity-90"
+          >
+            Online betalen
+          </a>
+
+          <p className="mt-3 text-xs text-slate-500">
+            Op de betaalpagina kies je: particulier (6% of 21%) of bedrijf (0% btw).
+          </p>
+        </div>
+      </section>
+    </main>
   );
 }
