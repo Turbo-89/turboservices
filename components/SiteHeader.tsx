@@ -1,5 +1,6 @@
 'use client';
 
+import { trackEvent } from '@/lib/analytics';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -63,6 +64,7 @@ export default function SiteHeader() {
           {/* Belknop */}
           <a
             href="tel:+32485031877"
+            onClick={() => trackEvent('phone_click', { source: 'header' })}
             className="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50"
           >
             <svg className="h-4 w-4 md:mr-1" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -77,6 +79,7 @@ export default function SiteHeader() {
 
           <Link
             href="/boeken"
+            onClick={() => trackEvent('cta_click', { source: 'header', label: 'Aanvraag 24u' })}
             className="inline-flex items-center rounded-lg bg-[var(--turbo-red,#E34D35)] px-3 py-2 text-white text-sm hover:opacity-90"
           >
             Aanvraag 24u
@@ -116,6 +119,7 @@ export default function SiteHeader() {
           <a
             href="tel:+32485031877"
             onClick={() => setOpen(false)}
+            onClick={() => trackEvent('phone_click', { source: 'mobile_menu' })}
             className="mt-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-center text-slate-800"
           >
             Bel 24/7
@@ -124,6 +128,7 @@ export default function SiteHeader() {
           <Link
             href="/boeken"
             onClick={() => setOpen(false)}
+            onClick={() => trackEvent('cta_click', { source: 'mobile_menu', label: 'Aanvraag 24u' })}
             className="rounded-lg bg-[var(--turbo-red,#E34D35)] px-3 py-2 text-center text-white"
           >
             Aanvraag 24u
