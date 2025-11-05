@@ -1,10 +1,15 @@
 // app/page.tsx
+import SmartCTA from '@/components/SmartCTA';
 import Link from "next/link";
 import HeroLogo from "@/components/HeroLogo";
+import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
+
 
 export default function Home() {
   return (
-    <>
+     <>
+     <LocalBusinessJsonLd />
+   
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
