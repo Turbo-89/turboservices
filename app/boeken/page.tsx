@@ -1,5 +1,6 @@
 'use client';
 
+import { trackEvent } from '@/lib/analytics';
 import { useState } from 'react';
 import Link from 'next/link';
 import HeroLogo from '@/components/HeroLogo';
@@ -45,6 +46,14 @@ export default function BoekenPage() {
       if (!res.ok || !json.ok) throw new Error(json?.message || 'Versturen mislukt.');
       setMsg('Dank je. Je aanvraag is verzonden. We nemen snel contact op.');
       (e.target as HTMLFormElement).reset();
+      trackEvent('lead_form_submitted', {
+  service_type: payload.serviceType,
+  urgent: payload.urgent,
+  with_camera: payload.withCamera,
+  window_choice: payload.windowChoice,
+  day_part: payload.dayPart,
+});
+
     } catch (err: any) {
       setError(err?.message || 'Er ging iets mis. Probeer opnieuw.');
     } finally {
