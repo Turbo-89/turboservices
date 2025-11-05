@@ -51,7 +51,7 @@ export default function Page() {
               </Link>
             <a
               href="tel:+32485031877"
-              onClick={() => trackEvent('phone_click', { source: 'diensten_hero' })}
+              onClick={() => TrackEvent('phone_click', { source: 'diensten_hero' })}
               className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
             >
               Bel 24/7: 0485 03 18 77
