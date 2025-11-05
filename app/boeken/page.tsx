@@ -1,7 +1,6 @@
-'use client';
-
-import React, { useState } from 'react';
-import { trackEvent } from '@/lib/analytics';
+"use client";
+import React, { useState } from "react";
+import { trackBookingSubmit } from "@/lib/analytics";
 
 export default function BoekenPage() {
   const [loading, setLoading] = useState(false);
@@ -15,50 +14,46 @@ export default function BoekenPage() {
 
     const fd = new FormData(e.currentTarget);
     const payload = {
-      contactName: String(fd.get('contactName') || '').trim(),
-      phone: String(fd.get('phone') || '').trim(),
-      email: String(fd.get('email') || '').trim(),
-      address: String(fd.get('address') || '').trim(),
-      desc: String(fd.get('desc') || '').trim(),
-      urgent: fd.get('urgent') === 'on',
-      windowChoice: String(fd.get('windowChoice') || 'vandaag'),
-      date: String(fd.get('date') || ''),
-      dayPart: String(fd.get('dayPart') || 'ochtend'),
-      withCamera: fd.get('withCamera') === 'on',
-      serviceType: String(fd.get('serviceType') || 'ontstopping'),
+      contactName: String(fd.get("contactName") || "").trim(),
+      phone: String(fd.get("phone") || "").trim(),
+      email: String(fd.get("email") || "").trim(),
+      address: String(fd.get("address") || "").trim(),
+      desc: String(fd.get("desc") || "").trim(),
+      urgent: fd.get("urgent") === "on",
+      windowChoice: String(fd.get("windowChoice") || "vandaag"),
+      date: String(fd.get("date") || ""),
+      dayPart: String(fd.get("dayPart") || "ochtend"),
+      withCamera: fd.get("withCamera") === "on",
+      serviceType: String(fd.get("serviceType") || "ontstopping"),
     };
 
     if (!payload.contactName || !payload.phone) {
-      setError('Naam en telefoon zijn verplicht.');
+      setError("Naam en telefoon zijn verplicht.");
       return;
     }
 
     try {
       setLoading(true);
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
       const json = await res.json();
+      if (!res.ok || !json.ok) throw new Error(json?.message || "Versturen mislukt.");
 
-      if (!res.ok || !json.ok) {
-        throw new Error(json?.message || 'Versturen mislukt.');
-      }
-
-      // ✔️ Succesvolle aanvraag: conversie-event
-      trackEvent('booking_submit', {
-        serviceType: payload.serviceType,
-        withCamera: payload.withCamera,
-        urgent: payload.urgent,
-        windowChoice: payload.windowChoice,
-      });
-
-      setMsg('Dank je! Je aanvraag is verzonden. We nemen snel contact op.');
+      setMsg("Dank je! Je aanvraag is verzonden. We nemen snel contact op.");
       (e.target as HTMLFormElement).reset();
+
+      // ✅ Conversie-event naar Google (booking_submit)
+      trackBookingSubmit("boeken_formulier", {
+        service_type: payload.serviceType,
+        with_camera: payload.withCamera ? "ja" : "nee",
+        urgent: payload.urgent ? "ja" : "nee",
+        window_choice: payload.windowChoice,
+      });
     } catch (err: any) {
-      setError(err?.message || 'Er ging iets mis. Probeer opnieuw.');
+      setError(err?.message || "Er ging iets mis. Probeer opnieuw.");
     } finally {
       setLoading(false);
     }
@@ -69,10 +64,8 @@ export default function BoekenPage() {
       <header className="mb-8">
         <h1 className="text-3xl font-bold">Afspraak maken &amp; online betalen</h1>
         <p className="mt-2 text-slate-600">
-          Vul links je gegevens in om een <strong>afspraak</strong> aan te vragen
-          voor ontstopping, camera-inspectie of een noodherstelling.
-          Rechts kan je, volledig <strong>los van de boeking</strong>, meteen
-          <strong> online betalen</strong>.
+          Vul links je gegevens in om een <strong>afspraak</strong> aan te vragen.
+          Rechts kan je, volledig <strong>los van de boeking</strong>, meteen <strong>online betalen</strong>.
         </p>
       </header>
 
@@ -80,82 +73,43 @@ export default function BoekenPage() {
         {/* LINKERKOLOM – AFSPRAAKFORMULIER */}
         <div className="rounded-2xl border p-5">
           <h2 className="text-xl font-semibold">Afspraakformulier</h2>
-          <p className="text-sm text-slate-600">
-            Wij bevestigen per sms, WhatsApp of telefoon met een concreet tijdsvenster.
-          </p>
+          <p className="text-sm text-slate-600">Wij bevestigen per e-mail of telefoon.</p>
 
           <form onSubmit={submit} className="mt-5 space-y-4">
             {/* Persoonsgegevens */}
             <div className="grid gap-3 md:grid-cols-2">
               <div>
-                <label className="block text-sm font-medium">
-                  Naam *
-                </label>
-                <input
-                  name="contactName"
-                  required
-                  className="mt-1 w-full rounded-md border px-3 py-2"
-                  placeholder="Naam en voornaam"
-                />
+                <label className="block text-sm font-medium">Naam *</label>
+                <input name="contactName" required className="mt-1 w-full rounded-md border px-3 py-2" />
               </div>
               <div>
-                <label className="block text-sm font-medium">
-                  Telefoon *
-                </label>
-                <input
-                  name="phone"
-                  required
-                  className="mt-1 w-full rounded-md border px-3 py-2"
-                  placeholder="Gsm-nummer"
-                />
+                <label className="block text-sm font-medium">Telefoon *</label>
+                <input name="phone" required className="mt-1 w-full rounded-md border px-3 py-2" />
               </div>
               <div>
-                <label className="block text-sm font-medium">
-                  E-mail
-                </label>
-                <input
-                  name="email"
-                  type="email"
-                  className="mt-1 w-full rounded-md border px-3 py-2"
-                  placeholder="Optioneel"
-                />
+                <label className="block text-sm font-medium">E-mail</label>
+                <input name="email" type="email" className="mt-1 w-full rounded-md border px-3 py-2" />
               </div>
               <div>
-                <label className="block text-sm font-medium">
-                  Adres (interventieplaats)
-                </label>
-                <input
-                  name="address"
-                  className="mt-1 w-full rounded-md border px-3 py-2"
-                  placeholder="Straat, nummer, gemeente"
-                />
+                <label className="block text-sm font-medium">Adres (interventieplaats)</label>
+                <input name="address" className="mt-1 w-full rounded-md border px-3 py-2" />
               </div>
             </div>
 
             {/* Dienst & opties */}
             <div className="grid gap-3 md:grid-cols-2">
               <div>
-                <label className="block text-sm font-medium">Type probleem</label>
-                <select
-                  name="serviceType"
-                  className="mt-1 w-full rounded-md border px-3 py-2"
-                  defaultValue="ontstopping"
-                >
-                  <option value="ontstopping">Ontstopping (wc, afvoer, riool)</option>
-                  <option value="camera_inspectie">Camera-inspectie</option>
-                  <option value="noodherstelling">Noodherstelling / lek / breuk</option>
-                  <option value="onzeker">Ik weet het niet zeker</option>
+                <label className="block text-sm font-medium">Dienst</label>
+                <select name="serviceType" className="mt-1 w-full rounded-md border px-3 py-2">
+                  <option value="herstelling">Herstelling</option>
+                  <option value="ketel_vervangen">Vervangen ketel</option>
+                  <option value="andere">Andere</option>
                 </select>
               </div>
               <div className="flex items-center gap-2">
-                <input
-                  id="withCamera"
-                  name="withCamera"
-                  type="checkbox"
-                  defaultChecked
-                />
+                <input id="withCamera" name="withCamera" type="checkbox" defaultChecked />
                 <label htmlFor="withCamera" className="text-sm">
-                  Camera gewenst (indien zinvol)
+                  Camera gewenst
                 </label>
               </div>
             </div>
@@ -165,62 +119,29 @@ export default function BoekenPage() {
               <div className="flex flex-wrap items-center gap-4">
                 <span className="text-sm font-medium">Wanneer:</span>
                 <label className="flex items-center gap-2 text-sm">
-                  <input
-                    type="radio"
-                    name="windowChoice"
-                    value="vandaag"
-                    defaultChecked
-                  />{' '}
-                  Vandaag
+                  <input type="radio" name="windowChoice" value="vandaag" defaultChecked /> Vandaag
                 </label>
                 <label className="flex items-center gap-2 text-sm">
-                  <input
-                    type="radio"
-                    name="windowChoice"
-                    value="morgen"
-                  />{' '}
-                  Morgen
+                  <input type="radio" name="windowChoice" value="morgen" /> Morgen
                 </label>
                 <label className="flex items-center gap-2 text-sm">
-                  <input
-                    type="radio"
-                    name="windowChoice"
-                    value="andere"
-                  />{' '}
-                  Andere datum
+                  <input type="radio" name="windowChoice" value="andere" /> Andere datum
                 </label>
-                <input
-                  name="date"
-                  type="date"
-                  className="ml-auto rounded-md border px-3 py-1 text-sm"
-                />
+                <input name="date" type="date" className="ml-auto rounded-md border px-3 py-1 text-sm" />
               </div>
               <div className="mt-3 flex flex-wrap items-center gap-4">
                 <span className="text-sm font-medium">Dagdeel:</span>
                 <label className="flex items-center gap-2 text-sm">
-                  <input
-                    type="radio"
-                    name="dayPart"
-                    value="ochtend"
-                    defaultChecked
-                  />{' '}
-                  Ochtend
+                  <input type="radio" name="dayPart" value="ochtend" defaultChecked /> Ochtend
                 </label>
                 <label className="flex items-center gap-2 text-sm">
-                  <input type="radio" name="dayPart" value="namiddag" />{' '}
-                  Namiddag
+                  <input type="radio" name="dayPart" value="namiddag" /> Namiddag
                 </label>
                 <label className="flex items-center gap-2 text-sm">
-                  <input type="radio" name="dayPart" value="avond" />{' '}
-                  Avond
+                  <input type="radio" name="dayPart" value="avond" /> Avond
                 </label>
                 <label className="ml-auto flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    name="urgent"
-                    defaultChecked
-                  />{' '}
-                  Spoed
+                  <input type="checkbox" name="urgent" defaultChecked /> Spoed
                 </label>
               </div>
             </div>
@@ -231,7 +152,7 @@ export default function BoekenPage() {
               <textarea
                 name="desc"
                 rows={4}
-                placeholder="Kort probleem omschrijven (bv. wc verstopt, water komt terug, geurhinder…). Je mag ook vermelden of er foto’s/filmpjes beschikbaar zijn."
+                placeholder="Kort probleem omschrijven..."
                 className="mt-1 w-full resize-y rounded-md border px-3 py-2"
               />
             </div>
@@ -250,9 +171,9 @@ export default function BoekenPage() {
 
             <button
               disabled={loading}
-              className="w-full rounded-md bg-[var(--turbo-red,#E34D35)] px-4 py-2 text-white text-sm font-medium disabled:opacity-50"
+              className="w-full rounded-md bg-black px-4 py-2 text-white disabled:opacity-50"
             >
-              {loading ? 'Versturen…' : 'Aanvraag versturen'}
+              {loading ? "Versturen…" : "Aanvraag versturen"}
             </button>
           </form>
         </div>
@@ -261,8 +182,7 @@ export default function BoekenPage() {
         <div className="rounded-2xl border p-5">
           <h2 className="text-xl font-semibold">Online betalen</h2>
           <p className="text-sm text-slate-600">
-            Betalen kan volledig los van je boeking. Klik hieronder en vul het{' '}
-            <strong>bedrag</strong> en je <strong>gegevens</strong> in.
+            Betalen kan volledig los van je boeking. Klik hieronder en vul het <strong>bedrag</strong> en je <strong>gegevens</strong> in.
           </p>
 
           <a
