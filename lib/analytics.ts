@@ -1,35 +1,33 @@
-// lib/analytics.ts
+"use client";
 
-declare global {
-  interface Window {
-    dataLayer?: any[];
-    gtag?: (...args: any[]) => void;
-  }
-}
+type EventParams = Record<string, any>;
 
-// Algemene helper
-export function trackEvent(eventName: string, params: Record<string, any> = {}) {
+/**
+ * Algemene event-tracker:
+ * - stuurt naar Google (gtag)
+ * - stuurt naar Meta Pixel (fbq)
+ */
+export function trackEvent(eventName: string, params: EventParams = {}) {
   if (typeof window === "undefined") return;
 
-  // Als gtag bestaat → normale event
-  if (typeof window.gtag === "function") {
-    window.gtag("event", eventName, params);
-    return;
+  const w = window as any;
+
+  // Google Ads / GA4
+  if (typeof w.gtag === "function") {
+    w.gtag("event", eventName, params);
   }
 
-  // Fallback: push naar dataLayer
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: eventName,
-    ...params,
-  });
+  // Meta Pixel (Facebook / Instagram)
+  if (typeof w.fbq === "function") {
+    w.fbq("trackCustom", eventName, params);
+  }
 }
 
-// Optionele helpers (makkelijker leesbaar overal)
-export function trackPhoneClick(source: string) {
-  trackEvent("phone_click", { source });
-}
-
-export function trackBookingSubmit(source: string, extra: Record<string, any> = {}) {
-  trackEvent("booking_submit", { source, ...extra });
+/**
+ * Specifiek voor het boekingsformulier
+ * - stuurt 1 event "booking_submit" naar beide platformen
+ */
+export function trackBookingSubmit(source: string, extra: EventParams = {}) {
+  const params = { source, ...extra };
+  trackEvent("booking_submit", params);
 }
