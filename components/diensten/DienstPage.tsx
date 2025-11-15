@@ -19,31 +19,83 @@ export type DienstPageProps = {
   cta: string;
   metaTitle?: string;
   metaDescription?: string;
-  extraHero?: ReactNode; // optioneel, nu niet gebruikt maar laat het staan voor later
+
+  /**
+   * Optioneel: key om automatisch de juiste hero-afbeelding te kiezen.
+   * Voorbeeld: "ontstopping", "camera-inspectie", "rookdetectie"
+   *
+   * Als deze niet meegegeven wordt, proberen we een slug te maken op basis van serviceName.
+   */
+  serviceKey?: string;
+
+  /**
+   * Optioneel: expliciete hero key als je ooit wil afwijken van serviceKey.
+   * In de huidige setup niet verplicht.
+   */
+  heroImageKey?: string;
 };
 
+function slugify(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9\-]/g, "");
+}
+
 /**
- * Centrale layout voor alle dienstenpagina's.
- * Layout en CTA-blokken volgen de pagina /diensten/ontstoppingen.
+ * Resolutielogica voor hero-afbeeldingen:
+ *
+ * 1. Als heroKey bestaat:
+ *    - /assets/logo/<heroKey>-<region>.png
+ *    - /assets/logo/<heroKey>.png
+ * 2. Als heroKey niet bestaat:
+ *    - probeer slug(serviceName) op dezelfde manier
+ * 3. Als er geen match of file is, tonen we HeroLogo als fallback.
+ *
+ * Let op: we kunnen in de frontend niet controleren of de file echt bestaat.
+ * We geven enkel het pad terug; als er geen bestand is, zie je een broken image.
+ * Daarom is het zinvol om voor elke service minstens /assets/logo/<serviceKey>.png te hebben.
  */
+function buildHeroImageCandidates(
+  heroKey: string | undefined,
+  regionLabel: string
+): string[] {
+  const regionSlug = slugify(regionLabel);
+  const base = heroKey ? slugify(heroKey) : "";
+
+  if (!base) return [];
+
+  return [
+    `/assets/logo/${base}-${regionSlug}.png`,
+    `/assets/logo/${base}.png`,
+  ];
+}
+
 export function DienstPageLayout(props: DienstPageProps) {
   const {
     brand,
     regionLabel,
-    serviceName, // voorlopig niet gebruikt, maar beschikbaar
+    serviceName,
     h1,
     intro,
     sections,
     cta,
+    serviceKey,
+    heroImageKey,
   } = props;
+
+  // Bepaal basis-key voor hero-afbeelding
+  const baseKey = heroImageKey || serviceKey || slugify(serviceName);
+  const heroCandidates = buildHeroImageCandidates(baseKey, regionLabel);
+  const heroImage = heroCandidates[0] || null; // we gebruiken het eerste pad als src
 
   return (
     <>
-      {/* HERO – identiek opgebouwd als /diensten/ontstoppingen, met extra regio-label */}
+      {/* HERO – gebaseerd op /diensten/ontstoppingen */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white border-b">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
           <div>
-            {/* Extra label t.o.v. de algemene pagina */}
             <p className="text-xs uppercase tracking-[0.2em] text-slate-500 mb-2">
               {brand} – {regionLabel}
             </p>
@@ -53,6 +105,7 @@ export function DienstPageLayout(props: DienstPageProps) {
             <p className="mt-4 max-w-xl text-lg text-slate-600">
               {intro}
             </p>
+
             <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row">
               <Link
                 href="/boeken"
@@ -67,19 +120,27 @@ export function DienstPageLayout(props: DienstPageProps) {
                 Bel 24/7: 0485 03 18 77
               </a>
             </div>
+
             <p className="mt-3 text-xs text-slate-500">
               We plannen intern en bevestigen je tijdsvenster via sms of WhatsApp.
             </p>
           </div>
 
           <div className="flex justify-center md:justify-end">
-            {/* Zelfde mascotte als op de basis-ontstoppingspagina */}
-            <HeroLogo variant="ontstopping" />
+            {heroImage ? (
+              <img
+                src={heroImage}
+                alt={`${serviceName} – ${regionLabel}`}
+                className="max-h-64 w-auto object-contain drop-shadow-lg"
+              />
+            ) : (
+              <HeroLogo variant={serviceKey || "ontstopping"} />
+            )}
           </div>
         </div>
       </section>
 
-      {/* INHOUD – AI-gegenereerde secties in dezelfde container-breedte */}
+      {/* INHOUD – AI-secties */}
       <section className="container mx-auto max-w-6xl px-4 py-12">
         {sections.map((sec, idx) => (
           <section key={idx} className="mb-10 last:mb-0">
@@ -92,7 +153,7 @@ export function DienstPageLayout(props: DienstPageProps) {
           </section>
         ))}
 
-        {/* CTA onderaan – identiek aan blok op /diensten/ontstoppingen */}
+        {/* CTA onderaan – identiek aan /diensten/ontstoppingen */}
         <div className="mt-12 rounded-2xl border bg-slate-50 p-6 shadow-sm md:p-8">
           <h2 className="mb-3 text-2xl font-semibold text-slate-900">
             Direct hulp nodig bij een verstopping?
