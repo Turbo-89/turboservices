@@ -134,7 +134,8 @@ export function DienstPageLayout(props: DienstPageProps) {
                 className="max-h-64 w-auto object-contain drop-shadow-lg"
               />
             ) : (
-              <HeroLogo variant={serviceKey || "ontstopping"} />
+              // Fallback identiek aan de basis-ontstoppingspagina
+              <HeroLogo variant="ontstopping" />
             )}
           </div>
         </div>
