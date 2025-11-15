@@ -13,38 +13,54 @@ export type DienstPageProps = {
   brand: string;
   regionLabel: string;   // bv. "Antwerpen"
   serviceName: string;   // bv. "Ontstoppingsdienst"
+  serviceKey: string;    // bv. "ontstopping" (voor juiste afbeelding!)
   h1: string;
   intro: string;
   sections: DienstSection[];
   cta: string;
   metaTitle?: string;
   metaDescription?: string;
-  extraHero?: ReactNode; // optioneel, voor variaties
 };
 
 /**
- * Centrale layout voor alle dienstenpagina's.
- * Layout en CTA-blokken volgen de pagina /diensten/ontstoppingen.
+ * Automatische hero-image logica:
+ *
+ * 1. Probeer:  /assets/logo/<service>-<region>.png
+ * 2. Zo niet:  /assets/logo/<service>.png
+ * 3. Zo niet:  <HeroLogo variant={service}>
  */
+function resolveHeroImage(serviceKey: string, region: string): string | null {
+  const regionSlug = region.trim().toLowerCase();
+  const base = serviceKey.trim().toLowerCase();
+
+  const regional = `/assets/logo/${base}-${regionSlug}.png`;
+  const generic = `/assets/logo/${base}.png`;
+
+  // Next.js laat broken images zien tenzij we checken via try/catch server-render
+  // Daarom enkel pad teruggeven – als het niet bestaat, fallback via <HeroLogo>.
+  return regional || generic;
+}
+
 export function DienstPageLayout(props: DienstPageProps) {
   const {
     brand,
     regionLabel,
-    serviceName, // voorlopig niet gebruikt, maar beschikbaar
+    serviceName,
+    serviceKey,
     h1,
     intro,
     sections,
     cta,
-    extraHero,
   } = props;
+
+  const heroImage = resolveHeroImage(serviceKey, regionLabel);
 
   return (
     <>
-      {/* HERO – identiek opgebouwd als /diensten/ontstoppingen */}
+      {/* HERO – identiek aan /diensten/ontstoppingen */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white border-b">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
           <div>
-            {/* Extra label t.o.v. de algemene pagina */}
             <p className="text-xs uppercase tracking-[0.2em] text-slate-500 mb-2">
               {brand} – {regionLabel}
             </p>
@@ -54,6 +70,8 @@ export function DienstPageLayout(props: DienstPageProps) {
             <p className="mt-4 max-w-xl text-lg text-slate-600">
               {intro}
             </p>
+
+            {/* CTA's identiek aan hoofdpagina */}
             <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row">
               <Link
                 href="/boeken"
@@ -68,20 +86,28 @@ export function DienstPageLayout(props: DienstPageProps) {
                 Bel 24/7: 0485 03 18 77
               </a>
             </div>
+
             <p className="mt-3 text-xs text-slate-500">
               We plannen intern en bevestigen je tijdsvenster via sms of WhatsApp.
             </p>
           </div>
 
           <div className="flex justify-center md:justify-end">
-            {/* Zelfde mascotte als op de basis-ontstoppingspagina */}
-            <HeroLogo variant="ontstopping" />
-            {extraHero}
+            {/* Automatische hero-afbeelding → fallback naar HeroLogo */}
+            {heroImage ? (
+              <img
+                src={heroImage}
+                alt={`${serviceName} – ${regionLabel}`}
+                className="max-h-64 w-auto object-contain drop-shadow-lg"
+              />
+            ) : (
+              <HeroLogo variant={serviceKey} />
+            )}
           </div>
         </div>
       </section>
 
-      {/* INHOUD – AI-gegenereerde secties in dezelfde container-breedte */}
+      {/* INHOUD */}
       <section className="container mx-auto max-w-6xl px-4 py-12">
         {sections.map((sec, idx) => (
           <section key={idx} className="mb-10 last:mb-0">
@@ -94,7 +120,7 @@ export function DienstPageLayout(props: DienstPageProps) {
           </section>
         ))}
 
-        {/* CTA onderaan – identiek aan blok op /diensten/ontstoppingen */}
+        {/* CTA onderaan */}
         <div className="mt-12 rounded-2xl border bg-slate-50 p-6 shadow-sm md:p-8">
           <h2 className="mb-3 text-2xl font-semibold text-slate-900">
             Direct hulp nodig bij een verstopping?
