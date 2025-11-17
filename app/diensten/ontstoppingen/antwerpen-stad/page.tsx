@@ -1,7 +1,3 @@
----
-title: "Ontstoppingen in antwerpen-stad | Turbo Services"
-description: "Ontstopping van wc, lavabo, douche en hoofdriolering. Turbo Services lost verstoppingen snel en professioneel op, ook ’s avonds en in het weekend aan hetzelfde tarief."
----
 
 <Hero
   title="Ontstoppingen"
