@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { slugify } from "@/lib/slugify";
-import { buildHeroImageCandidates } from "@/lib/hero";
+import { slugify } from "../../lib/slugify";
+import { buildHeroImageCandidates } from "../../lib/hero";
 
 export type DienstSection = {
   title: string;   // ← BELANGRIJK: heading bestaat niet meer
