@@ -1,9 +1,9 @@
-export function buildHeroImageCandidates(serviceKey: string, regionLabel: string) {
-  const base = serviceKey.toLowerCase();
-  const region = regionLabel.toLowerCase().replace(/\s+/g, "-");
+"use client";
 
+export function buildHeroImageCandidates(service: string, region: string) {
+  const slug = region.toLowerCase().replace(/\s+/g, "-");
   return [
-    `/assets/generated/${base}-${region}.webp`,
-    `/assets/generated/${base}.webp`,
+    `/assets/generated/${service}-${slug}.webp`,
+    `/assets/hero/${service}-${slug}.png`,
   ];
 }
