@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { slugify } from "@/lib/slugify";
-import { buildHeroImageCandidates, HeroLogo } from "@/lib/hero";
+import { buildHeroImageCandidates } from "@/lib/hero";
 
 export type DienstSection = {
   title: string;
@@ -80,13 +80,21 @@ function DienstPageLayout(props: DienstPageProps) {
 
           <div className="flex justify-center md:justify-end">
             {heroImage ? (
+              // primaire hero-afbeelding
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={heroImage}
                 alt={`${serviceName} – ${regionLabel}`}
                 className="max-h-64 w-auto object-contain drop-shadow-lg"
               />
             ) : (
-              <HeroLogo variant="ontstopping" />
+              // eenvoudige fallback als er (nog) geen gegenereerde hero is
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src="/assets/base/hero-ontstoppingen.png"
+                alt={`${serviceName} – ${regionLabel}`}
+                className="max-h-64 w-auto object-contain drop-shadow-lg"
+              />
             )}
           </div>
         </div>
@@ -133,5 +141,4 @@ function DienstPageLayout(props: DienstPageProps) {
   );
 }
 
-// ENKEL default export
 export default DienstPageLayout;
