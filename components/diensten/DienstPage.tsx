@@ -1,6 +1,5 @@
 "use client";
 
-
 import Link from "next/link";
 import { slugify } from "../../lib/slugify";
 import { buildHeroImageCandidates } from "../../lib/hero";
@@ -125,11 +124,9 @@ export function DienstPageLayout(props: DienstPageProps) {
   );
 }
 
-// 👉 BELANGRIJK — named export toevoegen
+// 👉 NAMED EXPORTS — volledig legaal door "use client"
 export { DienstPageLayout };
-
-// 👉 types mee-exporteren
 export type { DienstPageProps };
 
-// 👉 default export (voor imports die default verwachten)
+// 👉 DEFAULT EXPORT
 export default DienstPageLayout;
