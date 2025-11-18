@@ -133,5 +133,5 @@ function DienstPageLayout(props: DienstPageProps) {
   );
 }
 
-// Let op: alleen een default export, GEEN named export met dezelfde naam.
+// ENKEL default export
 export default DienstPageLayout;
