@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { slugify } from "../../lib/slugify";
-import { buildHeroImageCandidates } from "../../lib/hero";
+import { slugify } from "@/lib/slugify";
+import { buildHeroImageCandidates } from "@/lib/hero";
 
 export interface DienstSection {
   title: string;
@@ -25,7 +25,7 @@ export interface DienstPageProps {
   heroImageKey?: string;
 }
 
-export function DienstPageLayout(props: DienstPageProps) {
+export default function DienstPageLayout(props: DienstPageProps) {
   const {
     brand,
     regionLabel,
@@ -59,11 +59,17 @@ export function DienstPageLayout(props: DienstPageProps) {
             <p className="mt-4 max-w-xl text-lg text-slate-600">{intro}</p>
 
             <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row">
-              <Link href="/boeken" className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-white text-sm shadow-sm transition hover:opacity-90">
+              <Link
+                href="/boeken"
+                className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-white text-sm shadow-sm transition hover:opacity-90"
+              >
                 Vraag ontstopping aan →
               </Link>
 
-              <a href="tel:+32485031877" className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm text-slate-700 hover:bg-slate-50">
+              <a
+                href="tel:+32485031877"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm text-slate-700 hover:bg-slate-50"
+              >
                 Bel 24/7: 0485 03 18 77
               </a>
             </div>
@@ -107,7 +113,10 @@ export function DienstPageLayout(props: DienstPageProps) {
           <p className="mb-5 text-slate-700">{cta.body}</p>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Link href="/boeken" className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90">
+            <Link
+              href="/boeken"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
+            >
               {cta.button}
             </Link>
 
@@ -123,10 +132,3 @@ export function DienstPageLayout(props: DienstPageProps) {
     </>
   );
 }
-
-// 👉 NAMED EXPORTS — volledig legaal door "use client"
-export { DienstPageLayout };
-export type { DienstPageProps };
-
-// 👉 DEFAULT EXPORT
-export default DienstPageLayout;
