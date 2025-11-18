@@ -1,23 +1,49 @@
 import type { Metadata } from "next";
-import { DienstPageLayout } from "@/components/diensten/DienstPage";
-// Pas het importpad hierboven aan als jouw project geen "@" alias gebruikt.
+import DienstPageLayout from "@/components/diensten/DienstPage";
 
 export const metadata: Metadata = {
-  title: "Ontstoppingsdienst Antwerpen - Snel en betrouwbaar | Turbo Services",
-  description: "Snelle en professionele ontstopping in Antwerpen. Turbo Services is binnen 1 uur ter plaatse voor al uw riool- en afvoerverstoppingen.",
+  title: "Ontstoppingen in Antwerpen Stad | Turbo Services",
+  description:
+    "Ontstopping van wc, lavabo, douche en hoofdriolering. Turbo Services lost verstoppingen snel en professioneel op, ook ’s avonds en in het weekend aan hetzelfde tarief.",
 };
 
-export default function OntstoppingenAntwerpenPage() {
-  const props = {
-    brand: "Turbo Services",
-    regionLabel: "Antwerpen",
-    serviceName: "Ontstoppingsdienst",
-    h1: "Snel en professioneel ontstopping in Antwerpen",
-    intro: "Heeft u een verstopte afvoer of riool in Antwerpen? Turbo Services staat klaar voor een efficiënte en betrouwbare ontstoppingsdienst. Bel ons en wij zijn binnen een uur ter plaatse.",
-    sections: [{"heading": "Onze ontstoppingsdienst in Antwerpen", "body": "Turbo Services biedt een complete oplossing voor alle soorten verstoppingen. Van lavabo’s en toiletten tot rioleringen en regenpijpen, onze ervaren technici gebruiken professionele technieken om het probleem grondig aan te pakken."}, {"heading": "Waarom kiezen voor Turbo Services?", "body": "Wij garanderen een snelle interventie, heldere communicatie en duurzame resultaten. Met onze lokale kennis van Antwerpen kunnen we snel ter plaatse zijn en de juiste aanpak kiezen voor uw situatie."}, {"heading": "Preventief onderhoud en advies", "body": "Naast directe ontstopping geven we ook advies om toekomstige verstoppingen te voorkomen. Regelmatig onderhoud en tijdige controle houden uw leidingen vrij en zorgen voor een goede werking."}],
-    cta: "Bel nu – binnen 1u ter plaatse",
-    serviceKey: "ontstopping",
-  };
+const pageProps = {
+  brand: "Turbo Services",
+  serviceName: "Ontstoppingen",
+  regionLabel: "Antwerpen Stad",
+  heroTitle: "Ontstoppingen",
+  intro:
+    "Verstopte wc, lavabo, douche of hoofdriolering in Antwerpen Stad? Turbo Services lost het op met professionele machines, ook ’s avonds en in het weekend aan hetzelfde tarief.",
+  sections: [
+    {
+      title: "Wat we doen",
+      body: [
+        "• Verstopte wc, douche, bad en lavabo",
+        "• Keukenafvoer en vetleidingen",
+        "• Hoofdriolering binnen en buiten de woning",
+        "• Water dat terugkomt via vloerputjes of kelderafvoeren",
+        "• Rioolgeur, borrelende geluiden en terugslagproblemen",
+      ].join("\n"),
+    },
+    {
+      title: "Aanpak",
+      body: [
+        "• Korte bevraging van het probleem",
+        "• Inspectie van de betrokken afvoeren",
+        "• Mechanische ontstopping met professionele apparatuur",
+        "• Indien nodig: camera-inspectie voor diagnose",
+        "• Controle en advies om herhaling te vermijden",
+      ].join("\n"),
+    },
+  ],
+  ctaTitle: "Direct hulp nodig bij een verstopping?",
+  ctaBody:
+    "Beschrijf kort het probleem en voeg indien mogelijk een foto toe. We koppelen snel terug met een concreet tijdsblok in Antwerpen Stad.",
+  ctaButton: "Vraag ontstopping aan →",
+  serviceKey: "ontstoppingen",
+  heroImageKey: "ontstoppingen-antwerpen-stad",
+};
 
-  return <DienstPageLayout {...props} />;
+export default function Page() {
+  return <DienstPageLayout {...pageProps} />;
 }
