@@ -41,7 +41,7 @@ export default function Page() {
     serviceKey: "ontstoppingen",
     heroImageKey: "ontstoppingen-antwerpen-stad",
     heroImagePath: "/generated/assets/ontstoppingen-antwerpen-stad.webp",
-  } as const;
+  };
 
   return <DienstPageLayout {...props} />;
 }
