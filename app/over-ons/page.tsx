@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title:
     "Over Turbo Services | RioolExpert in Groot Antwerpen, Rupelstreek & Rivierenland",
   description:
-    "Turbo Services, opgericht door Wim Verloo. Meer dan 20 jaar ervaring in ontstoppingen, camera-inspecties en noodherstellingen. Rechtstreeks contact, duidelijke tarieven en actief in Groot Antwerpen, Rupelstreek en Rivierenland.",
+    "Turbo Services, opgericht door Wim Verloo. Meer dan 20 jaar ervaring in ontstoppingen, camera-inspecties en noodherstellingen. Rechtstreeks contact, duidelijke tarieven en actief in Groot Antwerpen, Rupelstreek, Rivierenland en Waasland.",
 };
 
 export default function OverOns() {
@@ -29,7 +29,7 @@ export default function OverOns() {
               transparantie en rechtstreeks contact.
             </p>
 
-            {/* USP BLOK */}
+            {/* USP BLOK – HERO = 3 REGIO’S */}
             <ul className="mt-6 space-y-2 text-slate-700">
               <li>
                 <strong>Meer dan 20 jaar ervaring</strong> in riolering en afvoer
@@ -81,7 +81,7 @@ export default function OverOns() {
       <section className="container mx-auto max-w-4xl px-4 py-12">
         <h2 className="mb-6 text-3xl font-bold text-slate-900">Over mij</h2>
 
-        {/* >>> DEZE PARAGRAAF IS WOORDELIJK ONGEWIJZIGD <<< */}
+        {/* WOORDELIJK ONGEWIJZIGD – JURIDISCHE CONSTRUCTIE */}
         <p className="mb-4 text-slate-700">
           Ik ben <strong>Wim Verloo</strong>, oprichter van <strong>Turbo</strong>.{" "}
           <strong>Services</strong> leveren was altijd de kern van wat het bedrijf deed:
@@ -90,16 +90,16 @@ export default function OverOns() {
         </p>
 
         <p className="mb-4 text-slate-700">
-          Na jaren ervaring groeide het besef dat directe betrokkenheid en
-          persoonlijke opvolging voor klanten steeds belangrijker werden, maar
-          in grotere structuren vaak onder druk kwamen te staan.
+          Na jaren ervaring groeide het besef dat persoonlijke opvolging en
+          directe betrokkenheid voor klanten steeds belangrijker werden, terwijl
+          die in grotere structuren vaak verloren gingen.
         </p>
 
         <p className="mb-6 text-slate-700">
-          Met <strong>Turbo Services</strong> ligt de focus opnieuw volledig op
-          rechtstreeks werken voor de klant, zonder tussenpersonen, met heldere
-          afspraken en transparante tarieven. De activiteiten zijn vandaag
-          duidelijk afgebakend tot <strong>ontstoppingen</strong>,{" "}
+          Met <strong>Turbo Services</strong> werk ik opnieuw rechtstreeks voor
+          de klant, zonder tussenpersonen, met heldere afspraken en transparante
+          tarieven. De focus ligt vandaag volledig op{" "}
+          <strong>ontstoppingen</strong>,{" "}
           <strong>camera-inspecties</strong> en{" "}
           <strong>noodherstellingen</strong>.
         </p>
@@ -111,7 +111,7 @@ export default function OverOns() {
         <ul className="mb-8 list-disc space-y-2 pl-5 text-slate-700">
           <li>
             <strong>Ervaring en vakkennis</strong> – meer dan twintig jaar
-            praktijkervaring in rioleringssystemen en gerichte herstellingen.
+            terreinervaring in rioleringssystemen en gerichte herstellingen.
           </li>
           <li>
             <strong>Transparante tarieven</strong> – duidelijke prijzen zonder
@@ -126,6 +126,15 @@ export default function OverOns() {
             langskomt.
           </li>
         </ul>
+
+        {/* REGIO-UITBREIDING BUITEN HERO */}
+        <p className="mb-6 text-slate-700">
+          Ik ben actief in <strong>Groot Antwerpen</strong>, de{" "}
+          <strong>Rupelstreek</strong> en het{" "}
+          <strong>Rivierenland</strong>. Voor klanten in het{" "}
+          <strong>Waasland</strong> voer ik eveneens interventies uit, afhankelijk
+          van aard en urgentie van het probleem.
+        </p>
 
         <div className="mt-10 rounded-2xl border bg-slate-50 p-6 shadow-sm md:p-8">
           <h2 className="mb-3 text-2xl font-semibold text-slate-900">
@@ -161,7 +170,8 @@ export default function OverOns() {
 
         <p className="mt-8 text-slate-600 italic">
           Turbo Services – RioolExpert voor ontstoppingen, camera-inspecties en
-          noodherstellingen in Groot Antwerpen, Rupelstreek en Rivierenland.
+          noodherstellingen in Groot Antwerpen, Rupelstreek, Rivierenland en
+          Waasland.
         </p>
       </section>
     </>
