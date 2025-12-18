@@ -1,34 +1,90 @@
-// components/seo/LocalBusinessJsonLd.tsx
-// Server component – GEEN 'use client'
+import Script from "next/script";
 
 export default function LocalBusinessJsonLd() {
-  const data = {
+  const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Plumber",
-    "@id": "https://www.turboservices.be/#rioolexpert",
-    "name": "Turbo Services – RioolExpert",
-    "url": "https://www.turboservices.be",
-    "telephone": "+32 485 03 18 77",
-    "description":
-      "Ontstoppingen, camera-inspecties en noodherstellingen aan riolering en afvoer in regio Antwerpen, Waasland en Rupelstreek.",
-    "priceRange": "€€",
-    "areaServed": [
-      "Antwerpen",
-      "Waasland",
-      "Rupelstreek"
+    "@type": "LocalBusiness",
+    "@id": "https://www.turboservices.be/#localbusiness",
+    name: "Turbo Services",
+    url: "https://www.turboservices.be",
+    telephone: "+32485031877",
+    priceRange: "€€",
+    areaServed: [
+      {
+        "@type": "AdministrativeArea",
+        name: "Groot Antwerpen",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "Rupelstreek",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "Rivierenland",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "Waasland",
+      },
     ],
-    "serviceType": [
-      "Ontstopping",
-      "Camera-inspectie riolering",
-      "Noodherstelling riolering"
-    ]
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "BE",
+    },
+    serviceOffered: [
+      {
+        "@type": "Service",
+        name: "Ontstoppingen",
+        description:
+          "Ontstopping van wc, lavabo, douche en hoofdriolering met professionele apparatuur.",
+      },
+      {
+        "@type": "Service",
+        name: "Camera-inspectie",
+        description:
+          "Camera-inspectie van riolering en afvoerleidingen om breuken, verzakkingen en verstoppingen exact in beeld te brengen.",
+      },
+      {
+        "@type": "Service",
+        name: "Noodherstellingen",
+        description:
+          "Snelle noodherstellingen bij lekken, breuken en acute rioolproblemen.",
+      },
+      {
+        "@type": "Service",
+        name: "Geurdetectie",
+        description:
+          "Opsporen en lokaliseren van rioolgeur in woning of gebouw.",
+      },
+    ],
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      opens: "00:00",
+      closes: "23:59",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+32485031877",
+      contactType: "customer service",
+      areaServed: "BE",
+      availableLanguage: ["nl"],
+    },
   };
 
   return (
-    <script
+    <Script
+      id="localbusiness-jsonld"
       type="application/ld+json"
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   );
 }
