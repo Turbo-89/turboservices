@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import HeroLogo from "@/components/HeroLogo"; 
+import HeroLogo from "@/components/HeroLogo";
 
 export const metadata: Metadata = {
   title:
@@ -26,7 +26,6 @@ export default function CameraInspectiePage() {
               Ideaal bij terugkerende problemen of discussie over de oorzaak.
             </p>
 
-            {/* USP BLOK */}
             <ul className="mt-6 space-y-2 text-slate-700">
               <li>
                 <strong>Avond, weekend en feestdagen:</strong> hetzelfde tarief
@@ -93,18 +92,52 @@ export default function CameraInspectiePage() {
 
             <ol className="mt-3 list-decimal space-y-2 pl-5 text-slate-700">
               <li>Indien nodig wordt de leiding eerst vrijgemaakt.</li>
-              <li>De camera wordt ingebracht en de leiding systematisch geïnspecteerd.</li>
+              <li>De camera wordt ingebracht en systematisch gebruikt.</li>
               <li>Probleemzones worden duidelijk vastgelegd.</li>
-              <li>Je krijgt een heldere uitleg over oorzaak en impact.</li>
-              <li>Beelden en/of verslag kunnen worden aangeleverd voor dossieropbouw.</li>
+              <li>Heldere uitleg over oorzaak en impact.</li>
+              <li>Beelden of verslag voor dossieropbouw.</li>
             </ol>
           </div>
 
           <div>
-            <h2 className="text-2xl font-semibold text-slate-900">
-              Prijzen
-            </h2>
+            <h2 className="text-2xl font-semibold text-slate-900">Prijzen</h2>
 
-            <p className="mt-4 text-slate-700">
-              Camera-inspectie wordt vaak gecombineerd met een interventie.
-              D
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-slate-700">
+              <li><strong>Interventie (indien nodig):</strong> €160</li>
+              <li><strong>Camera-inspectie:</strong> €90</li>
+              <li><strong>Totaalpakket:</strong> €250</li>
+            </ul>
+
+            <p className="mt-3 text-slate-700">
+              Bedragen zijn <strong>exclusief btw</strong>. Avond, weekend en
+              feestdagen zonder toeslag.
+              <strong> Na 22u geldt +50%.</strong>
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-12 rounded-2xl border bg-slate-50 p-6 shadow-sm md:p-8">
+          <h2 className="mb-3 text-2xl font-semibold text-slate-900">
+            Camera-inspectie nodig?
+          </h2>
+
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <a
+              href="tel:+32485031877"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
+            >
+              Bel 24/7: 0485 03 18 77
+            </a>
+
+            <Link
+              href="/boeken"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm text-slate-700 hover:bg-slate-50"
+            >
+              Plan camera-inspectie →
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
