@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import HeroLogo from "@/components/HeroLogo";
+import HeroLogo from "@/components/HeroLogo"; 
 
 export const metadata: Metadata = {
   title:
