@@ -98,7 +98,7 @@ export default function GeurdetectiePage() {
             <img
               src="/assets/base/rookdetectie.png"
               alt="Geurdetectie en rookdetectie bij rioolgeur"
-              className="w-40 h-auto opacity-90"
+              className="w-64 h-auto opacity-90"
             />
           </div>
         </div>
