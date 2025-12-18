@@ -17,7 +17,11 @@ export default function Home() {
             <h1 className="text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
               RioolExpert voor ontstoppingen, camera-inspecties
               <span className="block mt-1">
-                en <span className="text-[var(--turbo-red,#E34D35)]">noodherstellingen</span>.
+                en{" "}
+                <span className="text-[var(--turbo-red,#E34D35)]">
+                  noodherstellingen
+                </span>
+                .
               </span>
             </h1>
 
@@ -28,41 +32,43 @@ export default function Home() {
               <strong>€90</strong>, totaalpakket <strong>€250</strong>.
             </p>
 
-            <div className="mt-5 flex flex-wrap gap-2">
-              {[
-                "Ontstopping wc en afvoer",
-                "Camera-inspectie riolering",
-                "Noodherstelling bij lekken",
-                "Regio Antwerpen – Waasland – Rupelstreek",
-                "Avond & weekend zonder toeslag",
-              ].map((x) => (
-                <span
-                  key={x}
-                  className="rounded-full bg-white/80 px-3 py-1 text-sm text-slate-700 ring-1 ring-black/5"
-                >
-                  {x}
-                </span>
-              ))}
-            </div>
+            {/* USP BLOK (boven de fold) */}
+            <ul className="mt-6 space-y-2 text-slate-700">
+              <li>
+                <strong>Avond, weekend en feestdagen:</strong> hetzelfde tarief
+              </li>
+              <li>
+                <strong>Na 22u:</strong> supplement <strong>+50%</strong>
+              </li>
+              <li>
+                <strong>Rechtstreeks contact</strong> met de uitvoerder
+                (geen callcenter)
+              </li>
+              <li>
+                <strong>Actief in:</strong> Groot Antwerpen – Rupelstreek –
+                Rivierenland
+              </li>
+            </ul>
 
             <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row">
-              <Link
-                href="/boeken"
-                className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-white shadow-sm transition hover:opacity-90"
-              >
-                Vraag interventie aan →
-              </Link>
-
               <CallButton
                 source="home_hero"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
+                className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-white shadow-sm transition hover:opacity-90"
               >
                 Bel 24/7: 0485 03 18 77
               </CallButton>
+
+              <Link
+                href="/boeken"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
+              >
+                Vraag interventie aan →
+              </Link>
             </div>
 
             <p className="mt-3 text-xs text-slate-500">
-              We plannen intern en bevestigen je tijdsvenster via sms of WhatsApp.
+              Avond, weekend en feestdagen aan hetzelfde tarief. Na 22u geldt een
+              supplement van +50%. Afspraakbevestiging via sms of WhatsApp.
             </p>
           </div>
 
@@ -72,44 +78,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OVER RIOOLEXPERT / INTRO */}
+      {/* OVER / INTRO */}
       <section className="bg-slate-50 py-14">
         <div className="container mx-auto max-w-5xl px-4 text-center">
           <h2 className="mb-4 text-3xl font-extrabold md:text-4xl">
             Gespecialiseerd in riool- en afvoerproblemen
           </h2>
+
           <p className="mb-6 text-lg text-slate-700 md:text-xl">
             Ik ben <strong>Wim Verloo</strong>, oprichter van{" "}
-            <strong>Turbo</strong>. <strong>Services</strong> leveren was altijd
-            de kern: technische precisie en betrouwbare interventies in
-            riolerings- en afvoerwerken. Met <strong>Turbo Services</strong> leg
-            ik de focus volledig op ontstoppingen, camera-inspecties en
+            <strong>Turbo Services</strong>. Technische precisie en betrouwbare
+            interventies staan centraal bij ontstoppingen, camera-inspecties en
             noodherstellingen.
           </p>
-          <p className="mb-8 text-md text-slate-600">
-            Geen callcenter, geen tussenpersonen. Rechtstreeks contact,
-            duidelijke afspraken en transparante tarieven – ook als je liever{" "}
-            ’s avonds of in het weekend geholpen wordt.
-          </p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <Link
-              href="/boeken"
-              className="bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-sm font-medium text-white rounded-lg hover:opacity-90"
-            >
-              Vraag interventie aan →
-            </Link>
 
+          <p className="mb-8 text-md text-slate-600">
+            Geen callcenter of tussenpersonen. Rechtstreeks contact, duidelijke
+            afspraken en transparante tarieven — ook als je ’s avonds of in het
+            weekend geholpen wil worden.
+          </p>
+
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <CallButton
               source="home_intro"
-              className="border border-slate-300 px-6 py-3 text-sm rounded-lg hover:bg-slate-100"
+              className="rounded-lg bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-sm font-medium text-white hover:opacity-90"
             >
               Bel 24/7: 0485 03 18 77
             </CallButton>
+
+            <Link
+              href="/boeken"
+              className="rounded-lg border border-slate-300 px-6 py-3 text-sm hover:bg-slate-100"
+            >
+              Vraag interventie aan →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* USP-STRIP */}
+      {/* USP STRIP */}
       <section className="border-y bg-white">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 py-6 text-sm text-slate-700 md:grid-cols-3">
           <div className="flex items-center gap-2">
@@ -121,15 +128,15 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <span className="inline-block text-lg">💶</span>
             <span>
-              <strong>Duidelijke prijzen:</strong> €160 interventie, €90 camera,
+              <strong>Vaste prijzen:</strong> €160 interventie, €90 camera,
               €250 pakket
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="inline-block text-lg">📹</span>
+            <span className="inline-block text-lg">📍</span>
             <span>
-              <strong>Camera-verslag</strong> mogelijk voor verzekering of
-              aannemer
+              <strong>Werkgebied:</strong> Groot Antwerpen, Rupelstreek,
+              Rivierenland &amp; Waasland
             </span>
           </div>
         </div>
@@ -143,25 +150,29 @@ export default function Home() {
               “Snelle diagnose met camera, verstopping direct opgelost en
               duidelijke uitleg gekregen. Geen verrassingen op de factuur.”
             </p>
-            <p className="mt-2 text-sm text-slate-500">— Klant uit Antwerpen</p>
+            <p className="mt-2 text-sm text-slate-500">
+              — Klant uit Antwerpen
+            </p>
           </div>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="/boeken"
-              className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-white shadow-sm transition hover:opacity-90"
-            >
-              Vraag interventie aan →
-            </Link>
 
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <CallButton
               source="home_testimonial"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
+              className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-white shadow-sm transition hover:opacity-90"
             >
               Bel 24/7: 0485 03 18 77
             </CallButton>
+
+            <Link
+              href="/boeken"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
+            >
+              Vraag interventie aan →
+            </Link>
           </div>
+
           <p className="mt-3 text-center text-xs text-slate-500">
-            We plannen intern en bevestigen je tijdsvenster via sms of WhatsApp.
+            Avond, weekend en feestdagen aan hetzelfde tarief. Na 22u +50%.
           </p>
         </div>
       </section>
