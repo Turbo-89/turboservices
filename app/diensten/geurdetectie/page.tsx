@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -20,17 +19,9 @@ export default function GeurdetectiePage() {
       name: "Turbo Services",
       url: "https://www.turboservices.be",
       telephone: "+32485031877",
-      areaServed: [
-        "Groot Antwerpen",
-        "Rupelstreek",
-        "Rivierenland",
-      ],
+      areaServed: ["Groot Antwerpen", "Rupelstreek", "Rivierenland"],
     },
-    areaServed: [
-      "Groot Antwerpen",
-      "Rupelstreek",
-      "Rivierenland",
-    ],
+    areaServed: ["Groot Antwerpen", "Rupelstreek", "Rivierenland"],
     availableChannel: {
       "@type": "ServiceChannel",
       servicePhone: {
@@ -55,9 +46,9 @@ export default function GeurdetectiePage() {
             </h1>
 
             <p className="mt-4 max-w-xl text-lg text-slate-600">
-              Hardnekkige rioolgeur in badkamer, toilet of keuken zonder zichtbare oorzaak?
-              Ik spoor het probleem gericht op en leg duidelijk uit wat nodig is om dit
-              definitief op te lossen.
+              Hardnekkige rioolgeur in badkamer, toilet of keuken zonder zichtbare
+              oorzaak? Ik spoor het probleem gericht op en leg duidelijk uit wat
+              nodig is om dit definitief op te lossen.
             </p>
 
             {/* USP BLOK */}
@@ -69,17 +60,19 @@ export default function GeurdetectiePage() {
                 <strong>Na 22u:</strong> supplement <strong>+50%</strong>
               </li>
               <li>
-                <strong>Rechtstreeks contact</strong> met de uitvoerder (geen callcenter)
+                <strong>Rechtstreeks contact</strong> met de uitvoerder (geen
+                callcenter)
               </li>
               <li>
-                <strong>Actief in:</strong> Groot Antwerpen – Rupelstreek – Rivierenland
+                <strong>Actief in:</strong> Groot Antwerpen – Rupelstreek –
+                Rivierenland
               </li>
             </ul>
 
             <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row">
               <a
                 href="tel:+32485031877"
-                className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-6 py-3 text-sm text-white shadow-sm transition hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
               >
                 Bel: 0485 03 18 77
               </a>
@@ -95,7 +88,8 @@ export default function GeurdetectiePage() {
             </div>
 
             <p className="mt-3 text-xs text-slate-500">
-              Je spreekt rechtstreeks met de uitvoerder. Afspraak wordt bevestigd via sms of WhatsApp.
+              Je spreekt rechtstreeks met de uitvoerder. Afspraak wordt bevestigd
+              via sms of WhatsApp.
             </p>
           </div>
 
@@ -149,15 +143,16 @@ export default function GeurdetectiePage() {
                 de geur optreedt.
               </li>
               <li>
-                <strong>Gerichte detectie:</strong> via rooktest, druktest of controle
-                van afvoeren en aansluitingen.
+                <strong>Gerichte detectie:</strong> via rooktest, druktest of
+                controle van afvoeren en aansluitingen.
               </li>
               <li>
-                <strong>Lokalisatie:</strong> het probleem zo nauwkeurig mogelijk bepalen.
+                <strong>Lokalisatie:</strong> het probleem zo nauwkeurig mogelijk
+                bepalen.
               </li>
               <li>
-                <strong>Uitleg en advies:</strong> duidelijke toelichting en voorstel
-                voor een gerichte oplossing.
+                <strong>Uitleg en advies:</strong> duidelijke toelichting en
+                voorstel voor een gerichte oplossing.
               </li>
             </ol>
 
@@ -182,22 +177,22 @@ export default function GeurdetectiePage() {
           </h2>
 
           <p className="mt-3 max-w-3xl text-slate-700">
-            Actief in Groot Antwerpen, Rupelstreek en Rivierenland.  
-            Avond, weekend en feestdagen aan hetzelfde tarief.  
+            Actief in Groot Antwerpen, Rupelstreek en Rivierenland. Avond, weekend
+            en feestdagen aan hetzelfde tarief.
             <strong> Na 22u geldt een supplement van +50%.</strong>
           </p>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <a
               href="tel:+32485031877"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm text-white shadow-sm transition hover:opacity-90"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
             >
               Bel: 0485 03 18 77
             </a>
 
             <a
               href="https://wa.me/32485031877"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm text-slate-700 hover:bg-slate-50"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm text-slate-700 hover:bg-slate-50"
               target="_blank"
               rel="noreferrer"
             >
