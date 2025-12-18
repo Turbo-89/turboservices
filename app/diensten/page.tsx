@@ -26,6 +26,12 @@ const services = [
     title: "Noodherstellingen",
     desc: "Snelle ingrepen bij lekken, breuken of ernstige schade aan leidingen, met gericht advies voor verdere werken.",
   },
+  {
+    href: "/diensten/geurdetectie",
+    title: "Geurdetectie",
+    desc: "Rioolgeur opsporen en oorzaak exact lokaliseren (badkamer, toilet, keuken). Gerichte detectie met duidelijke uitleg en advies.",
+  },
+
 ];
 
 export default function DienstenPage() {
