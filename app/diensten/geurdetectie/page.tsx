@@ -101,8 +101,13 @@ export default function GeurdetectiePage() {
           </div>
 
           <div className="flex justify-center md:justify-end">
-            <HeroLogo variant="default" />
-          </div>
+  <img
+    src="/assets/base/rookdetectie.png"
+    alt="Geurdetectie en rookdetectie bij rioolgeur"
+    className="w-40 h-auto opacity-90"
+  />
+</div>
+
         </div>
       </section>
 
