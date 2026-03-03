@@ -3,22 +3,22 @@ import DienstPageLayout from "@/components/diensten/DienstPage";
 import { REGION_CITIES } from "@/content/regions";
 
 export const metadata: Metadata = {
-  title: "Ontstoppingen in Antwerpen Stad",
+  title: "Ontstoppingen in Lier & Neteland",
   description: "Ontstopping van wc, lavabo, douche en hoofdriolering. Turbo Services lost verstoppingen snel en professioneel op, ook ’s avonds en in het weekend aan hetzelfde tarief.",
 };
 
 export default function Page() {
-  const municipalities = REGION_CITIES["antwerpen-stad"] ?? [];
+  const municipalities = REGION_CITIES["lier-neteland"] ?? [];
   const muniText = municipalities.slice(0, 12).join(", ");
 
   const intro =
-    "Verstopte wc, lavabo, douche of hoofdriolering in Antwerpen Stad? Turbo Services lost het op met professionele machines, ook ’s avonds en in het weekend aan hetzelfde tarief." +
+    "Verstopte wc, lavabo, douche of hoofdriolering in Lier & Neteland? Turbo Services lost het op met professionele machines, ook ’s avonds en in het weekend aan hetzelfde tarief." +
     (muniText ? `\n\nWerkgebied: ${muniText} en omgeving.` : "");
 
   const sections = [
   {
     "title": "Ontstoppingen",
-    "body": "Verstopte wc, lavabo, douche of hoofdriolering in Antwerpen Stad? Turbo Services lost het op met professionele machines, ook ’s avonds en in het weekend aan hetzelfde tarief."
+    "body": "Verstopte wc, lavabo, douche of hoofdriolering in Lier & Neteland? Turbo Services lost het op met professionele machines, ook ’s avonds en in het weekend aan hetzelfde tarief."
   },
   {
     "title": "Wat we doen",
@@ -41,19 +41,19 @@ export default function Page() {
     if (idx === 0) {
       return {
         ...s,
-        body: s.body + `\n\nActief in Antwerpen Stad: ${muniText} en omgeving.`
+        body: s.body + `\n\nActief in Lier & Neteland: ${muniText} en omgeving.`
       };
     }
     return s;
   });
 
   const ctaBody =
-    "Beschrijf kort het probleem en voeg indien mogelijk een foto toe. Wij koppelen snel terug met een concreet tijdsblok in Antwerpen Stad." +
+    "Beschrijf kort het probleem en voeg indien mogelijk een foto toe. Wij koppelen snel terug met een concreet tijdsblok in Lier & Neteland." +
     (muniText ? `\n\nWerkgebied: ${muniText} en omgeving.` : "");
 
   const props = {
     brand: "Turbo Services",
-    regionLabel: "Antwerpen Stad",
+    regionLabel: "Lier & Neteland",
     serviceName: "Ontstoppingen",
     heroTitle: "Ontstoppingen",
     intro,
