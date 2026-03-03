@@ -1,31 +1,30 @@
-import Script from "next/script";
+// components/seo/LocalBusinessJsonLd.tsx
+import React from "react";
 
-export default function LocalBusinessJsonLd() {
-  const jsonLd = {
+const BASE_URL = "https://www.turboservices.be";
+const LOCALBUSINESS_ID = `${BASE_URL}/#localbusiness`;
+
+type Props = {
+  sameAs?: string[];
+};
+
+export default function LocalBusinessJsonLd({ sameAs = [] }: Props) {
+  const data = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://www.turboservices.be/#localbusiness",
+    "@id": LOCALBUSINESS_ID,
     name: "Turbo Services",
-    url: "https://www.turboservices.be",
+    url: BASE_URL,
+    logo: `${BASE_URL}/logo.png`,
+    image: [`${BASE_URL}/logo-horizontal.png`, `${BASE_URL}/logo.png`],
     telephone: "+32485031877",
+    email: "info@turboservices.be",
     priceRange: "€€",
     areaServed: [
-      {
-        "@type": "AdministrativeArea",
-        name: "Groot Antwerpen",
-      },
-      {
-        "@type": "AdministrativeArea",
-        name: "Rupelstreek",
-      },
-      {
-        "@type": "AdministrativeArea",
-        name: "Rivierenland",
-      },
-      {
-        "@type": "AdministrativeArea",
-        name: "Waasland",
-      },
+      { "@type": "AdministrativeArea", name: "Vlaanderen" },
+      { "@type": "AdministrativeArea", name: "Antwerpen" },
+      { "@type": "AdministrativeArea", name: "Oost-Vlaanderen" },
+      { "@type": "AdministrativeArea", name: "Vlaams-Brabant" },
     ],
     address: {
       "@type": "PostalAddress",
@@ -47,14 +46,12 @@ export default function LocalBusinessJsonLd() {
       {
         "@type": "Service",
         name: "Noodherstellingen",
-        description:
-          "Snelle noodherstellingen bij lekken, breuken en acute rioolproblemen.",
+        description: "Snelle noodherstellingen bij lekken, breuken en acute rioolproblemen.",
       },
       {
         "@type": "Service",
         name: "Geurdetectie",
-        description:
-          "Opsporen en lokaliseren van rioolgeur in woning of gebouw.",
+        description: "Opsporen en lokaliseren van rioolgeur in woning of gebouw.",
       },
     ],
     openingHoursSpecification: {
@@ -78,13 +75,14 @@ export default function LocalBusinessJsonLd() {
       areaServed: "BE",
       availableLanguage: ["nl"],
     },
+    sameAs,
   };
 
   return (
-    <Script
+    <script
       id="localbusiness-jsonld"
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
     />
   );
 }

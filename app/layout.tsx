@@ -4,12 +4,22 @@ import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import ClientChat from "./ClientChat";
 import Script from "next/script";
+import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 
 export const metadata: Metadata = {
   title: "Turbo Services – Rioolexpert & Spoed",
   description:
     "Ontstoppingen (€160), camera-inspectie (+€90), ketels & loodgieterij (spoed). Binnen 24u ter plaatse.",
 };
+
+const SOCIALS = [
+  { name: "Facebook", url: "https://www.facebook.com/profile.php?id=61580852646726" },
+  { name: "Instagram", url: "https://www.instagram.com/turboservicesbv" },
+  { name: "YouTube", url: "https://youtube.com/@turboservices-l9w" },
+  { name: "TikTok", url: "https://tiktok.com/@turbo.services" },
+  { name: "LinkedIn", url: "https://www.linkedin.com/in/wim-verloo-98b3743b4/" },
+  { name: "X", url: "https://x.com/TurboServicesBv" },
+] as const;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -54,10 +64,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             alt=""
           />
         </noscript>
-        {/* End Meta Pixel Code */}
+
+        {/* Sitewide structured data */}
+        <LocalBusinessJsonLd
+          sameAs={SOCIALS.map((s) => s.url)}
+        />
 
         <SiteHeader />
+
         <main>{children}</main>
+
         <ClientChat />
 
         {/* Footer */}
@@ -67,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <p className="font-semibold text-slate-800">Turbo Services BV</p>
               <p>Rioolexpert &amp; spoed-interventies</p>
               <p className="mt-1">
-                BTW <span className="whitespace-nowrap">BE 0803.431.994</span>
+                BTW <span className="whitespace-nowrap">BE 0809.316.233</span>
               </p>
             </div>
 
@@ -100,7 +116,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div>
               <p>Ontstoppingen · Camera · Gerichte herstellingen</p>
               <p>Ketels &amp; loodgieterij (spoed)</p>
-              <p className="mt-2">
+
+              <div className="mt-3">
+                <p className="font-semibold text-slate-800">Volg Turbo Services</p>
+                <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
+                  {SOCIALS.map((s) => (
+                    <li key={s.name}>
+                      <a
+                        className="underline hover:text-slate-900"
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {s.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <p className="mt-3">
                 <a
                   href="/kennisbank"
                   className="underline text-slate-700 hover:text-slate-900"
