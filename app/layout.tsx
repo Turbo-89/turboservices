@@ -7,9 +7,9 @@ import Script from "next/script";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 
 export const metadata: Metadata = {
-  title: "Turbo Services – Rioolexpert & Spoed",
+  title: "Turbo Services – Ontstoppingen, camera-inspectie en rioolherstellingen",
   description:
-    "Ontstoppingen (€160), camera-inspectie (+€90), ketels & loodgieterij (spoed). Binnen 24u ter plaatse.",
+    "Turbo Services voert ontstoppingen, camera-inspectie, geurdetectie, noodherstellingen en gerichte rioolherstellingen uit in heel Vlaanderen.",
 };
 
 const SOCIALS = [
@@ -114,8 +114,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
 
             <div>
-              <p>Ontstoppingen · Camera · Gerichte herstellingen</p>
-              <p>Ketels &amp; loodgieterij (spoed)</p>
+  <p className="font-semibold text-slate-800">Diensten</p>
+  <ul className="mt-2 space-y-1">
+    <li>
+      <a href="/diensten/ontstoppingen" className="underline hover:text-slate-900">
+        Ontstoppingen
+      </a>
+    </li>
+    <li>
+      <a href="/diensten/camera-inspectie" className="underline hover:text-slate-900">
+        Camera-inspectie
+      </a>
+    </li>
+    <li>
+      <a href="/diensten/gerichte-rioolherstellingen" className="underline hover:text-slate-900">
+        Gerichte rioolherstellingen
+      </a>
+    </li>
+    <li>
+      <a href="/diensten/geurdetectie" className="underline hover:text-slate-900">
+        Geurdetectie
+      </a>
+    </li>
+    <li>
+      <a href="/diensten/vervangen-van-deksels" className="underline hover:text-slate-900">
+        Vervangen van deksels
+      </a>
+    </li>
+  </ul>
 
               <div className="mt-3">
                 <p className="font-semibold text-slate-800">Volg Turbo Services</p>
@@ -147,8 +173,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           <div className="border-t py-6 text-center text-xs text-slate-500">
-            © {new Date().getFullYear()} Turbo Services – Spoedhersteldienst riolen en loodgieterij
-          </div>
+  © {new Date().getFullYear()} Turbo Services – Ontstoppingen, camera-inspectie en rioolherstellingen
+</div>
         </footer>
       </body>
     </html>

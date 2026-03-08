@@ -1,16 +1,11 @@
-// components/seo/ServiceJsonLd.tsx
-export type AreaServedInput = {
-  region?: string;           // bv "Scheldeland" of "Vlaanderen"
-  municipalities?: string[]; // steden
-};
-
 type Props = {
-  serviceName: string;     // "Ontstoppingen"
-  serviceType?: string;    // default = serviceName
-  providerName?: string;   // default "Turbo Services"
-  providerUrl?: string;    // default https://www.turboservices.be
-  url: string;             // canonieke URL VAN DE PAGINA (dus incl. regio indien regio-pagina)
-  areaServed?: AreaServedInput;
+  serviceName: string;
+  serviceType?: string;
+  url: string;
+  providerName?: string;
+  providerUrl?: string;
+  regionLabel?: string;
+  municipalities?: string[];
 };
 
 function toAbsolute(url: string, siteUrl: string) {
@@ -23,21 +18,29 @@ function toAbsolute(url: string, siteUrl: string) {
 export function ServiceJsonLd({
   serviceName,
   serviceType,
+  url,
   providerName = "Turbo Services",
   providerUrl = "https://www.turboservices.be",
-  url,
-  areaServed,
+  regionLabel,
+  municipalities = [],
 }: Props) {
-  const region = areaServed?.region?.trim();
-  const cities = (areaServed?.municipalities ?? []).map((x) => x?.trim()).filter(Boolean);
+  const cleanRegion = regionLabel?.trim();
+  const cleanCities = municipalities
+    .map((x) => x?.trim())
+    .filter((x): x is string => Boolean(x));
 
-  const areaServedArr =
-    region || cities.length
+  const areaServed =
+    cleanRegion || cleanCities.length
       ? [
-          ...(region ? [{ "@type": "AdministrativeArea", name: region }] : []),
-          ...cities.map((c) => ({ "@type": "City", name: c })),
+          ...(cleanRegion
+            ? [{ "@type": "AdministrativeArea" as const, name: cleanRegion }]
+            : []),
+          ...cleanCities.map((city) => ({
+            "@type": "City" as const,
+            name: city,
+          })),
         ]
-      : [{ "@type": "AdministrativeArea", name: "Vlaanderen" }];
+      : [{ "@type": "AdministrativeArea" as const, name: "Vlaanderen" }];
 
   const absProviderUrl = toAbsolute(providerUrl, "https://www.turboservices.be");
   const absUrl = toAbsolute(url, absProviderUrl);
@@ -52,14 +55,13 @@ export function ServiceJsonLd({
       name: providerName,
       url: absProviderUrl,
     },
-    areaServed: areaServedArr,
+    areaServed,
     url: absUrl,
   };
 
   return (
     <script
       type="application/ld+json"
-      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   );

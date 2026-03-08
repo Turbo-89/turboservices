@@ -2,13 +2,12 @@
 import SmartCTA from "@/components/SmartCTA";
 import Link from "next/link";
 import HeroLogo from "@/components/HeroLogo";
-import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import CallButton from "@/components/CallButton";
 
 export default function Home() {
   return (
     <>
-      <LocalBusinessJsonLd />
+      
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
@@ -45,8 +44,7 @@ export default function Home() {
                 (geen callcenter)
               </li>
               <li>
-                <strong>Actief in:</strong> Groot Antwerpen – Rupelstreek –
-                Rivierenland
+                <strong>Actief in:</strong> heel Vlaanderen
               </li>
             </ul>
 
@@ -135,8 +133,7 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <span className="inline-block text-lg">📍</span>
             <span>
-              <strong>Werkgebied:</strong> Groot Antwerpen, Rupelstreek,
-              Rivierenland &amp; Waasland
+              <strong>Werkgebied:</strong> heel Vlaanderen en Brussel
             </span>
           </div>
         </div>

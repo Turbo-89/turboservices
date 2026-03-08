@@ -1,10 +1,10 @@
-import Script from "next/script";
 import Link from "next/link";
 import { slugify } from "@/lib/slugify";
 import { buildHeroImageCandidates } from "@/lib/hero";
 import { REGION_CITIES, type RegionKey } from "@/content/regions";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { ServiceJsonLd } from "@/components/seo/ServiceJsonLd";
+import FAQJsonLd from "@/components/seo/FAQJsonLd";
 
 export type DienstSection = {
   title: string;
@@ -17,10 +17,10 @@ export type DienstFaq = {
 };
 
 type Props = {
-  serviceKey: string;               // bv "ontstoppingen"
-  serviceName: string;              // bv "Ontstoppingen"
-  regionKey?: RegionKey;            // bv "scheldeland"
-  regionLabel?: string;             // bv "Scheldeland"
+  serviceKey: string;
+  serviceName: string;
+  regionKey?: RegionKey;
+  regionLabel?: string;
   municipalities?: string[];
 
   intro?: string;
@@ -32,7 +32,6 @@ type Props = {
 
   heroImageOverride?: string;
 
-  // optioneel: als je expliciet wil sturen (maar werkt ook zonder)
   ctaTitle?: string;
   ctaBody?: string;
   ctaButton?: string;
@@ -49,7 +48,12 @@ function buildCanonical(serviceKey: string, regionKey?: string) {
   return regionKey ? `${base}/${slugify(regionKey)}` : base;
 }
 
-function toBreadcrumbs(serviceKey: string, serviceName: string, regionLabel?: string, breadcrumbTitle?: string) {
+function toBreadcrumbs(
+  serviceKey: string,
+  serviceName: string,
+  regionLabel?: string,
+  breadcrumbTitle?: string
+) {
   const crumbs: Crumb[] = [
     { name: "Home", url: "/" },
     { name: "Diensten", url: "/diensten" },
@@ -59,7 +63,10 @@ function toBreadcrumbs(serviceKey: string, serviceName: string, regionLabel?: st
   crumbs.push({ name: breadcrumbTitle || serviceName, url: serviceUrl });
 
   if (regionLabel) {
-    crumbs.push({ name: regionLabel, url: `${serviceUrl}/${slugify(regionLabel)}` });
+    crumbs.push({
+      name: regionLabel,
+      url: `${serviceUrl}/${slugify(regionLabel)}`,
+    });
   }
 
   return crumbs;
@@ -71,16 +78,12 @@ function buildWorkAreaText(regionKey?: RegionKey, municipalities?: string[]) {
   return combined.join(", ");
 }
 
-/**
- * Compat helper: jouw repo heeft momenteel lib/hero.ts met signature:
- *   buildHeroImageCandidates(service: string, region: string)
- * Daarom altijd strings doorgeven.
- */
 function getHeroCandidates(serviceKey: string, regionLabel?: string): string[] {
   const s = String(serviceKey || "").trim();
   const r = String(regionLabel || "").trim();
+
   try {
-    const out = (buildHeroImageCandidates as any)(s, r);
+    const out = (buildHeroImageCandidates as unknown as (service: string, region: string) => string[])(s, r);
     return Array.isArray(out) ? out.filter((x) => typeof x === "string") : [];
   } catch {
     return [];
@@ -89,6 +92,7 @@ function getHeroCandidates(serviceKey: string, regionLabel?: string): string[] {
 
 function defaultCta(serviceName: string, regionLabel?: string) {
   const where = regionLabel ? ` in ${regionLabel}` : "";
+
   return {
     ctaTitle: `Direct hulp nodig bij ${serviceName.toLowerCase()}${where}?`,
     ctaBody:
@@ -119,15 +123,24 @@ export function DienstPageLayout({
   ctaButton,
 }: Props) {
   const workArea = buildWorkAreaText(regionKey, municipalities);
-  const computedH1 = h1 ?? (regionLabel ? `${serviceName} in ${regionLabel}` : serviceName);
+  const computedH1 =
+    h1 ?? (regionLabel ? `${serviceName} in ${regionLabel}` : serviceName);
 
   const canonicalPath = buildCanonical(serviceKey, regionKey);
-  const breadcrumbs = toBreadcrumbs(serviceKey, serviceName, regionLabel, breadcrumbTitle);
+  const canonicalUrl = `https://www.turboservices.be${canonicalPath}`;
+  const breadcrumbs = toBreadcrumbs(
+    serviceKey,
+    serviceName,
+    regionLabel,
+    breadcrumbTitle
+  );
 
-  // Hero image: override > candidates > /public/assets/base/{serviceKey}.png
   const candidates = getHeroCandidates(serviceKey, regionLabel);
   const baseFallback = `/assets/base/${slugify(serviceKey || serviceName)}.png`;
-  const heroImage = (heroImageOverride && String(heroImageOverride)) || candidates[0] || baseFallback;
+  const heroImage =
+    (heroImageOverride && String(heroImageOverride)) ||
+    candidates[0] ||
+    baseFallback;
 
   const muni = uniqueStrings([
     ...(municipalities ?? []),
@@ -143,20 +156,28 @@ export function DienstPageLayout({
 
   return (
     <>
-      {/* SEO */}
       <BreadcrumbJsonLd items={breadcrumbs} />
+
       <ServiceJsonLd
         serviceName={serviceName}
         regionLabel={regionLabel}
-        canonicalPath={canonicalPath}
         municipalities={muni}
+        url={canonicalUrl}
       />
 
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white border-b">
+      {faqs.length > 0 && (
+        <FAQJsonLd
+          items={faqs.map((f) => ({
+            question: f.q,
+            answer: f.a,
+          }))}
+        />
+      )}
+
+      <section className="relative overflow-hidden border-b bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-slate-500 mb-2">
+            <p className="mb-2 text-xs uppercase tracking-[0.2em] text-slate-500">
               Turbo Services {regionLabel ? `– ${regionLabel}` : ""}
             </p>
 
@@ -164,16 +185,18 @@ export function DienstPageLayout({
               {computedH1}
             </h1>
 
-            <p className="mt-4 max-w-xl text-lg text-slate-600 whitespace-pre-line">
+            <p className="mt-4 max-w-xl whitespace-pre-line text-lg text-slate-600">
               {intro}
             </p>
 
             <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row">
               <Link
                 href="/boeken"
-                className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-white text-sm shadow-sm transition hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-xl bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-sm text-white shadow-sm transition hover:opacity-90"
               >
-                {serviceName === "Ontstoppingen" ? "Vraag ontstopping aan →" : "Aanvraag 24u →"}
+                {serviceName === "Ontstoppingen"
+                  ? "Vraag ontstopping aan →"
+                  : "Aanvraag 24u →"}
               </Link>
 
               <a
@@ -196,7 +219,6 @@ export function DienstPageLayout({
           </div>
 
           <div className="flex justify-center md:justify-end">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={heroImage}
               alt={`${serviceName}${regionLabel ? ` – ${regionLabel}` : ""}`}
@@ -206,33 +228,46 @@ export function DienstPageLayout({
         </div>
       </section>
 
-      {/* CONTENT */}
       <section className="container mx-auto max-w-6xl px-4 py-12">
         {sections.map((sec, idx) => (
           <section key={`${sec.title}-${idx}`} className="mb-10 last:mb-0">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-3">{sec.title}</h2>
-            <p className="text-slate-700 leading-relaxed whitespace-pre-line">{sec.body}</p>
+            <h2 className="mb-3 text-2xl font-semibold text-slate-900">
+              {sec.title}
+            </h2>
+            <p className="whitespace-pre-line leading-relaxed text-slate-700">
+              {sec.body}
+            </p>
           </section>
         ))}
 
-        {!!faqs.length && (
+        {faqs.length > 0 && (
           <section className="mt-10">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-4">Veelgestelde vragen</h2>
+            <h2 className="mb-4 text-2xl font-semibold text-slate-900">
+              Veelgestelde vragen
+            </h2>
             <div className="space-y-4">
               {faqs.map((f, idx) => (
-                <div key={`${f.q}-${idx}`} className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+                <div
+                  key={`${f.q}-${idx}`}
+                  className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200"
+                >
                   <div className="font-semibold text-slate-900">{f.q}</div>
-                  <div className="mt-2 text-slate-700 whitespace-pre-line">{f.a}</div>
+                  <div className="mt-2 whitespace-pre-line text-slate-700">
+                    {f.a}
+                  </div>
                 </div>
               ))}
             </div>
           </section>
         )}
 
-        {/* Onderste CTA-block (uniform, dynamisch) */}
         <div className="mt-12 rounded-2xl border bg-slate-50 p-6 shadow-sm md:p-8">
-          <h2 className="mb-3 text-2xl font-semibold text-slate-900">{cta.ctaTitle}</h2>
-          <p className="mb-5 text-slate-700 whitespace-pre-line">{cta.ctaBody}</p>
+          <h2 className="mb-3 text-2xl font-semibold text-slate-900">
+            {cta.ctaTitle}
+          </h2>
+          <p className="mb-5 whitespace-pre-line text-slate-700">
+            {cta.ctaBody}
+          </p>
 
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link

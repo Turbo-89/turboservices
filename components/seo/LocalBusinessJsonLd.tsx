@@ -1,4 +1,3 @@
-// components/seo/LocalBusinessJsonLd.tsx
 import React from "react";
 
 const BASE_URL = "https://www.turboservices.be";
@@ -45,13 +44,27 @@ export default function LocalBusinessJsonLd({ sameAs = [] }: Props) {
       },
       {
         "@type": "Service",
-        name: "Noodherstellingen",
-        description: "Snelle noodherstellingen bij lekken, breuken en acute rioolproblemen.",
+        name: "Gerichte rioolherstellingen",
+        description:
+          "Gerichte herstellingen aan beschadigde of verzakte leidingen na diagnose ter plaatse.",
       },
       {
         "@type": "Service",
         name: "Geurdetectie",
-        description: "Opsporen en lokaliseren van rioolgeur in woning of gebouw.",
+        description:
+          "Opsporen en lokaliseren van rioolgeur in woning of gebouw.",
+      },
+      {
+        "@type": "Service",
+        name: "Noodherstellingen",
+        description:
+          "Snelle noodherstellingen bij lekken, breuken en acute rioolproblemen.",
+      },
+      {
+        "@type": "Service",
+        name: "Vervangen van deksels",
+        description:
+          "Vervangen of aanpassen van beschadigde, losse of verzakte putdeksels en afdekkingselementen.",
       },
     ],
     openingHoursSpecification: {

@@ -30,7 +30,7 @@ export default function Page() {
   },
   {
     "title": "Tarieven",
-    "body": "Camera-inspectie is aanvullend op ontstopping of afzonderlijk mogelijk:\n\n- Camera-inspectie: €90\n- Combinatie met ontstopping: €250 totaalpakket"
+    "body": "Camera-inspectie gebeurt als supplement bovenop de standaard interventiekost:\n\n- Standaard interventiekost: €160\n- Camera-inspectie supplement: €90\n- Bij combinatie geldt: €160 interventiekost + €90 camera-inspectie"
   },
   {
     "title": "Waarom snel ingrijpen?",
