@@ -1,18 +1,94 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import HeroLogo from "@/components/HeroLogo";
+import FAQJsonLd from "@/components/seo/FAQJsonLd";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { ServiceJsonLd } from "@/components/seo/ServiceJsonLd";
 
 export const metadata: Metadata = {
-  title:
-    "Camera-inspectie riolering | Groot Antwerpen, Rupelstreek & Rivierenland | Turbo Services",
+  title: "Camera-inspectie riolering en leidingen | Turbo Services",
   description:
-    "Camera-inspectie van riolering en afvoerleidingen. Breng breuken, verzakkingen en verstoppingen exact in beeld. Avond en weekend aan hetzelfde tarief. Actief in Groot Antwerpen, Rupelstreek, Rivierenland en Waasland.",
+    "Camera-inspectie van riolering en afvoerleidingen om breuken, verzakkingen, wortelgroei en hardnekkige verstoppingen exact in beeld te brengen. Turbo Services is actief in heel Vlaanderen.",
 };
 
+const regionLinks = [
+  "antwerpen-noordrand",
+  "antwerpen-stad",
+  "antwerpen-zuidrand",
+  "brussel-centrum",
+  "brussel-noord",
+  "brussel-zuid",
+  "denderstreek",
+  "druivenstreek",
+  "durmestreek-lokeren",
+  "hageland",
+  "kempen-noord",
+  "kempen-zuid",
+  "klein-brabant",
+  "leuven-dijleland",
+  "lier-neteland",
+  "mechelen-rivierenland",
+  "noordrand-brussel",
+  "pajottenland",
+  "ruppelstreek",
+  "scheldeland",
+  "sint-niklaas-regio",
+  "temse-omgeving",
+  "waasland",
+] as const;
+
+function labelFromSlug(slug: string) {
+  return slug
+    .split("-")
+    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+    .join(" ");
+}
+
 export default function CameraInspectiePage() {
+  const canonicalUrl = "https://www.turboservices.be/diensten/camera-inspectie";
+
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Diensten", url: "/diensten" },
+    { name: "Camera-inspectie", url: "/diensten/camera-inspectie" },
+  ];
+
+  const faqItems = [
+    {
+      question: "Wat kost een camera-inspectie?",
+      answer:
+        "De standaard interventiekost bedraagt €160 exclusief btw. Camera-inspectie is een supplement van €90 exclusief btw.",
+    },
+    {
+      question: "Wanneer is camera-inspectie nodig?",
+      answer:
+        "Camera-inspectie is nuttig bij terugkerende verstoppingen, vermoeden van breuk of verzakking, geurhinder of wanneer de exacte oorzaak van het probleem niet zichtbaar is.",
+    },
+    {
+      question: "Kan ik beelden of een verslag krijgen?",
+      answer:
+        "Ja. De vaststellingen kunnen gebruikt worden voor verdere bespreking met aannemer, syndicus of verzekering, afhankelijk van de situatie.",
+    },
+    {
+      question: "Moet een leiding eerst vrijgemaakt worden?",
+      answer:
+        "In veel gevallen wel. Wanneer de leiding door vuil of blokkage niet toegankelijk is, moet ze eerst vrijgemaakt worden voor een correcte inspectie.",
+    },
+  ];
+
   return (
     <>
-      {/* HERO */}
+      <BreadcrumbJsonLd items={breadcrumbs} />
+
+      <ServiceJsonLd
+        serviceName="Camera-inspectie"
+        regionLabel="Vlaanderen"
+        municipalities={regionLinks.map(labelFromSlug)}
+        url={canonicalUrl}
+      />
+
+      <FAQJsonLd items={faqItems} />
+
       <section className="relative overflow-hidden border-b bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
           <div>
@@ -23,7 +99,7 @@ export default function CameraInspectiePage() {
             <p className="mt-4 max-w-xl text-lg text-slate-600">
               Met camera-inspectie zie je exact wat er in je leidingen gebeurt:
               breuken, verzakkingen, wortelgroei of hardnekkige verstoppingen.
-              Ideaal bij terugkerende problemen of discussie over de oorzaak.
+              Ideaal bij terugkerende problemen of twijfel over de oorzaak.
             </p>
 
             <ul className="mt-6 space-y-2 text-slate-700">
@@ -34,10 +110,10 @@ export default function CameraInspectiePage() {
                 <strong>Na 22u:</strong> supplement <strong>+50%</strong>
               </li>
               <li>
-                <strong>Beelden & verslag</strong> mogelijk voor verzekering of aannemer
+                <strong>Beelden en verslag</strong> mogelijk voor verzekering of aannemer
               </li>
               <li>
-                <strong>Actief in:</strong> Groot Antwerpen – Rupelstreek – Rivierenland
+                <strong>Actief in:</strong> heel Vlaanderen
               </li>
             </ul>
 
@@ -58,9 +134,7 @@ export default function CameraInspectiePage() {
             </div>
 
             <p className="mt-3 text-xs text-slate-500">
-              Avond, weekend en feestdagen aan hetzelfde tarief.
-              <strong> Na 22u geldt een supplement van +50%.</strong>
-              Afspraakbevestiging via sms of WhatsApp.
+              Avond, weekend en feestdagen aan hetzelfde tarief. Na 22u geldt een supplement van +50%. Afspraakbevestiging via sms of WhatsApp.
             </p>
           </div>
 
@@ -70,7 +144,6 @@ export default function CameraInspectiePage() {
         </div>
       </section>
 
-      {/* INHOUD */}
       <section className="container mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-10 md:grid-cols-2">
           <div>
@@ -79,11 +152,11 @@ export default function CameraInspectiePage() {
             </h2>
 
             <ul className="mt-4 list-disc space-y-2 pl-5 text-slate-700">
-              <li>Terugkerende verstoppingen op dezelfde plaats.</li>
-              <li>Vermoeden van breuk, verzakking of wortelgroei.</li>
-              <li>Rioolgeur of water dat blijft staan zonder zichtbare oorzaak.</li>
-              <li>Vochtproblemen langs leidingen of muren.</li>
-              <li>Discussie met aannemer, syndicus of verzekering.</li>
+              <li>Terugkerende verstoppingen op dezelfde plaats</li>
+              <li>Vermoeden van breuk, verzakking of wortelgroei</li>
+              <li>Rioolgeur of water dat blijft staan zonder zichtbare oorzaak</li>
+              <li>Vochtproblemen langs leidingen of muren</li>
+              <li>Discussie met aannemer, syndicus of verzekering</li>
             </ul>
 
             <h3 className="mt-8 text-xl font-semibold text-slate-900">
@@ -91,11 +164,11 @@ export default function CameraInspectiePage() {
             </h3>
 
             <ol className="mt-3 list-decimal space-y-2 pl-5 text-slate-700">
-              <li>Indien nodig wordt de leiding eerst vrijgemaakt.</li>
-              <li>De camera wordt ingebracht en systematisch gebruikt.</li>
-              <li>Probleemzones worden duidelijk vastgelegd.</li>
-              <li>Heldere uitleg over oorzaak en impact.</li>
-              <li>Beelden of verslag voor dossieropbouw.</li>
+              <li>Indien nodig wordt de leiding eerst vrijgemaakt</li>
+              <li>De camera wordt systematisch ingebracht</li>
+              <li>Probleemzones worden duidelijk vastgelegd</li>
+              <li>Je krijgt heldere uitleg over oorzaak en impact</li>
+              <li>Beelden of verslag kunnen gebruikt worden in verder dossier</li>
             </ol>
           </div>
 
@@ -103,16 +176,72 @@ export default function CameraInspectiePage() {
             <h2 className="text-2xl font-semibold text-slate-900">Prijzen</h2>
 
             <ul className="mt-4 list-disc space-y-2 pl-5 text-slate-700">
-              <li><strong>Interventie (indien nodig):</strong> €160</li>
-              <li><strong>Camera-inspectie:</strong> €90</li>
-              <li><strong>Totaalpakket:</strong> €250</li>
+              <li>
+                <strong>Standaard interventiekost:</strong> €160
+              </li>
+              <li>
+                <strong>Camera-inspectie supplement:</strong> €90
+              </li>
+              <li>
+                <strong>Bij combinatie geldt:</strong> €160 interventiekost + €90 camera-inspectie
+              </li>
             </ul>
 
             <p className="mt-3 text-slate-700">
-              Bedragen zijn <strong>exclusief btw</strong>. Avond, weekend en
-              feestdagen zonder toeslag.
-              <strong> Na 22u geldt +50%.</strong>
+              Bedragen zijn <strong>exclusief btw</strong>. Avond, weekend en feestdagen zonder toeslag. <strong>Na 22u geldt +50%.</strong>
             </p>
+          </div>
+        </div>
+
+        <div className="mt-12 rounded-2xl border bg-slate-50 p-6 shadow-sm md:p-8">
+          <h2 className="mb-3 text-2xl font-semibold text-slate-900">
+            Veelgestelde vragen
+          </h2>
+
+          <div className="space-y-4">
+            {faqItems.map((item) => (
+              <div
+                key={item.question}
+                className="rounded-xl bg-white p-5 ring-1 ring-slate-200"
+              >
+                <h3 className="text-lg font-semibold text-slate-900">
+                  {item.question}
+                </h3>
+                <p className="mt-2 text-slate-700">{item.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-12 rounded-2xl border bg-slate-50 p-6 shadow-sm md:p-8">
+          <h2 className="mb-3 text-2xl font-semibold text-slate-900">
+            Samenvatting
+          </h2>
+
+          <p className="text-slate-700">
+            Turbo Services voert camera-inspecties uit in heel Vlaanderen. De standaard interventiekost bedraagt €160. Camera-inspectie wordt toegevoegd als supplement van €90. Deze aanpak is vooral zinvol bij terugkerende problemen, geurhinder of wanneer de exacte oorzaak van schade of verstopping niet zichtbaar is.
+          </p>
+        </div>
+
+        <div className="mt-12">
+          <h2 className="text-2xl font-semibold text-slate-900">
+            Camera-inspectie per regio
+          </h2>
+
+          <p className="mt-3 max-w-3xl text-slate-700">
+            Bekijk de regiopagina die het best aansluit bij jouw locatie.
+          </p>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {regionLinks.map((slug) => (
+              <Link
+                key={slug}
+                href={`/diensten/camera-inspectie/${slug}`}
+                className="rounded-xl border px-4 py-3 text-slate-700 transition hover:bg-slate-50"
+              >
+                Camera-inspectie in {labelFromSlug(slug)}
+              </Link>
+            ))}
           </div>
         </div>
 

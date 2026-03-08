@@ -1,9 +1,12 @@
-"use client";
 
-export function buildHeroImageCandidates(service: string, region: string) {
-  const slug = region.toLowerCase().replace(/\s+/g, "-");
+// service-only hero candidates (geen regio in filename)
+export function buildHeroImageCandidates(service: string, _region?: string) {
+  const s = String(service ?? "").trim();
+  if (!s) return [];
   return [
-    `/assets/generated/${service}-${slug}.webp`,
-    `/assets/hero/${service}-${slug}.png`,
+    `/assets/base/${s}.png`,
+    `/assets/hero/${s}.png`,
+    `/assets/generated/${s}.webp`,
+    `/assets/generated/${s}.png`,
   ];
 }

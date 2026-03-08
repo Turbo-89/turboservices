@@ -4,12 +4,22 @@ import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import ClientChat from "./ClientChat";
 import Script from "next/script";
+import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 
 export const metadata: Metadata = {
-  title: "Turbo Services – Rioolexpert & Spoed",
+  title: "Turbo Services – Ontstoppingen, camera-inspectie en rioolherstellingen",
   description:
-    "Ontstoppingen (€160), camera-inspectie (+€90), ketels & loodgieterij (spoed). Binnen 24u ter plaatse.",
+    "Turbo Services voert ontstoppingen, camera-inspectie, geurdetectie, noodherstellingen en gerichte rioolherstellingen uit in heel Vlaanderen.",
 };
+
+const SOCIALS = [
+  { name: "Facebook", url: "https://www.facebook.com/profile.php?id=61580852646726" },
+  { name: "Instagram", url: "https://www.instagram.com/turboservicesbv" },
+  { name: "YouTube", url: "https://youtube.com/@turboservices-l9w" },
+  { name: "TikTok", url: "https://tiktok.com/@turbo.services" },
+  { name: "LinkedIn", url: "https://www.linkedin.com/in/wim-verloo-98b3743b4/" },
+  { name: "X", url: "https://x.com/TurboServicesBv" },
+] as const;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -54,10 +64,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             alt=""
           />
         </noscript>
-        {/* End Meta Pixel Code */}
+
+        {/* Sitewide structured data */}
+        <LocalBusinessJsonLd
+          sameAs={SOCIALS.map((s) => s.url)}
+        />
 
         <SiteHeader />
+
         <main>{children}</main>
+
         <ClientChat />
 
         {/* Footer */}
@@ -67,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <p className="font-semibold text-slate-800">Turbo Services BV</p>
               <p>Rioolexpert &amp; spoed-interventies</p>
               <p className="mt-1">
-                BTW <span className="whitespace-nowrap">BE 0803.431.994</span>
+                BTW <span className="whitespace-nowrap">BE 0809.316.233</span>
               </p>
             </div>
 
@@ -98,9 +114,54 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
 
             <div>
-              <p>Ontstoppingen · Camera · Gerichte herstellingen</p>
-              <p>Ketels &amp; loodgieterij (spoed)</p>
-              <p className="mt-2">
+  <p className="font-semibold text-slate-800">Diensten</p>
+  <ul className="mt-2 space-y-1">
+    <li>
+      <a href="/diensten/ontstoppingen" className="underline hover:text-slate-900">
+        Ontstoppingen
+      </a>
+    </li>
+    <li>
+      <a href="/diensten/camera-inspectie" className="underline hover:text-slate-900">
+        Camera-inspectie
+      </a>
+    </li>
+    <li>
+      <a href="/diensten/gerichte-rioolherstellingen" className="underline hover:text-slate-900">
+        Gerichte rioolherstellingen
+      </a>
+    </li>
+    <li>
+      <a href="/diensten/geurdetectie" className="underline hover:text-slate-900">
+        Geurdetectie
+      </a>
+    </li>
+    <li>
+      <a href="/diensten/vervangen-van-deksels" className="underline hover:text-slate-900">
+        Vervangen van deksels
+      </a>
+    </li>
+  </ul>
+
+              <div className="mt-3">
+                <p className="font-semibold text-slate-800">Volg Turbo Services</p>
+                <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
+                  {SOCIALS.map((s) => (
+                    <li key={s.name}>
+                      <a
+                        className="underline hover:text-slate-900"
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {s.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <p className="mt-3">
                 <a
                   href="/kennisbank"
                   className="underline text-slate-700 hover:text-slate-900"
@@ -112,8 +173,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           <div className="border-t py-6 text-center text-xs text-slate-500">
-            © {new Date().getFullYear()} Turbo Services – Spoedhersteldienst riolen en loodgieterij
-          </div>
+  © {new Date().getFullYear()} Turbo Services – Ontstoppingen, camera-inspectie en rioolherstellingen
+</div>
         </footer>
       </body>
     </html>

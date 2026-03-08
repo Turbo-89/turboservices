@@ -4,9 +4,9 @@ import HeroLogo from "@/components/HeroLogo";
 
 export const metadata: Metadata = {
   title:
-    "Over Turbo Services | RioolExpert in Groot Antwerpen, Rupelstreek & Rivierenland",
+    "Over Turbo Services | RioolExpert in Vlaanderen",
   description:
-    "Turbo Services, opgericht door Wim Verloo. Meer dan 20 jaar ervaring in ontstoppingen, camera-inspecties en noodherstellingen. Rechtstreeks contact, duidelijke tarieven en actief in Groot Antwerpen, Rupelstreek, Rivierenland en Waasland.",
+    "Turbo Services, opgericht door Wim Verloo. Meer dan 20 jaar ervaring in ontstoppingen, camera-inspecties en noodherstellingen. Rechtstreeks contact, duidelijke tarieven en actief in heel Vlaanderen.",
 };
 
 export default function OverOns() {
@@ -44,8 +44,7 @@ export default function OverOns() {
                 <strong>Na 22u:</strong> supplement <strong>+50%</strong>
               </li>
               <li>
-                <strong>Actief in:</strong> Groot Antwerpen – Rupelstreek –
-                Rivierenland
+                <strong>Actief in:</strong> heel Vlaanderen
               </li>
             </ul>
 
@@ -129,11 +128,7 @@ export default function OverOns() {
 
         {/* REGIO-UITBREIDING BUITEN HERO */}
         <p className="mb-6 text-slate-700">
-          Ik ben actief in <strong>Groot Antwerpen</strong>, de{" "}
-          <strong>Rupelstreek</strong> en het{" "}
-          <strong>Rivierenland</strong>. Voor klanten in het{" "}
-          <strong>Waasland</strong> voer ik eveneens interventies uit, afhankelijk
-          van aard en urgentie van het probleem.
+          Ik ben actief in <strong>heel Vlaanderen</strong>.
         </p>
 
         <div className="mt-10 rounded-2xl border bg-slate-50 p-6 shadow-sm md:p-8">
@@ -170,8 +165,7 @@ export default function OverOns() {
 
         <p className="mt-8 text-slate-600 italic">
           Turbo Services – RioolExpert voor ontstoppingen, camera-inspecties en
-          noodherstellingen in Groot Antwerpen, Rupelstreek, Rivierenland en
-          Waasland.
+          noodherstellingen in heel Vlaanderen.
         </p>
       </section>
     </>

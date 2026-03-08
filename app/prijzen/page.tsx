@@ -4,9 +4,9 @@ import HeroLogo from "@/components/HeroLogo";
 
 export const metadata: Metadata = {
   title:
-    "Tarieven ontstoppingen & riolering | Groot Antwerpen, Rupelstreek & Rivierenland | Turbo Services",
+    "Tarieven ontstoppingen & riolering | Turbo Services",
   description:
-    "Transparante tarieven voor ontstoppingen, camera-inspecties en noodherstellingen. Avond, weekend en feestdagen aan hetzelfde tarief. Na 22u geldt +50%. Actief in Groot Antwerpen, Rupelstreek en Rivierenland.",
+    "Transparante tarieven voor ontstoppingen, camera-inspecties en noodherstellingen. Avond, weekend en feestdagen aan hetzelfde tarief. Na 22u geldt +50%. Actief in heel Vlaanderen.",
 };
 
 export default function Prijzen() {
@@ -42,8 +42,7 @@ export default function Prijzen() {
                 <strong>Geen callcenter:</strong> rechtstreeks contact
               </li>
               <li>
-                <strong>Actief in:</strong> Groot Antwerpen – Rupelstreek –
-                Rivierenland
+                <strong>Actief in:</strong> heel Vlaanderen en Brussel
               </li>
             </ul>
 
@@ -119,7 +118,7 @@ export default function Prijzen() {
               <li>
                 Verplaatsing en interventie in{" "}
                 <strong>
-                  Groot Antwerpen, Rupelstreek, Rivierenland en Waasland
+                  heel Vlaanderen
                 </strong>
                 .
               </li>

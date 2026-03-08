@@ -1,0 +1,96 @@
+import type { MetadataRoute } from "next";
+
+const SITE = "https://www.turboservices.be";
+
+const SERVICES = [
+  "ontstoppingen",
+  "camera-inspectie",
+  "noodherstellingen",
+  "geurdetectie",
+  "gerichte-rioolherstellingen",
+  "vervangen-van-deksels",
+] as const;
+
+const REGIONS = [
+  "antwerpen-noordrand",
+  "antwerpen-stad",
+  "antwerpen-zuidrand",
+  "brussel-centrum",
+  "brussel-noord",
+  "brussel-zuid",
+  "denderstreek",
+  "druivenstreek",
+  "durmestreek-lokeren",
+  "hageland",
+  "kempen-noord",
+  "kempen-zuid",
+  "klein-brabant",
+  "leuven-dijleland",
+  "lier-neteland",
+  "mechelen-rivierenland",
+  "noordrand-brussel",
+  "pajottenland",
+  "ruppelstreek",
+  "scheldeland",
+  "sint-niklaas-regio",
+  "temse-omgeving",
+  "waasland",
+] as const;
+
+const STATIC_PAGES = [
+  "",
+  "/diensten",
+  "/prijzen",
+  "/over-ons",
+  "/boeken",
+  "/kennisbank",
+  "/blog",
+  "/privacy",
+] as const;
+
+const KNOWLEDGE_PAGES = [
+  "/kennisbank/ontstopping",
+  "/kennisbank/ontstopping/afvoer-borrelt",
+  "/kennisbank/ontstopping/appartement-gedeelde-riolering",
+  "/kennisbank/ontstopping/camera-inspectie",
+  "/kennisbank/ontstopping/chemische-ontstoppers",
+  "/kennisbank/ontstopping/gereedschap-ontstopping",
+  "/kennisbank/ontstopping/gootsteen-ontstoppen",
+  "/kennisbank/ontstopping/keukenafvoer-voorkomen",
+  "/kennisbank/ontstopping/leiding-vervangen-of-ontstoppen",
+  "/kennisbank/ontstopping/leidingen-hoe-vaak-reinigen",
+  "/kennisbank/ontstopping/ontstopping-kost",
+  "/kennisbank/ontstopping/riool-verstopt-signalen",
+  "/kennisbank/ontstopping/septische-put-onderhoud",
+  "/kennisbank/ontstopping/stank-uit-afvoer",
+  "/kennisbank/ontstopping/terugstromend-toilet-douche",
+  "/kennisbank/ontstopping/verstopte-wc",
+] as const;
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+
+  const staticUrls: MetadataRoute.Sitemap = STATIC_PAGES.map((path) => ({
+    url: `${SITE}${path}`,
+    lastModified: now,
+  }));
+
+  const serviceUrls: MetadataRoute.Sitemap = SERVICES.map((service) => ({
+    url: `${SITE}/diensten/${service}`,
+    lastModified: now,
+  }));
+
+  const regionalServiceUrls: MetadataRoute.Sitemap = SERVICES.flatMap((service) =>
+    REGIONS.map((region) => ({
+      url: `${SITE}/diensten/${service}/${region}`,
+      lastModified: now,
+    }))
+  );
+
+  const knowledgeUrls: MetadataRoute.Sitemap = KNOWLEDGE_PAGES.map((path) => ({
+    url: `${SITE}${path}`,
+    lastModified: now,
+  }));
+
+  return [...staticUrls, ...serviceUrls, ...regionalServiceUrls, ...knowledgeUrls];
+}

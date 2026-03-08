@@ -4,39 +4,47 @@ import CTA from "@/components/kb/CTA";
 import HeroLogo from "@/components/HeroLogo";
 
 export const metadata: Metadata = {
-  title:
-    "Diensten riolering & afvoer | Groot Antwerpen, Rupelstreek & Rivierenland | Turbo Services",
+  title: "Diensten riolering & afvoer | Turbo Services",
   description:
-    "Ontstoppingen, camera-inspecties, noodherstellingen en geurdetectie aan riolering en afvoer. Avond, weekend en feestdagen aan hetzelfde tarief. Actief in Groot Antwerpen, Rupelstreek en Rivierenland.",
+    "Ontstoppingen, camera-inspecties, gerichte rioolherstellingen, geurdetectie, noodherstellingen en vervangen van deksels. Turbo Services is actief in heel Vlaanderen.",
 };
 
 const services = [
   {
     href: "/diensten/ontstoppingen",
     title: "Ontstoppingen",
-    desc: "Verstopte wc, lavabo, douche of hoofdriolering. Professioneel ontstopt met de juiste apparatuur.",
+    desc: "Verstopte wc, lavabo, douche of hoofdriolering. Professioneel ontstopt met de juiste apparatuur en duidelijke diagnose.",
   },
   {
     href: "/diensten/camera-inspectie",
-    title: "Camera-inspecties",
-    desc: "Inwendige controle van leidingen met camera. Ideaal bij terugkerende problemen of twijfel over de staat van de riolering.",
+    title: "Camera-inspectie",
+    desc: "Inwendige controle van leidingen met camera. Ideaal bij terugkerende problemen, geurhinder of twijfel over de staat van de riolering.",
   },
   {
-    href: "/diensten/noodherstellingen",
-    title: "Noodherstellingen",
-    desc: "Snelle ingrepen bij lekken, breuken of ernstige schade aan leidingen, met gericht advies voor verdere werken.",
+    href: "/diensten/gerichte-rioolherstellingen",
+    title: "Gerichte rioolherstellingen",
+    desc: "Gerichte herstellingen aan beschadigde of verzakte leidingen, met voorafgaande diagnose en duidelijke oplossing.",
   },
   {
     href: "/diensten/geurdetectie",
     title: "Geurdetectie",
-    desc: "Rioolgeur opsporen en oorzaak exact lokaliseren (badkamer, toilet, keuken). Gerichte detectie met duidelijke uitleg.",
+    desc: "Rioolgeur opsporen en oorzaak exact lokaliseren in badkamer, toilet, keuken of leidingsysteem.",
+  },
+  {
+    href: "/diensten/noodherstellingen",
+    title: "Noodherstellingen",
+    desc: "Snelle interventies bij lekken, breuken of acute schade aan afvoer- en rioleringsleidingen.",
+  },
+  {
+    href: "/diensten/vervangen-van-deksels",
+    title: "Vervangen van deksels",
+    desc: "Vervangen of aanpassen van beschadigde, losse of verzakte putdeksels en afdekkingselementen.",
   },
 ];
 
 export default function DienstenPage() {
   return (
     <>
-      {/* HERO */}
       <section className="relative overflow-hidden border-b bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
           <div>
@@ -49,10 +57,9 @@ export default function DienstenPage() {
 
             <p className="mt-4 max-w-xl text-lg text-slate-600">
               Gespecialiseerd in riool- en afvoerproblemen, met een duidelijke
-              aanpak voor zowel dringende als terugkerende situaties.
+              aanpak voor zowel dringende als terugkerende situaties in heel Vlaanderen.
             </p>
 
-            {/* USP BLOK */}
             <ul className="mt-6 space-y-2 text-slate-700">
               <li>
                 <strong>Avond, weekend en feestdagen:</strong> hetzelfde tarief
@@ -64,8 +71,7 @@ export default function DienstenPage() {
                 <strong>Rechtstreeks contact</strong> met de uitvoerder
               </li>
               <li>
-                <strong>Actief in:</strong> Groot Antwerpen – Rupelstreek –
-                Rivierenland
+                <strong>Actief in:</strong> heel Vlaanderen
               </li>
             </ul>
 
@@ -86,8 +92,7 @@ export default function DienstenPage() {
             </div>
 
             <p className="mt-3 text-xs text-slate-500">
-              Avond, weekend en feestdagen aan hetzelfde tarief. Na 22u geldt een
-              supplement van +50%. Afspraakbevestiging via sms of WhatsApp.
+              Afspraak en tijdsvenster worden bevestigd via sms of WhatsApp.
             </p>
           </div>
 
@@ -97,19 +102,20 @@ export default function DienstenPage() {
         </div>
       </section>
 
-      {/* DIENSTEN-OVERZICHT */}
       <main className="mx-auto max-w-6xl px-4 py-12">
         <h2 className="text-2xl font-semibold text-slate-900">
           Onze kernactiviteiten
         </h2>
 
-        <p className="mt-3 text-slate-700">
-          Alle diensten zijn opgebouwd rond één transparant prijsmodel:{" "}
-          <strong>€160</strong> interventie, <strong>€90</strong>{" "}
-          camera-inspectie, <strong>€250</strong> totaalpakket.  
-          Avond, weekend en feestdagen zonder toeslag.  
-          <strong> Na 22u geldt +50%.</strong>
+        <p className="mt-3 max-w-3xl text-slate-700">
+          Turbo Services werkt met een transparante basisstructuur:
+          <strong> €160 standaard interventiekost</strong>, met
+          <strong> camera-inspectie als supplement van €90</strong> wanneer een
+          visuele diagnose nodig is. Voor specifieke herstellingen of vervangingen
+          gebeurt de prijsbepaling steeds op basis van diagnose en situatie ter plaatse.
         </p>
+
+      
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s) => (

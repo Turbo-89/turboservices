@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { --turbo-red: #E34D35; }
+:root{
+  --turbo-red:#E34D35;
+  --turbo: var(--turbo-red); /* nodig voor bg-[var(--turbo)] */
+}
+
 body { @apply bg-white text-slate-800; }
 .container { @apply max-w-6xl mx-auto px-4; }

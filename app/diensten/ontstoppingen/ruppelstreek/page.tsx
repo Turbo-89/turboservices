@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
+import { REGION_CITIES } from "@/content/regions";
 
 export const metadata: Metadata = {
   title: "Ontstoppingen in Ruppelstreek",
@@ -7,13 +8,14 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  const props = {
-    brand: "Turbo Services",
-    regionLabel: "Ruppelstreek",
-    serviceName: "Ontstoppingen",
-    heroTitle: "Ontstoppingen",
-    intro: "Verstopte wc, lavabo, douche of hoofdriolering in Ruppelstreek? Turbo Services lost het op met professionele machines, ook ’s avonds en in het weekend aan hetzelfde tarief.",
-    sections: [
+  const municipalities = REGION_CITIES["ruppelstreek"] ?? [];
+  const muniText = municipalities.slice(0, 12).join(", ");
+
+  const intro =
+    "Verstopte wc, lavabo, douche of hoofdriolering in Ruppelstreek? Turbo Services lost het op met professionele machines, ook ’s avonds en in het weekend aan hetzelfde tarief." +
+    (muniText ? `\n\nWerkgebied: ${muniText} en omgeving.` : "");
+
+  const sections = [
   {
     "title": "Ontstoppingen",
     "body": "Verstopte wc, lavabo, douche of hoofdriolering in Ruppelstreek? Turbo Services lost het op met professionele machines, ook ’s avonds en in het weekend aan hetzelfde tarief."
@@ -34,14 +36,35 @@ export default function Page() {
     "title": "Waarom snel ingrijpen?",
     "body": "Hoe sneller je ingrijpt, hoe kleiner de kans op bijkomende schade zoals geurhinder, overstroming of lekkages. Een korte interventie voorkomt vaak duurdere herstellingen."
   }
-],
+].map((s, idx) => {
+    if (!muniText) return s;
+    if (idx === 0) {
+      return {
+        ...s,
+        body: s.body + `\n\nActief in Ruppelstreek: ${muniText} en omgeving.`
+      };
+    }
+    return s;
+  });
+
+  const ctaBody =
+    "Beschrijf kort het probleem en voeg indien mogelijk een foto toe. Wij koppelen snel terug met een concreet tijdsblok in Ruppelstreek." +
+    (muniText ? `\n\nWerkgebied: ${muniText} en omgeving.` : "");
+
+  const props = {
+    brand: "Turbo Services",
+    regionLabel: "Ruppelstreek",
+    serviceName: "Ontstoppingen",
+    heroTitle: "Ontstoppingen",
+    intro,
+    sections,
     ctaTitle: "Hulp nodig bij een verstopping?",
-    ctaBody: "Beschrijf kort het probleem en voeg indien mogelijk een foto toe. Wij koppelen snel terug met een concreet tijdsblok in Ruppelstreek.",
+    ctaBody,
     ctaButton: "Vraag ontstopping aan →",
     serviceKey: "ontstoppingen",
-    heroImageKey: "ontstoppingen-ruppelstreek",
     heroImagePath: "",
-  };
+    municipalities,
+  } as const;
 
   return <DienstPageLayout {...props} />;
 }
