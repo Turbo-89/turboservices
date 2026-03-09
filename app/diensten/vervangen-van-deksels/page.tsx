@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
 export const metadata: Metadata = {
@@ -47,3 +47,4 @@ export default function VervangenVanDekselsPage() {
     />
   );
 }
+

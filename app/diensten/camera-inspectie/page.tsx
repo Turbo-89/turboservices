@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import HeroLogo from "@/components/HeroLogo";
 import FAQJsonLd from "@/components/seo/FAQJsonLd";
@@ -57,7 +57,7 @@ export default function CameraInspectiePage() {
     {
       question: "Wat kost een camera-inspectie?",
       answer:
-        "De standaard interventiekost bedraagt €160 exclusief btw. Camera-inspectie is een supplement van €90 exclusief btw.",
+        "De standaard interventiekost bedraagt â‚¬160 exclusief btw. Camera-inspectie is een supplement van â‚¬90 exclusief btw.",
     },
     {
       question: "Wanneer is camera-inspectie nodig?",
@@ -129,7 +129,7 @@ export default function CameraInspectiePage() {
                 href="/boeken"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
               >
-                Plan camera-inspectie →
+                Plan camera-inspectie â†’
               </Link>
             </div>
 
@@ -177,13 +177,13 @@ export default function CameraInspectiePage() {
 
             <ul className="mt-4 list-disc space-y-2 pl-5 text-slate-700">
               <li>
-                <strong>Standaard interventiekost:</strong> €160
+                <strong>Standaard interventiekost:</strong> â‚¬160
               </li>
               <li>
-                <strong>Camera-inspectie supplement:</strong> €90
+                <strong>Camera-inspectie supplement:</strong> â‚¬90
               </li>
               <li>
-                <strong>Bij combinatie geldt:</strong> €160 interventiekost + €90 camera-inspectie
+                <strong>Bij combinatie geldt:</strong> â‚¬160 interventiekost + â‚¬90 camera-inspectie
               </li>
             </ul>
 
@@ -219,7 +219,7 @@ export default function CameraInspectiePage() {
           </h2>
 
           <p className="text-slate-700">
-            Turbo Services voert camera-inspecties uit in heel Vlaanderen. De standaard interventiekost bedraagt €160. Camera-inspectie wordt toegevoegd als supplement van €90. Deze aanpak is vooral zinvol bij terugkerende problemen, geurhinder of wanneer de exacte oorzaak van schade of verstopping niet zichtbaar is.
+            Turbo Services voert camera-inspecties uit in heel Vlaanderen. De standaard interventiekost bedraagt â‚¬160. Camera-inspectie wordt toegevoegd als supplement van â‚¬90. Deze aanpak is vooral zinvol bij terugkerende problemen, geurhinder of wanneer de exacte oorzaak van schade of verstopping niet zichtbaar is.
           </p>
         </div>
 
@@ -262,7 +262,7 @@ export default function CameraInspectiePage() {
               href="/boeken"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm text-slate-700 hover:bg-slate-50"
             >
-              Plan camera-inspectie →
+              Plan camera-inspectie â†’
             </Link>
           </div>
         </div>
@@ -270,3 +270,4 @@ export default function CameraInspectiePage() {
     </>
   );
 }
+

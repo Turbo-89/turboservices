@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import CTA from "@/components/kb/CTA";
 import HeroLogo from "@/components/HeroLogo";
@@ -87,7 +87,7 @@ export default function DienstenPage() {
                 href="/boeken"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
               >
-                Vraag interventie aan →
+                Vraag interventie aan â†’
               </Link>
             </div>
 
@@ -109,8 +109,8 @@ export default function DienstenPage() {
 
         <p className="mt-3 max-w-3xl text-slate-700">
           Turbo Services werkt met een transparante basisstructuur:
-          <strong> €160 standaard interventiekost</strong>, met
-          <strong> camera-inspectie als supplement van €90</strong> wanneer een
+          <strong> â‚¬160 standaard interventiekost</strong>, met
+          <strong> camera-inspectie als supplement van â‚¬90</strong> wanneer een
           visuele diagnose nodig is. Voor specifieke herstellingen of vervangingen
           gebeurt de prijsbepaling steeds op basis van diagnose en situatie ter plaatse.
         </p>
@@ -129,7 +129,7 @@ export default function DienstenPage() {
               </h3>
               <p className="mt-1 text-slate-600">{s.desc}</p>
               <span className="mt-3 inline-block text-sm text-slate-700 underline">
-                Meer over {s.title} →
+                Meer over {s.title} â†’
               </span>
             </Link>
           ))}
@@ -142,3 +142,4 @@ export default function DienstenPage() {
     </>
   );
 }
+

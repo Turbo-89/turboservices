@@ -1,29 +1,30 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 import { REGION_CITIES } from "@/content/regions";
 import { getServiceByKey } from "@/content/services";
 import { slugify } from "@/lib/slugify";
 
 export const metadata: Metadata = {
-  title: "Noodherstellingen in Temse Omgeving",
-  description: "Noodherstellingen aan afvoer en riolering, inclusief lekken, verzakkingen en acute schade. Snelle interventie bij dringende problemen.",
+  title: "Noodherstellingen in Temse & omstreken",
+  description: "Noodherstellingen aan afvoer en riolering in Temse & omstreken, inclusief lekken, verzakkingen en acute schade. Snelle interventie bij dringende problemen.",
 };
 
 export default function Page() {
-  const municipalities = REGION_CITIES["temse-omgeving"] ?? [];
+  const regionKey = "temse-omgeving" as const;
+  const regionLabel = "Temse & omstreken";
+  const municipalities = REGION_CITIES[regionKey] ?? [];
   const muniText = municipalities.slice(0, 12).join(", ");
-
   const service = getServiceByKey("noodherstellingen");
 
   const intro =
-    "Lek, verzakking of acute schade aan afvoer of riolering in Temse Omgeving? Turbo Services voert snelle en gerichte noodherstellingen uit om verdere schade en overlast te beperken." +
-    (muniText ? `\n\nWerkgebied: ${muniText} en omgeving.` : "");
+    "Lek, verzakking of acute schade aan afvoer of riolering in Temse & omstreken? Turbo Services voert snelle en gerichte noodherstellingen uit om verdere schade en overlast te beperken." +
+    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
 
   const sections = [
     {
       title: "Noodherstellingen",
       body:
-        "Lek, verzakking of acute schade aan afvoer of riolering in Temse Omgeving? Turbo Services voert snelle en gerichte noodherstellingen uit om verdere schade en overlast te beperken.",
+        "Lek, verzakking of acute schade aan afvoer of riolering in Temse & omstreken? Turbo Services voert snelle en gerichte noodherstellingen uit om verdere schade en overlast te beperken.",
     },
     {
       title: "Wat we doen",
@@ -38,51 +39,46 @@ export default function Page() {
     {
       title: "Tarieven",
       body:
-        "Prijzen variëren volgens het type probleem en de nodige interventie:\n\n- Diagnose en interventie starten vanaf €160 exclusief btw\n- Camera-inspectie kan als supplement toegevoegd worden\n- Bijkomende herstellingen of structurele werken steeds na duidelijke bespreking",
+        "Prijzen variÃ«ren volgens het type probleem en de nodige interventie:\n\n- Diagnose en interventie starten vanaf â‚¬160 exclusief btw\n- Camera-inspectie kan als supplement toegevoegd worden\n- Bijkomende herstellingen of structurele werken steeds na duidelijke bespreking",
     },
     {
       title: "Waarom snel ingrijpen?",
       body:
         "Lekkages, breuken en verzakkingen kunnen snel grotere schade veroorzaken. Snelle noodherstelling helpt om gevolgschade, vochtproblemen en verdere uitval te beperken.",
-    },
+    }
   ].map((s, idx) => {
     if (!muniText) return s;
     if (idx === 0) {
       return {
         ...s,
-        body: s.body + `\n\nActief in Temse Omgeving: ${muniText} en omgeving.`,
+        body: s.body + "\n\nActief in " + regionLabel + ": " + muniText + " en omgeving.",
       };
     }
     return s;
   });
 
   const ctaBody =
-    "Neem contact op voor een snelle inschatting en noodherstelling in Temse Omgeving." +
-    (muniText ? `\n\nWerkgebied: ${muniText} en omgeving.` : "");
+    "Neem contact op voor een snelle inschatting en noodherstelling in Temse & omstreken." +
+    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
 
-  const props = {
-    brand: "Turbo Services",
-    regionLabel: "Temse Omgeving",
-    serviceName: "Noodherstellingen",
-    heroTitle: "Noodherstellingen",
-    intro,
-    sections,
-    
-    faqs: service?.faqs ?? [],
-    ctaTitle: "Dringende herstelling nodig?",
-    ctaBody,
-    ctaButton: "Vraag noodherstelling aan →",
-    serviceKey: "noodherstellingen",
-    heroImagePath: "",
-    municipalities,
-    municipalityLinks: municipalities.map((city) => ({ slug: slugify(city), label: city })),
-  } as const;
-
-  return <DienstPageLayout {...props} />;
+  return (
+    <DienstPageLayout
+      serviceKey="noodherstellingen"
+      serviceName="Noodherstellingen"
+      regionKey={regionKey}
+      regionLabel={regionLabel}
+      municipalities={municipalities}
+      intro={intro}
+      sections={sections}
+      faqs={service?.faqs ?? []}
+      ctaTitle="Dringende herstelling nodig?"
+      ctaBody={ctaBody}
+      ctaButton="Vraag noodherstelling aan"
+      heroImageOverride="/assets/base/noodherstellingen.png"
+      municipalityLinks={municipalities.map((city) => ({
+        slug: slugify(city),
+        label: city,
+      }))}
+    />
+  );
 }
-
-
-
-
-
-

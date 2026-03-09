@@ -1,13 +1,12 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 import { REGION_CITIES } from "@/content/regions";
 import { getServiceByKey } from "@/content/services";
 import { slugify } from "@/lib/slugify";
 
 export const metadata: Metadata = {
-  title: "Gerichte rioolherstellingen in Waasland | Turbo Services",
-  description:
-    "Gerichte rioolherstellingen aan afvoer en riolering in Waasland, inclusief breuken, verzakkingen en lokale schade. Diagnose vooraf en doelgerichte herstelling.",
+  title: "Gerichte rioolherstellingen in Waasland",
+  description: "Gerichte rioolherstellingen aan afvoer en riolering in Waasland, inclusief breuken, verzakkingen en lokale schade. Diagnose vooraf en doelgerichte herstelling.",
 };
 
 export default function Page() {
@@ -15,10 +14,11 @@ export default function Page() {
   const regionLabel = "Waasland";
   const municipalities = REGION_CITIES[regionKey] ?? [];
   const muniText = municipalities.slice(0, 12).join(", ");
+  const service = getServiceByKey("gerichte-rioolherstellingen");
 
   const intro =
     "Lekkage, verzakking of lokale schade aan de riolering in Waasland? Turbo Services voert gerichte rioolherstellingen uit met diagnose vooraf en een doelgerichte aanpak." +
-    (muniText ? `\n\nWerkgebied: ${muniText} en omgeving.` : "");
+    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
 
   const sections = [
     {
@@ -45,13 +45,13 @@ export default function Page() {
       title: "Waarom gericht herstellen?",
       body:
         "Door eerst correct te lokaliseren, blijft de herstelling beperkt tot de relevante zone. Dat vermijdt onnodige werken, beperkt kosten en maakt een technisch gerichte oplossing mogelijk.",
-    },
+    }
   ].map((s, idx) => {
     if (!muniText) return s;
     if (idx === 0) {
       return {
         ...s,
-        body: s.body + `\n\nActief in Waasland: ${muniText} en omgeving.`,
+        body: s.body + "\n\nActief in " + regionLabel + ": " + muniText + " en omgeving.",
       };
     }
     return s;
@@ -59,7 +59,7 @@ export default function Page() {
 
   const ctaBody =
     "Neem contact op voor een snelle diagnose en gerichte rioolherstelling in Waasland." +
-    (muniText ? `\n\nWerkgebied: ${muniText} en omgeving.` : "");
+    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
 
   return (
     <DienstPageLayout
@@ -70,13 +70,15 @@ export default function Page() {
       municipalities={municipalities}
       intro={intro}
       sections={sections}
+      faqs={service?.faqs ?? []}
       ctaTitle="Gerichte rioolherstelling nodig?"
       ctaBody={ctaBody}
       ctaButton="Vraag rioolherstelling aan"
-      heroImageOverride="/assets/base/rioolherstelling.png"
+      heroImageOverride="/assets/base/gerichte-rioolherstellingen.png"
+      municipalityLinks={municipalities.map((city) => ({
+        slug: slugify(city),
+        label: city,
+      }))}
     />
   );
 }
-
-
-

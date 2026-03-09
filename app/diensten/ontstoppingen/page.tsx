@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import HeroLogo from "@/components/HeroLogo";
 import FAQJsonLd from "@/components/seo/FAQJsonLd";
@@ -8,7 +8,7 @@ import { ServiceJsonLd } from "@/components/seo/ServiceJsonLd";
 export const metadata: Metadata = {
   title: "Ontstoppingen wc, afvoer & riolering | Turbo Services",
   description:
-    "Professionele ontstoppingen van wc, lavabo, douche, afvoer en riolering. Turbo Services is actief in heel Vlaanderen, met aparte regiopagina’s per dienst.",
+    "Professionele ontstoppingen van wc, lavabo, douche, afvoer en riolering. Turbo Services is actief in heel Vlaanderen, met aparte regiopaginaâ€™s per dienst.",
 };
 
 const regionLinks = [
@@ -57,12 +57,12 @@ export default function OntstoppingenPage() {
     {
       question: "Wat kost een ontstopping?",
       answer:
-        "De standaard interventiekost bedraagt €160 exclusief btw. Camera-inspectie kan toegevoegd worden als supplement van €90.",
+        "De standaard interventiekost bedraagt â‚¬160 exclusief btw. Camera-inspectie kan toegevoegd worden als supplement van â‚¬90.",
     },
     {
       question: "Hoe snel kan een ontstopping uitgevoerd worden?",
       answer:
-        "In veel gevallen kan een interventie snel ingepland worden. Turbo Services werkt ook ’s avonds en in het weekend.",
+        "In veel gevallen kan een interventie snel ingepland worden. Turbo Services werkt ook â€™s avonds en in het weekend.",
     },
     {
       question: "Wanneer is camera-inspectie nodig?",
@@ -129,7 +129,7 @@ export default function OntstoppingenPage() {
                 href="/boeken"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm text-slate-700 hover:bg-slate-50"
               >
-                Vraag ontstopping aan →
+                Vraag ontstopping aan â†’
               </Link>
             </div>
 
@@ -181,13 +181,13 @@ export default function OntstoppingenPage() {
 
             <ul className="mt-3 list-disc space-y-2 pl-5 text-slate-700">
               <li>
-                <strong>Standaard interventiekost:</strong> €160
+                <strong>Standaard interventiekost:</strong> â‚¬160
               </li>
               <li>
-                <strong>Camera-inspectie supplement:</strong> €90
+                <strong>Camera-inspectie supplement:</strong> â‚¬90
               </li>
               <li>
-                <strong>Bij combinatie geldt:</strong> €160 interventiekost + €90
+                <strong>Bij combinatie geldt:</strong> â‚¬160 interventiekost + â‚¬90
                 camera-inspectie
               </li>
             </ul>
@@ -195,7 +195,7 @@ export default function OntstoppingenPage() {
             <p className="mt-3 text-slate-700">
               Bedragen zijn <strong>exclusief btw</strong>. Voor particuliere
               woningen ouder dan 10 jaar geldt doorgaans 6% btw, in andere
-              privésituaties 21%. Voor zakelijke klanten kan btw-verlegging
+              privÃ©situaties 21%. Voor zakelijke klanten kan btw-verlegging
               van toepassing zijn.
             </p>
 
@@ -238,8 +238,8 @@ export default function OntstoppingenPage() {
 
           <p className="text-slate-700">
             Turbo Services voert ontstoppingen uit in heel Vlaanderen. De
-            standaard interventiekost bedraagt €160. Indien nodig kan
-            camera-inspectie toegevoegd worden als supplement van €90. Turbo Services voert ontstoppingen ook ’s avonds en in het weekend uit aan hetzelfde tarief als tijdens kantooruren. Daardoor kan een interventie vaak gebeuren zonder dat je verlof moet nemen.
+            standaard interventiekost bedraagt â‚¬160. Indien nodig kan
+            camera-inspectie toegevoegd worden als supplement van â‚¬90. Turbo Services voert ontstoppingen ook â€™s avonds en in het weekend uit aan hetzelfde tarief als tijdens kantooruren. Daardoor kan een interventie vaak gebeuren zonder dat je verlof moet nemen.
                       </p>
         </div>
 
@@ -288,7 +288,7 @@ export default function OntstoppingenPage() {
               href="/boeken"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm text-slate-700 hover:bg-slate-50"
             >
-              Vraag ontstopping aan →
+              Vraag ontstopping aan â†’
             </Link>
           </div>
         </div>
@@ -296,3 +296,4 @@ export default function OntstoppingenPage() {
     </>
   );
 }
+
