@@ -1,6 +1,8 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 import { REGION_CITIES } from "@/content/regions";
+import { getServiceByKey } from "@/content/services";
+import { slugify } from "@/lib/slugify";
 
 export const metadata: Metadata = {
   title: "Gerichte rioolherstellingen in Antwerpen Noordrand | Turbo Services",
@@ -37,7 +39,7 @@ export default function Page() {
     {
       title: "Tarieven",
       body:
-        "Prijzen variëren volgens de aard van de schade en de nodige interventie:\n\n- Diagnose en interventie starten vanaf €160 exclusief btw\n- Camera-inspectie kan als supplement toegevoegd worden\n- Grotere of bijkomende herstellingen steeds na duidelijke bespreking",
+        "Prijzen variÃ«ren volgens de aard van de schade en de nodige interventie:\n\n- Diagnose en interventie starten vanaf â‚¬160 exclusief btw\n- Camera-inspectie kan als supplement toegevoegd worden\n- Grotere of bijkomende herstellingen steeds na duidelijke bespreking",
     },
     {
       title: "Waarom gericht herstellen?",
@@ -75,3 +77,6 @@ export default function Page() {
     />
   );
 }
+
+
+

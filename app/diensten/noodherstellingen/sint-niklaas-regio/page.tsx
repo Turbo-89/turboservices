@@ -1,6 +1,8 @@
 ﻿import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 import { REGION_CITIES } from "@/content/regions";
+import { getServiceByKey } from "@/content/services";
+import { slugify } from "@/lib/slugify";
 
 export const metadata: Metadata = {
   title: "Noodherstellingen in Sint Niklaas Regio",
@@ -10,6 +12,8 @@ export const metadata: Metadata = {
 export default function Page() {
   const municipalities = REGION_CITIES["sint-niklaas-regio"] ?? [];
   const muniText = municipalities.slice(0, 12).join(", ");
+
+  const service = getServiceByKey("noodherstellingen");
 
   const intro =
     "Lek, verzakking of acute schade aan afvoer of riolering in Sint Niklaas Regio? Turbo Services voert snelle en gerichte noodherstellingen uit om verdere schade en overlast te beperken." +
@@ -63,14 +67,22 @@ export default function Page() {
     heroTitle: "Noodherstellingen",
     intro,
     sections,
+    
+    faqs: service?.faqs ?? [],
     ctaTitle: "Dringende herstelling nodig?",
     ctaBody,
     ctaButton: "Vraag noodherstelling aan →",
     serviceKey: "noodherstellingen",
-    heroImagePath: "",
+    heroImagePath: "",
     municipalities,
+    municipalityLinks: municipalities.map((city) => ({ slug: slugify(city), label: city })),
   } as const;
 
   return <DienstPageLayout {...props} />;
 }
+
+
+
+
+
 

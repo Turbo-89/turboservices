@@ -16,6 +16,11 @@ export type DienstFaq = {
   a: string;
 };
 
+type LocationLink = {
+  slug: string;
+  label: string;
+};
+
 type Props = {
   serviceKey: string;
   serviceName: string;
@@ -35,6 +40,9 @@ type Props = {
   ctaTitle?: string;
   ctaBody?: string;
   ctaButton?: string;
+
+  municipalityLinks?: LocationLink[];
+  relatedRegionLinks?: LocationLink[];
 };
 
 type Crumb = { name: string; url: string };
@@ -112,6 +120,8 @@ export function DienstPageLayout({
   intro = "",
   sections = [],
   faqs = [],
+  municipalityLinks = [],
+  relatedRegionLinks = [],
 
   h1,
   breadcrumbTitle,
@@ -239,6 +249,44 @@ export function DienstPageLayout({
             </p>
           </section>
         ))}
+
+                {municipalityLinks.length > 0 && (
+          <section className="mt-10">
+            <h2 className="mb-4 text-2xl font-semibold text-slate-900">
+              Gemeenten in deze regio
+            </h2>
+            <div className="flex flex-wrap gap-3">
+              {municipalityLinks.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/diensten/${slugify(serviceKey)}/${item.slug}`}
+                  className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {relatedRegionLinks.length > 0 && (
+          <section className="mt-10">
+            <h2 className="mb-4 text-2xl font-semibold text-slate-900">
+              Relevante regio&apos;s
+            </h2>
+            <div className="flex flex-wrap gap-3">
+              {relatedRegionLinks.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/diensten/${slugify(serviceKey)}/${item.slug}`}
+                  className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {faqs.length > 0 && (
           <section className="mt-10">

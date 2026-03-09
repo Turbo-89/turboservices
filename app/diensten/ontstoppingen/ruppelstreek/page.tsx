@@ -1,24 +1,28 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 import { REGION_CITIES } from "@/content/regions";
+import { getServiceByKey } from "@/content/services";
+import { slugify } from "@/lib/slugify";
 
 export const metadata: Metadata = {
   title: "Ontstoppingen in Ruppelstreek",
-  description: "Ontstopping van wc, lavabo, douche en hoofdriolering. Turbo Services lost verstoppingen snel en professioneel op, ook ’s avonds en in het weekend aan hetzelfde tarief.",
+  description: "Ontstopping van wc, lavabo, douche en hoofdriolering. Turbo Services lost verstoppingen snel en professioneel op, ook â€™s avonds en in het weekend aan hetzelfde tarief.",
 };
 
 export default function Page() {
   const municipalities = REGION_CITIES["ruppelstreek"] ?? [];
   const muniText = municipalities.slice(0, 12).join(", ");
 
+  const service = getServiceByKey("ontstoppingen");
+
   const intro =
-    "Verstopte wc, lavabo, douche of hoofdriolering in Ruppelstreek? Turbo Services lost het op met professionele machines, ook ’s avonds en in het weekend aan hetzelfde tarief." +
+    "Verstopte wc, lavabo, douche of hoofdriolering in Ruppelstreek? Turbo Services lost het op met professionele machines, ook â€™s avonds en in het weekend aan hetzelfde tarief." +
     (muniText ? `\n\nWerkgebied: ${muniText} en omgeving.` : "");
 
   const sections = [
   {
     "title": "Ontstoppingen",
-    "body": "Verstopte wc, lavabo, douche of hoofdriolering in Ruppelstreek? Turbo Services lost het op met professionele machines, ook ’s avonds en in het weekend aan hetzelfde tarief."
+    "body": "Verstopte wc, lavabo, douche of hoofdriolering in Ruppelstreek? Turbo Services lost het op met professionele machines, ook â€™s avonds en in het weekend aan hetzelfde tarief."
   },
   {
     "title": "Wat we doen",
@@ -30,7 +34,7 @@ export default function Page() {
   },
   {
     "title": "Tarieven",
-    "body": "Wij werken met vaste en transparante prijzen, ook ’s avonds en in het weekend:\n\n- Interventie ontstopping: €160\n- Camera-inspectie: €90\n- Totaalpakket (ontstopping + camera): €250"
+    "body": "Wij werken met vaste en transparante prijzen, ook â€™s avonds en in het weekend:\n\n- Interventie ontstopping: â‚¬160\n- Camera-inspectie: â‚¬90\n- Totaalpakket (ontstopping + camera): â‚¬250"
   },
   {
     "title": "Waarom snel ingrijpen?",
@@ -51,20 +55,31 @@ export default function Page() {
     "Beschrijf kort het probleem en voeg indien mogelijk een foto toe. Wij koppelen snel terug met een concreet tijdsblok in Ruppelstreek." +
     (muniText ? `\n\nWerkgebied: ${muniText} en omgeving.` : "");
 
-  const props = {
+    const props = {
     brand: "Turbo Services",
     regionLabel: "Ruppelstreek",
     serviceName: "Ontstoppingen",
     heroTitle: "Ontstoppingen",
     intro,
     sections,
+    faqs: service?.faqs ?? [],
     ctaTitle: "Hulp nodig bij een verstopping?",
     ctaBody,
     ctaButton: "Vraag ontstopping aan →",
     serviceKey: "ontstoppingen",
     heroImagePath: "",
     municipalities,
+    municipalityLinks: municipalities.map((city) => ({
+      slug: slugify(city),
+      label: city,
+    })),
+    heroImageOverride: "/assets/base/ontstoppingen.png",
   } as const;
 
   return <DienstPageLayout {...props} />;
 }
+
+
+
+
+

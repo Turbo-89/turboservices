@@ -1,6 +1,8 @@
 ﻿import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 import { REGION_CITIES } from "@/content/regions";
+import { getServiceByKey } from "@/content/services";
+import { slugify } from "@/lib/slugify";
 
 export const metadata: Metadata = {
   title: "Rook- en geurdetectie in Leuven & Dijleland",
@@ -10,6 +12,8 @@ export const metadata: Metadata = {
 export default function Page() {
   const municipalities = REGION_CITIES["leuven-dijleland"] ?? [];
   const muniText = municipalities.slice(0, 12).join(", ");
+
+  const service = getServiceByKey("Geurdetectie");
 
   const intro =
     "Last van rioolgeur in Leuven & Dijleland? Via rook- en geurdetectie sporen wij exact op waar de oorzaak zich bevindt." +
@@ -58,14 +62,22 @@ export default function Page() {
     heroTitle: "Geurdetectie",
     intro,
     sections,
+    
+    faqs: service?.faqs ?? [],
     ctaTitle: "Geur- of Geurdetectie nodig?",
     ctaBody,
     ctaButton: "Vraag rooktest aan â†’",
     serviceKey: "Geurdetectie",
-    heroImagePath: "",
+    heroImagePath: "",
     municipalities,
+    municipalityLinks: municipalities.map((city) => ({ slug: slugify(city), label: city })),
   } as const;
 
   return <DienstPageLayout {...props} />;
 }
+
+
+
+
+
 

@@ -1,6 +1,8 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 import { REGION_CITIES } from "@/content/regions";
+import { getServiceByKey } from "@/content/services";
+import { slugify } from "@/lib/slugify";
 
 export const metadata: Metadata = {
   title: "Camera-inspectie in Antwerpen Noordrand",
@@ -10,6 +12,8 @@ export const metadata: Metadata = {
 export default function Page() {
   const municipalities = REGION_CITIES["antwerpen-noordrand"] ?? [];
   const muniText = municipalities.slice(0, 12).join(", ");
+
+  const service = getServiceByKey("camera-inspectie");
 
   const intro =
     "Nood aan een professionele camera-inspectie in Antwerpen Noordrand? Wij brengen exact in beeld waar het probleem zit, zonder hak- of breekwerk." +
@@ -26,11 +30,11 @@ export default function Page() {
   },
   {
     "title": "Werkwijze",
-    "body": "1. Vooranalyse van het probleem\n2. Toegang creëren tot de betrokken leiding\n3. Camera-inspectie met hoge resolutie\n4. Analyse van beelden en vaststellen van oorzaak\n5. Advies voor oplossing of herstelling"
+    "body": "1. Vooranalyse van het probleem\n2. Toegang creÃ«ren tot de betrokken leiding\n3. Camera-inspectie met hoge resolutie\n4. Analyse van beelden en vaststellen van oorzaak\n5. Advies voor oplossing of herstelling"
   },
   {
     "title": "Tarieven",
-    "body": "Camera-inspectie gebeurt als supplement bovenop de standaard interventiekost:\n\n- Standaard interventiekost: €160\n- Camera-inspectie supplement: €90\n- Bij combinatie geldt: €160 interventiekost + €90 camera-inspectie"
+    "body": "Camera-inspectie gebeurt als supplement bovenop de standaard interventiekost:\n\n- Standaard interventiekost: â‚¬160\n- Camera-inspectie supplement: â‚¬90\n- Bij combinatie geldt: â‚¬160 interventiekost + â‚¬90 camera-inspectie"
   },
   {
     "title": "Waarom snel ingrijpen?",
@@ -58,13 +62,21 @@ export default function Page() {
     heroTitle: "Camera-inspectie",
     intro,
     sections,
+    
+    faqs: service?.faqs ?? [],
     ctaTitle: "Camera-inspectie aanvragen?",
     ctaBody,
-    ctaButton: "Vraag inspectie aan →",
+    ctaButton: "Vraag inspectie aan â†’",
     serviceKey: "camera-inspectie",
-    heroImagePath: "",
+    heroImagePath: "",
     municipalities,
+    municipalityLinks: municipalities.map((city) => ({ slug: slugify(city), label: city })),
   } as const;
 
   return <DienstPageLayout {...props} />;
 }
+
+
+
+
+
