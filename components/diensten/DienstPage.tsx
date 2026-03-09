@@ -51,14 +51,17 @@ function uniqueStrings(list: string[] = []) {
   return Array.from(new Set(list.map((x) => String(x).trim()).filter(Boolean)));
 }
 
-function buildCanonical(serviceKey: string, regionKey?: string) {
+function buildCanonical(serviceKey: string, regionKey?: string, regionLabel?: string) {
   const base = `/diensten/${slugify(serviceKey)}`;
-  return regionKey ? `${base}/${slugify(regionKey)}` : base;
+  if (regionKey) return `${base}/${slugify(regionKey)}`;
+  if (regionLabel) return `${base}/${slugify(regionLabel)}`;
+  return base;
 }
 
 function toBreadcrumbs(
   serviceKey: string,
   serviceName: string,
+  regionKey?: string,
   regionLabel?: string,
   breadcrumbTitle?: string
 ) {
@@ -70,7 +73,12 @@ function toBreadcrumbs(
   const serviceUrl = `/diensten/${slugify(serviceKey)}`;
   crumbs.push({ name: breadcrumbTitle || serviceName, url: serviceUrl });
 
-  if (regionLabel) {
+  if (regionKey) {
+    crumbs.push({
+      name: regionLabel || regionKey,
+      url: `${serviceUrl}/${slugify(regionKey)}`,
+    });
+  } else if (regionLabel) {
     crumbs.push({
       name: regionLabel,
       url: `${serviceUrl}/${slugify(regionLabel)}`,
@@ -136,11 +144,12 @@ export function DienstPageLayout({
   const computedH1 =
     h1 ?? (regionLabel ? `${serviceName} in ${regionLabel}` : serviceName);
 
-  const canonicalPath = buildCanonical(serviceKey, regionKey);
+  const canonicalPath = buildCanonical(serviceKey, regionKey, regionLabel);
   const canonicalUrl = `https://www.turboservices.be${canonicalPath}`;
   const breadcrumbs = toBreadcrumbs(
     serviceKey,
     serviceName,
+    regionKey,
     regionLabel,
     breadcrumbTitle
   );
@@ -250,7 +259,7 @@ export function DienstPageLayout({
           </section>
         ))}
 
-                {municipalityLinks.length > 0 && (
+        {municipalityLinks.length > 0 && (
           <section className="mt-10">
             <h2 className="mb-4 text-2xl font-semibold text-slate-900">
               Gemeenten in deze regio
@@ -272,7 +281,7 @@ export function DienstPageLayout({
         {relatedRegionLinks.length > 0 && (
           <section className="mt-10">
             <h2 className="mb-4 text-2xl font-semibold text-slate-900">
-              Relevante regio&apos;s
+              Relevante regio’s
             </h2>
             <div className="flex flex-wrap gap-3">
               {relatedRegionLinks.map((item) => (
