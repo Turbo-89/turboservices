@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 import { getServiceByKey } from "@/content/services";
 
@@ -34,7 +34,7 @@ export default function Page() {
     {
       title: "Tarieven",
       body:
-        "Prijzen variÃ«ren volgens de aard van de schade en de nodige interventie:\n\n- Diagnose en interventie starten vanaf â‚¬160 exclusief btw\n- Camera-inspectie kan als supplement toegevoegd worden\n- Grotere of bijkomende herstellingen steeds na duidelijke bespreking",
+        "Prijzen variÃƒÂ«ren volgens de aard van de schade en de nodige interventie:\n\n- Diagnose en interventie starten vanaf Ã¢â€šÂ¬160 exclusief btw\n- Camera-inspectie kan als supplement toegevoegd worden\n- Grotere of bijkomende herstellingen steeds na duidelijke bespreking",
     },
     {
       title: "Waarom gericht herstellen?",
@@ -62,7 +62,7 @@ export default function Page() {
     { slug: "mechelen-rivierenland", label: "Mechelen & Rivierenland" },
     { slug: "noordrand-brussel", label: "Noordrand Brussel" },
     { slug: "pajottenland", label: "Pajottenland" },
-    { slug: "ruppelstreek", label: "Ruppelstreek" },
+    { slug: "rupelstreek", label: "Rupelstreek" },
     { slug: "scheldeland", label: "Scheldeland" },
     { slug: "sint-niklaas-regio", label: "Sint-Niklaas regio" },
     { slug: "temse-omgeving", label: "Temse & omstreken" },

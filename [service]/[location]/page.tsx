@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 import {
@@ -57,8 +57,8 @@ function labelFromRegionKey(regionKey: RegionKey): string {
       return "Noordrand Brussel";
     case "pajottenland":
       return "Pajottenland";
-    case "ruppelstreek":
-      return "Ruppelstreek";
+    case "rupelstreek":
+      return "Rupelstreek";
     case "scheldeland":
       return "Scheldeland";
     case "sint-niklaas-regio":

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 import { getServiceByKey } from "@/content/services";
 
@@ -62,7 +62,7 @@ export default function Page() {
     { slug: "mechelen-rivierenland", label: "Mechelen & Rivierenland" },
     { slug: "noordrand-brussel", label: "Noordrand Brussel" },
     { slug: "pajottenland", label: "Pajottenland" },
-    { slug: "ruppelstreek", label: "Ruppelstreek" },
+    { slug: "rupelstreek", label: "Rupelstreek" },
     { slug: "scheldeland", label: "Scheldeland" },
     { slug: "sint-niklaas-regio", label: "Sint-Niklaas regio" },
     { slug: "temse-omgeving", label: "Temse & omstreken" },

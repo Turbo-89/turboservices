@@ -1,4 +1,4 @@
-// content/regions.ts
+﻿// content/regions.ts
 export type RegionKey =
   | "antwerpen-noordrand"
   | "antwerpen-stad"
@@ -18,7 +18,7 @@ export type RegionKey =
   | "mechelen-rivierenland"
   | "noordrand-brussel"
   | "pajottenland"
-  | "ruppelstreek"
+  | "rupelstreek"
   | "scheldeland"
   | "sint-niklaas-regio"
   | "temse-omgeving"
@@ -190,7 +190,7 @@ export const REGION_CITIES: Record<RegionKey, string[]> = {
     "Roosdaal",
     "Bever"
   ],
-  "ruppelstreek": [
+  "rupelstreek": [
     "Boom",
     "Hemiksem",
     "Niel",

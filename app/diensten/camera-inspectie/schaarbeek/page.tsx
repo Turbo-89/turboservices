@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 import { getServiceByKey } from "@/content/services";
 
@@ -29,12 +29,12 @@ export default function Page() {
     {
       title: "Werkwijze",
       body:
-        "1. Vooranalyse van het probleem\n2. Toegang creÃ«ren tot de betrokken leiding\n3. Camera-inspectie met hoge resolutie\n4. Analyse van beelden en vaststellen van oorzaak\n5. Advies voor oplossing of herstelling",
+        "1. Vooranalyse van het probleem\n2. Toegang creÃƒÂ«ren tot de betrokken leiding\n3. Camera-inspectie met hoge resolutie\n4. Analyse van beelden en vaststellen van oorzaak\n5. Advies voor oplossing of herstelling",
     },
     {
       title: "Tarieven",
       body:
-        "Camera-inspectie gebeurt als supplement bovenop de standaard interventiekost:\n\n- Standaard interventiekost: â‚¬160\n- Camera-inspectie supplement: â‚¬90\n- Bij combinatie geldt: â‚¬250",
+        "Camera-inspectie gebeurt als supplement bovenop de standaard interventiekost:\n\n- Standaard interventiekost: Ã¢â€šÂ¬160\n- Camera-inspectie supplement: Ã¢â€šÂ¬90\n- Bij combinatie geldt: Ã¢â€šÂ¬250",
     },
     {
       title: "Waarom snel ingrijpen?",
@@ -62,7 +62,7 @@ export default function Page() {
     { slug: "mechelen-rivierenland", label: "Mechelen & Rivierenland" },
     { slug: "noordrand-brussel", label: "Noordrand Brussel" },
     { slug: "pajottenland", label: "Pajottenland" },
-    { slug: "ruppelstreek", label: "Ruppelstreek" },
+    { slug: "rupelstreek", label: "Rupelstreek" },
     { slug: "scheldeland", label: "Scheldeland" },
     { slug: "sint-niklaas-regio", label: "Sint-Niklaas regio" },
     { slug: "temse-omgeving", label: "Temse & omstreken" },

@@ -1,84 +1,17 @@
-import type { Metadata } from "next";
-import DienstPageLayout from "@/components/diensten/DienstPage";
-import { REGION_CITIES } from "@/content/regions";
-import { getServiceByKey } from "@/content/services";
-import { slugify } from "@/lib/slugify";
 
-export const metadata: Metadata = {
-  title: "Gerichte rioolherstellingen in Waasland",
-  description: "Gerichte rioolherstellingen aan afvoer en riolering in Waasland, inclusief breuken, verzakkingen en lokale schade. Diagnose vooraf en doelgerichte herstelling.",
-};
+import DienstPageLayout from "@/components/diensten/DienstPage";
 
 export default function Page() {
-  const regionKey = "waasland" as const;
-  const regionLabel = "Waasland";
-  const municipalities = REGION_CITIES[regionKey] ?? [];
-  const muniText = municipalities.slice(0, 12).join(", ");
-  const service = getServiceByKey("gerichte-rioolherstellingen");
-
-  const intro =
-    "Lekkage, verzakking of lokale schade aan de riolering in Waasland? Turbo Services voert gerichte rioolherstellingen uit met diagnose vooraf en een doelgerichte aanpak." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
-
-  const sections = [
-    {
-      title: "Gerichte rioolherstellingen",
-      body:
-        "Lekkage, verzakking of lokale schade aan de riolering in Waasland? Turbo Services voert gerichte rioolherstellingen uit met diagnose vooraf en een doelgerichte aanpak.",
-    },
-    {
-      title: "Wat we doen",
-      body:
-        "- Herstelling van lokale breuken of verzakkingen\n- Vervanging van beschadigde delen van afvoer of riolering\n- Gerichte openbraak waar technisch nodig\n- Lokalisatie van leidingen en schadezones\n- Herstellingen op basis van duidelijke diagnose",
-    },
-    {
-      title: "Werkwijze",
-      body:
-        "1. Lokalisatie van het probleem\n2. Indien nodig diagnose via camera-inspectie of andere controle\n3. Gericht openmaken van de probleemzone\n4. Herstelling of vervanging van het beschadigde deel\n5. Controle en advies voor verdere opvolging",
-    },
-    {
-      title: "Tarieven",
-      body:
-        "Prijzen variÃ«ren volgens de aard van de schade en de nodige interventie:\n\n- Diagnose en interventie starten vanaf â‚¬160 exclusief btw\n- Camera-inspectie kan als supplement toegevoegd worden\n- Grotere of bijkomende herstellingen steeds na duidelijke bespreking",
-    },
-    {
-      title: "Waarom gericht herstellen?",
-      body:
-        "Door eerst correct te lokaliseren, blijft de herstelling beperkt tot de relevante zone. Dat vermijdt onnodige werken, beperkt kosten en maakt een technisch gerichte oplossing mogelijk.",
-    }
-  ].map((s, idx) => {
-    if (!muniText) return s;
-    if (idx === 0) {
-      return {
-        ...s,
-        body: s.body + "\n\nActief in " + regionLabel + ": " + muniText + " en omgeving.",
-      };
-    }
-    return s;
-  });
-
-  const ctaBody =
-    "Neem contact op voor een snelle diagnose en gerichte rioolherstelling in Waasland." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
-
   return (
     <DienstPageLayout
       serviceKey="gerichte-rioolherstellingen"
-      serviceName="Gerichte rioolherstellingen"
-      regionKey={regionKey}
-      regionLabel={regionLabel}
-      municipalities={municipalities}
-      intro={intro}
-      sections={sections}
-      faqs={service?.faqs ?? []}
-      ctaTitle="Gerichte rioolherstelling nodig?"
-      ctaBody={ctaBody}
-      ctaButton="Vraag rioolherstelling aan"
-      heroImageOverride="/assets/base/gerichte-rioolherstellingen.png"
-      municipalityLinks={municipalities.map((city) => ({
-        slug: slugify(city),
-        label: city,
-      }))}
+      serviceName="Gerichte Rioolherstellingen"
+      regionKey="waasland"
+      regionLabel="Waasland"
+      municipalities={["Sint-Niklaas","Temse","Lokeren"]}
+      intro={`Gerichte Rioolherstellingen in Waasland nodig? In Sint-Niklaas, Temse, Lokeren komen verstoppingen, geurhinder en afvoerproblemen frequent voor door oudere rioleringen en intensief gebruik. Turbo Services zorgt voor snelle en gerichte interventies zonder onnodige kosten.`}
+      sections={[{"title":"Veelvoorkomende problemen in Waasland","body":"In Sint-Niklaas, Temse, Lokeren zien we vaak verstoppingen door vetophoping, wortelgroei en verzakkingen. Vooral in oudere woningen komen terugkerende problemen voor die een gerichte aanpak vereisen."},{"title":"Onze aanpak","body":"Wij starten met een gerichte analyse van het probleem. Indien nodig voeren we een camera-inspectie uit om exact de oorzaak te bepalen. Daarna lossen we het probleem efficiënt op zonder onnodige breekwerken."},{"title":"Waarom Turbo Services","body":"Snelle interventie, duidelijke communicatie en correcte prijzen. Actief in Waasland en directe omgeving, met kennis van lokale situaties en typische problemen."}]}
+      faqs={[{"q":"Hoe snel kunnen jullie ter plaatse zijn in Waasland?","a":"In de meeste gevallen zijn we dezelfde dag nog ter plaatse in Waasland en omliggende gemeenten zoals Sint-Niklaas, Temse, Lokeren."},{"q":"Wat kost een gerichte rioolherstellingen?","a":"Je krijgt altijd vooraf een duidelijke prijs. Geen verrassingen achteraf."}]}
     />
   );
 }

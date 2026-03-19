@@ -1,4 +1,4 @@
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 import { REGION_CITIES } from "@/content/regions";
 import { slugify } from "@/lib/slugify";
 
@@ -32,7 +32,7 @@ const REGIONS = [
   "mechelen-rivierenland",
   "noordrand-brussel",
   "pajottenland",
-  "ruppelstreek",
+  "rupelstreek",
   "scheldeland",
   "sint-niklaas-regio",
   "temse-omgeving",

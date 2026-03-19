@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 import { getServiceByKey } from "@/content/services";
 
@@ -34,7 +34,7 @@ export default function Page() {
     {
       title: "Tarieven",
       body:
-        "Wij werken met vaste en transparante prijzen, ook 's avonds en in het weekend:\n\n- Interventie ontstopping: â‚¬160\n- Camera-inspectie: â‚¬90\n- Totaalpakket (ontstopping + camera): â‚¬250",
+        "Wij werken met vaste en transparante prijzen, ook 's avonds en in het weekend:\n\n- Interventie ontstopping: Ã¢â€šÂ¬160\n- Camera-inspectie: Ã¢â€šÂ¬90\n- Totaalpakket (ontstopping + camera): Ã¢â€šÂ¬250",
     },
     {
       title: "Waarom snel ingrijpen?",
@@ -62,7 +62,7 @@ export default function Page() {
     { slug: "mechelen-rivierenland", label: "Mechelen & Rivierenland" },
     { slug: "noordrand-brussel", label: "Noordrand Brussel" },
     { slug: "pajottenland", label: "Pajottenland" },
-    { slug: "ruppelstreek", label: "Ruppelstreek" },
+    { slug: "rupelstreek", label: "Rupelstreek" },
     { slug: "scheldeland", label: "Scheldeland" },
     { slug: "sint-niklaas-regio", label: "Sint-Niklaas regio" },
     { slug: "temse-omgeving", label: "Temse & omstreken" },
@@ -83,7 +83,7 @@ export default function Page() {
       faqs={service?.faqs ?? []}
       ctaTitle="Hulp nodig bij een verstopping?"
       ctaBody={ctaBody}
-      ctaButton="Vraag ontstopping aan â†’"
+      ctaButton="Vraag ontstopping aan Ã¢â€ â€™"
       heroImageOverride="/assets/base/ontstoppingen.png"
       relatedRegionLinks={relatedRegionLinks}
     />

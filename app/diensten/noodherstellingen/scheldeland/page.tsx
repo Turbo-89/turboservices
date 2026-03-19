@@ -1,84 +1,17 @@
-import type { Metadata } from "next";
-import DienstPageLayout from "@/components/diensten/DienstPage";
-import { REGION_CITIES } from "@/content/regions";
-import { getServiceByKey } from "@/content/services";
-import { slugify } from "@/lib/slugify";
 
-export const metadata: Metadata = {
-  title: "Noodherstellingen in Scheldeland",
-  description: "Noodherstellingen aan afvoer en riolering in Scheldeland, inclusief lekken, verzakkingen en acute schade. Snelle interventie bij dringende problemen.",
-};
+import DienstPageLayout from "@/components/diensten/DienstPage";
 
 export default function Page() {
-  const regionKey = "scheldeland" as const;
-  const regionLabel = "Scheldeland";
-  const municipalities = REGION_CITIES[regionKey] ?? [];
-  const muniText = municipalities.slice(0, 12).join(", ");
-  const service = getServiceByKey("noodherstellingen");
-
-  const intro =
-    "Lek, verzakking of acute schade aan afvoer of riolering in Scheldeland? Turbo Services voert snelle en gerichte noodherstellingen uit om verdere schade en overlast te beperken." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
-
-  const sections = [
-    {
-      title: "Noodherstellingen",
-      body:
-        "Lek, verzakking of acute schade aan afvoer of riolering in Scheldeland? Turbo Services voert snelle en gerichte noodherstellingen uit om verdere schade en overlast te beperken.",
-    },
-    {
-      title: "Wat we doen",
-      body:
-        "- Dringende herstellingen aan afvoer en riolering\n- Aanpak van lekken, breuken en verzakkingen\n- Vervanging van beschadigde delen waar nodig\n- Gerichte lokalisatie van het probleem\n- Snelle tussenkomst bij acute schade",
-    },
-    {
-      title: "Werkwijze",
-      body:
-        "1. Snelle inschatting van de urgentie\n2. Lokalisatie van het probleem\n3. Indien nodig eerst diagnose via camera-inspectie of andere controle\n4. Uitvoeren van een technisch verantwoorde noodherstelling\n5. Advies over verdere of definitieve aanpak",
-    },
-    {
-      title: "Tarieven",
-      body:
-        "Prijzen variÃ«ren volgens het type probleem en de nodige interventie:\n\n- Diagnose en interventie starten vanaf â‚¬160 exclusief btw\n- Camera-inspectie kan als supplement toegevoegd worden\n- Bijkomende herstellingen of structurele werken steeds na duidelijke bespreking",
-    },
-    {
-      title: "Waarom snel ingrijpen?",
-      body:
-        "Lekkages, breuken en verzakkingen kunnen snel grotere schade veroorzaken. Snelle noodherstelling helpt om gevolgschade, vochtproblemen en verdere uitval te beperken.",
-    }
-  ].map((s, idx) => {
-    if (!muniText) return s;
-    if (idx === 0) {
-      return {
-        ...s,
-        body: s.body + "\n\nActief in " + regionLabel + ": " + muniText + " en omgeving.",
-      };
-    }
-    return s;
-  });
-
-  const ctaBody =
-    "Neem contact op voor een snelle inschatting en noodherstelling in Scheldeland." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
-
   return (
     <DienstPageLayout
       serviceKey="noodherstellingen"
       serviceName="Noodherstellingen"
-      regionKey={regionKey}
-      regionLabel={regionLabel}
-      municipalities={municipalities}
-      intro={intro}
-      sections={sections}
-      faqs={service?.faqs ?? []}
-      ctaTitle="Dringende herstelling nodig?"
-      ctaBody={ctaBody}
-      ctaButton="Vraag noodherstelling aan"
-      heroImageOverride="/assets/base/noodherstellingen.png"
-      municipalityLinks={municipalities.map((city) => ({
-        slug: slugify(city),
-        label: city,
-      }))}
+      regionKey="scheldeland"
+      regionLabel="Scheldeland"
+      municipalities={["Boom","Niel","Rumst"]}
+      intro={`Noodherstellingen in Scheldeland nodig? In Boom, Niel, Rumst komen verstoppingen, geurhinder en afvoerproblemen frequent voor door oudere rioleringen en intensief gebruik. Turbo Services zorgt voor snelle en gerichte interventies zonder onnodige kosten.`}
+      sections={[{"title":"Veelvoorkomende problemen in Scheldeland","body":"In Boom, Niel, Rumst zien we vaak verstoppingen door vetophoping, wortelgroei en verzakkingen. Vooral in oudere woningen komen terugkerende problemen voor die een gerichte aanpak vereisen."},{"title":"Onze aanpak","body":"Wij starten met een gerichte analyse van het probleem. Indien nodig voeren we een camera-inspectie uit om exact de oorzaak te bepalen. Daarna lossen we het probleem efficiënt op zonder onnodige breekwerken."},{"title":"Waarom Turbo Services","body":"Snelle interventie, duidelijke communicatie en correcte prijzen. Actief in Scheldeland en directe omgeving, met kennis van lokale situaties en typische problemen."}]}
+      faqs={[{"q":"Hoe snel kunnen jullie ter plaatse zijn in Scheldeland?","a":"In de meeste gevallen zijn we dezelfde dag nog ter plaatse in Scheldeland en omliggende gemeenten zoals Boom, Niel, Rumst."},{"q":"Wat kost een noodherstellingen?","a":"Je krijgt altijd vooraf een duidelijke prijs. Geen verrassingen achteraf."}]}
     />
   );
 }
