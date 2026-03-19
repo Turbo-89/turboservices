@@ -99,11 +99,22 @@ function getHeroCandidates(serviceKey: string, regionLabel?: string): string[] {
   const r = String(regionLabel || "").trim();
 
   try {
-    const out = (buildHeroImageCandidates as unknown as (service: string, region: string) => string[])(s, r);
+    const out = (buildHeroImageCandidates as unknown as (
+      service: string,
+      region: string
+    ) => string[])(s, r);
     return Array.isArray(out) ? out.filter((x) => typeof x === "string") : [];
   } catch {
     return [];
   }
+}
+
+function slugToLabel(slug: string) {
+  return String(slug)
+    .split("-")
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
 }
 
 function defaultCta(serviceName: string, regionLabel?: string) {
@@ -163,8 +174,16 @@ export function DienstPageLayout({
 
   const muni = uniqueStrings([
     ...(municipalities ?? []),
-    ...(regionKey ? (REGION_CITIES[regionKey] ?? []) : []),
+    ...(regionKey ? REGION_CITIES[regionKey] ?? [] : []),
   ]);
+
+  const autoRegionLinks: LocationLink[] =
+    !regionKey && relatedRegionLinks.length === 0
+      ? (Object.keys(REGION_CITIES) as RegionKey[]).map((key) => ({
+          slug: key,
+          label: slugToLabel(key),
+        }))
+      : relatedRegionLinks;
 
   const cta = {
     ...defaultCta(serviceName, regionLabel),
@@ -278,13 +297,13 @@ export function DienstPageLayout({
           </section>
         )}
 
-        {relatedRegionLinks.length > 0 && (
+        {autoRegionLinks.length > 0 && (
           <section className="mt-10">
             <h2 className="mb-4 text-2xl font-semibold text-slate-900">
               Relevante regio’s
             </h2>
             <div className="flex flex-wrap gap-3">
-              {relatedRegionLinks.map((item) => (
+              {autoRegionLinks.map((item) => (
                 <Link
                   key={item.slug}
                   href={`/diensten/${slugify(serviceKey)}/${item.slug}`}
