@@ -1,17 +1,90 @@
-﻿
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
 export default function Page() {
   return (
     <DienstPageLayout
       serviceKey="vervangen-van-deksels"
-      serviceName="Vervangen Van Deksels"
+      serviceName="Vervangen van deksels"
       regionKey="antwerpen-noordrand"
       regionLabel="Antwerpen Noordrand"
-      municipalities={["Boom","Rumst","Niel"]}
-      intro={`Vervangen Van Deksels in Rupelstreek nodig? In Boom, Rumst, Niel komen verstoppingen, geurhinder en afvoerproblemen frequent voor door oudere rioleringen en intensief gebruik. Turbo Services zorgt voor snelle en gerichte interventies zonder onnodige kosten.`}
-      sections={[{"title":"Veelvoorkomende problemen in Rupelstreek","body":"In Boom, Rumst, Niel zien we vaak verstoppingen door vetophoping, wortelgroei en verzakkingen. Vooral in oudere woningen komen terugkerende problemen voor die een gerichte aanpak vereisen."},{"title":"Onze aanpak","body":"Wij starten met een gerichte analyse van het probleem. Indien nodig voeren we een camera-inspectie uit om exact de oorzaak te bepalen. Daarna lossen we het probleem efficiënt op zonder onnodige breekwerken."},{"title":"Waarom Turbo Services","body":"Snelle interventie, duidelijke communicatie en correcte prijzen. Actief in Rupelstreek en directe omgeving, met kennis van lokale situaties en typische problemen."}]}
-      faqs={[{"q":"Hoe snel kunnen jullie ter plaatse zijn in Rupelstreek?","a":"In de meeste gevallen zijn we dezelfde dag nog ter plaatse in Rupelstreek en omliggende gemeenten zoals Boom, Rumst, Niel."},{"q":"Wat kost een vervangen van deksels?","a":"Je krijgt altijd vooraf een duidelijke prijs. Geen verrassingen achteraf."}]}
+      municipalities={[
+  "Brasschaat",
+  "Schoten",
+  "Wijnegem",
+  "Wommelgem",
+  "Ranst",
+  "Schilde",
+  "Zoersel",
+  "Kapellen",
+  "Stabroek"
+]}
+      municipalityLinks={[
+  {
+    "slug": "brasschaat",
+    "label": "Brasschaat"
+  },
+  {
+    "slug": "schoten",
+    "label": "Schoten"
+  },
+  {
+    "slug": "wijnegem",
+    "label": "Wijnegem"
+  },
+  {
+    "slug": "wommelgem",
+    "label": "Wommelgem"
+  },
+  {
+    "slug": "ranst",
+    "label": "Ranst"
+  },
+  {
+    "slug": "schilde",
+    "label": "Schilde"
+  },
+  {
+    "slug": "zoersel",
+    "label": "Zoersel"
+  },
+  {
+    "slug": "kapellen",
+    "label": "Kapellen"
+  },
+  {
+    "slug": "stabroek",
+    "label": "Stabroek"
+  }
+]}
+      intro={"Vervangen van deksels in Antwerpen Noordrand nodig? In Brasschaat, Schoten, Wijnegem, Wommelgem, Ranst, Schilde, Zoersel, Kapellen, Stabroek zien we regelmatig beschadigde, verzakte of versleten putdeksels en inspectiedeksels. Turbo Services vervangt deksels veilig en correct, met aandacht voor bereikbaarheid, belasting en de bestaande situatie ter plaatse."}
+      sections={[
+  {
+    "title": "Wanneer is vervangen van deksels nodig in Antwerpen Noordrand?",
+    "body": "In Brasschaat, Schoten, Wijnegem, Wommelgem, Ranst, Schilde, Zoersel, Kapellen, Stabroek komen beschadigde, losliggende of verzakte deksels regelmatig voor. Dat kan zorgen voor geurhinder, onveilige situaties, waterinsijpeling of bijkomende schade aan de put of aansluiting. Tijdig vervangen voorkomt verdere problemen en maakt de situatie opnieuw veilig en bruikbaar."
+  },
+  {
+    "title": "Onze aanpak in Antwerpen Noordrand",
+    "body": "We bekijken eerst het type deksel, de maat, de belasting en de toestand van de bestaande putrand. Daarna vervangen we het beschadigde of foutieve deksel door een geschikte oplossing. Waar nodig stemmen we de uitvoering af op de omliggende verharding en de praktische toegankelijkheid ter plaatse."
+  },
+  {
+    "title": "Actief in Antwerpen Noordrand",
+    "body": "Turbo Services werkt actief in Antwerpen Noordrand, onder meer in Brasschaat, Schoten, Wijnegem, Wommelgem, Ranst, Schilde, Zoersel, Kapellen, Stabroek. We zorgen voor een duidelijke aanpak, correcte uitvoering en snelle opvolging zonder onnodige omwegen."
+  }
+]}
+      faqs={[
+  {
+    "q": "Doen jullie vervanging van deksels in Antwerpen Noordrand?",
+    "a": "Ja. We zijn actief in Antwerpen Noordrand, onder meer in Brasschaat, Schoten, Wijnegem, Wommelgem, Ranst, Schilde, Zoersel, Kapellen, Stabroek, en vervangen beschadigde, verzakte of versleten deksels afhankelijk van de situatie ter plaatse."
+  },
+  {
+    "q": "Wanneer moet een putdeksel vervangen worden?",
+    "a": "Wanneer een deksel scheurt, verzakt, los ligt, niet meer correct afsluit of onveilig wordt om te belasten, is vervanging meestal de juiste oplossing."
+  },
+  {
+    "q": "Bekijken jullie eerst welke oplossing technisch past?",
+    "a": "Ja. We bekijken eerst het type put, de maat, de belasting en de plaatsingssituatie zodat het juiste deksel en de juiste uitvoering gekozen worden."
+  }
+]}
     />
   );
 }
