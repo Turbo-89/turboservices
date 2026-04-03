@@ -11,7 +11,17 @@ export type AutoKnowledgeItem = {
   keywords: string[];
 };
 
+export type CommercialItem = {
+  slug: string;
+  title: string;
+  description: string;
+  body: string;
+  service: string;
+  keywords: string[];
+};
+
 const AUTO_DIR = path.join(process.cwd(), "content", "kennisbank-auto");
+const COMMERCIAL_DIR = path.join(process.cwd(), "content", "commercial");
 
 function normalizeRawMarkdown(raw: string): string {
   return raw
@@ -37,9 +47,7 @@ function normalizeRawMarkdown(raw: string): string {
 
 function normalizeKeywords(value: unknown): string[] {
   if (Array.isArray(value)) {
-    return value
-      .map((v) => String(v).trim())
-      .filter(Boolean);
+    return value.map((v) => String(v).trim()).filter(Boolean);
   }
 
   if (typeof value === "string") {
@@ -50,6 +58,45 @@ function normalizeKeywords(value: unknown): string[] {
   }
 
   return [];
+}
+
+function parseMarkdownFile(filePath: string, fallbackSlug: string) {
+  if (!fs.existsSync(filePath)) return null;
+
+  const raw = fs.readFileSync(filePath, "utf8");
+  const normalized = normalizeRawMarkdown(raw);
+  const parsed = matter(normalized);
+
+  const title =
+    typeof parsed.data.title === "string" && parsed.data.title.trim()
+      ? parsed.data.title.trim()
+      : fallbackSlug;
+
+  const description =
+    typeof parsed.data.description === "string" && parsed.data.description.trim()
+      ? parsed.data.description.trim()
+      : "";
+
+  const slug =
+    typeof parsed.data.slug === "string" && parsed.data.slug.trim()
+      ? parsed.data.slug.trim()
+      : fallbackSlug;
+
+  const service =
+    typeof parsed.data.service === "string" && parsed.data.service.trim()
+      ? parsed.data.service.trim()
+      : "";
+
+  const keywords = normalizeKeywords(parsed.data.keywords);
+
+  return {
+    slug,
+    title,
+    description,
+    body: parsed.content.trim(),
+    service,
+    keywords,
+  };
 }
 
 export function getAutoKnowledgeSlugs(): string[] {
@@ -63,40 +110,46 @@ export function getAutoKnowledgeSlugs(): string[] {
 
 export function getAutoKnowledgeItem(slug: string): AutoKnowledgeItem | null {
   const filePath = path.join(AUTO_DIR, `${slug}.md`);
-  if (!fs.existsSync(filePath)) return null;
+  return parseMarkdownFile(filePath, slug);
+}
 
-  const raw = fs.readFileSync(filePath, "utf8");
-  const normalized = normalizeRawMarkdown(raw);
-  const parsed = matter(normalized);
+export function getCommercialServices(): string[] {
+  if (!fs.existsSync(COMMERCIAL_DIR)) return [];
 
-  const title =
-    typeof parsed.data.title === "string" && parsed.data.title.trim()
-      ? parsed.data.title.trim()
-      : slug;
+  return fs
+    .readdirSync(COMMERCIAL_DIR, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name);
+}
 
-  const description =
-    typeof parsed.data.description === "string" && parsed.data.description.trim()
-      ? parsed.data.description.trim()
-      : "";
+export function getCommercialSlugsByService(service: string): string[] {
+  const serviceDir = path.join(COMMERCIAL_DIR, service);
+  if (!fs.existsSync(serviceDir)) return [];
 
-  const frontmatterSlug =
-    typeof parsed.data.slug === "string" && parsed.data.slug.trim()
-      ? parsed.data.slug.trim()
-      : slug;
+  return fs
+    .readdirSync(serviceDir)
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => file.replace(/\.md$/, ""));
+}
 
-  const service =
-    typeof parsed.data.service === "string" && parsed.data.service.trim()
-      ? parsed.data.service.trim()
-      : "";
+export function getCommercialStaticParams(): Array<{
+  service: string;
+  slug: string;
+}> {
+  const services = getCommercialServices();
 
-  const keywords = normalizeKeywords(parsed.data.keywords);
+  return services.flatMap((service) =>
+    getCommercialSlugsByService(service).map((slug) => ({
+      service,
+      slug,
+    }))
+  );
+}
 
-  return {
-    slug: frontmatterSlug,
-    title,
-    description,
-    body: parsed.content.trim(),
-    service,
-    keywords,
-  };
+export function getCommercialItem(
+  service: string,
+  slug: string
+): CommercialItem | null {
+  const filePath = path.join(COMMERCIAL_DIR, service, `${slug}.md`);
+  return parseMarkdownFile(filePath, slug);
 }

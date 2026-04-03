@@ -5,6 +5,7 @@ import { REGION_CITIES, type RegionKey } from "@/content/regions";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { ServiceJsonLd } from "@/components/seo/ServiceJsonLd";
 import FAQJsonLd from "@/components/seo/FAQJsonLd";
+import { getCommercialLinks, getKnowledgeLinks, filterKnowledgeByService } from "@/lib/internal-links";
 
 export type DienstSection = {
   title: string;
@@ -336,6 +337,53 @@ export function DienstPageLayout({
             </div>
           </section>
         )}
+{/* AUTO LINKS */}
+{(() => {
+  const commercial = getCommercialLinks(serviceKey);
+  const knowledge = filterKnowledgeByService(getKnowledgeLinks(), serviceKey);
+
+  if (commercial.length === 0 && knowledge.length === 0) return null;
+
+  return (
+    <section className="mt-12">
+      <h2 className="mb-4 text-2xl font-semibold text-slate-900">
+        Veelgezochte oplossingen & uitleg
+      </h2>
+
+      <div className="grid gap-3 sm:grid-cols-2">
+        {commercial.slice(0, 6).map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="rounded-xl border p-4 hover:bg-slate-50"
+          >
+            <span className="font-medium text-slate-900">
+              {item.label}
+            </span>
+            <span className="block text-sm text-slate-600">
+              Bekijk oplossing →
+            </span>
+          </Link>
+        ))}
+
+        {knowledge.slice(0, 6).map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="rounded-xl border p-4 hover:bg-slate-50"
+          >
+            <span className="font-medium text-slate-900">
+              {item.label}
+            </span>
+            <span className="block text-sm text-slate-600">
+              Lees uitleg →
+            </span>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+})()}
 
         <div className="mt-12 rounded-2xl border bg-slate-50 p-6 shadow-sm md:p-8">
           <h2 className="mb-3 text-2xl font-semibold text-slate-900">
