@@ -41,10 +41,12 @@ export async function generateMetadata(
   };
 }
 
-function getLogoVariant(service: string) {
-  if (service === "camera-inspectie") return "camera-inspectie";
-  if (service === "geurdetectie") return "geurdetectie";
-  if (service === "noodherstellingen") return "noodherstellingen";
+function getLogoVariant(
+  service: string
+): "ontstopping" | "default" | "camera" | "herstelling" | "prijzen" | "overmij" {
+  if (service === "camera-inspectie") return "camera";
+  if (service === "noodherstellingen") return "herstelling";
+  if (service === "geurdetectie") return "default";
   return "ontstopping";
 }
 
@@ -74,6 +76,8 @@ export default async function CommercialPage({ params }: PageProps) {
       "@id": `https://www.turboservices.be/commercial/${params.service}/${item.slug}`,
     },
   };
+
+  const related = getKnowledgeLinks().slice(0, 6);
 
   return (
     <ArticleShell
@@ -131,35 +135,30 @@ export default async function CommercialPage({ params }: PageProps) {
           {item.body}
         </ReactMarkdown>
       </div>
-{/* GERELATEERDE KENNISBANK */}
-{(() => {
-  const related = getKnowledgeLinks().slice(0, 6);
 
-  return (
-    <section className="mt-12">
-      <h2 className="mb-4 text-2xl font-semibold text-slate-900">
-        Meer uitleg over dit probleem
-      </h2>
+      <section className="mt-12">
+        <h2 className="mb-4 text-2xl font-semibold text-slate-900">
+          Meer uitleg over dit probleem
+        </h2>
 
-      <div className="grid gap-3 sm:grid-cols-2">
-        {related.map((item) => (
-          <a
-            key={item.href}
-            href={item.href}
-            className="rounded-xl border p-4 hover:bg-slate-50"
-          >
-            <span className="font-medium text-slate-900">
-              {item.label}
-            </span>
-            <span className="block text-sm text-slate-600">
-              Lees artikel →
-            </span>
-          </a>
-        ))}
-      </div>
-    </section>
-  );
-})()}
+        <div className="grid gap-3 sm:grid-cols-2">
+          {related.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="rounded-xl border p-4 hover:bg-slate-50"
+            >
+              <span className="font-medium text-slate-900">
+                {link.label}
+              </span>
+              <span className="block text-sm text-slate-600">
+                Lees artikel →
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
