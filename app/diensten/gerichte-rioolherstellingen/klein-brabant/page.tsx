@@ -1,84 +1,72 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
-import { REGION_CITIES } from "@/content/regions";
-import { getServiceByKey } from "@/content/services";
-import { slugify } from "@/lib/slugify";
+
 
 export const metadata: Metadata = {
-  title: "Gerichte rioolherstellingen in Klein-Brabant",
-  description: "Gerichte rioolherstellingen aan afvoer en riolering in Klein-Brabant, inclusief breuken, verzakkingen en lokale schade. Diagnose vooraf en doelgerichte herstelling.",
+  title: `Gerichte rioolherstellingen in Klein-Brabant | Turbo Services`,
+  description: `Gerichte rioolherstellingen in Klein-Brabant bij breuken, verzakkingen, lekkages en lokale schade aan afvoer of riolering. Turbo Services herstelt gericht op basis van duidelijke vaststellingen en zonder onnodige uitbreidingen.`,
 };
 
 export default function Page() {
-  const regionKey = "klein-brabant" as const;
-  const regionLabel = "Klein-Brabant";
-  const municipalities = REGION_CITIES[regionKey] ?? [];
-  const muniText = municipalities.slice(0, 12).join(", ");
-  const service = getServiceByKey("gerichte-rioolherstellingen");
-
-  const intro =
-    "Lekkage, verzakking of lokale schade aan de riolering in Klein-Brabant? Turbo Services voert gerichte rioolherstellingen uit met diagnose vooraf en een doelgerichte aanpak." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
-
+  const serviceKey = "gerichte-rioolherstellingen";
+  const municipalities = [
+  "Bornem",
+  "Puurs-Sint-Amands",
+  "Willebroek"
+];
+  const relatedRegionLinks = [];
   const sections = [
-    {
-      title: "Gerichte rioolherstellingen",
-      body:
-        "Lekkage, verzakking of lokale schade aan de riolering in Klein-Brabant? Turbo Services voert gerichte rioolherstellingen uit met diagnose vooraf en een doelgerichte aanpak.",
-    },
-    {
-      title: "Wat we doen",
-      body:
-        "- Herstelling van lokale breuken of verzakkingen\n- Vervanging van beschadigde delen van afvoer of riolering\n- Gerichte openbraak waar technisch nodig\n- Lokalisatie van leidingen en schadezones\n- Herstellingen op basis van duidelijke diagnose",
-    },
-    {
-      title: "Werkwijze",
-      body:
-        "1. Lokalisatie van het probleem\n2. Indien nodig diagnose via camera-inspectie of andere controle\n3. Gericht openmaken van de probleemzone\n4. Herstelling of vervanging van het beschadigde deel\n5. Controle en advies voor verdere opvolging",
-    },
-    {
-      title: "Tarieven",
-      body:
-        "Prijzen variÃ«ren volgens de aard van de schade en de nodige interventie:\n\n- Diagnose en interventie starten vanaf â‚¬160 exclusief btw\n- Camera-inspectie kan als supplement toegevoegd worden\n- Grotere of bijkomende herstellingen steeds na duidelijke bespreking",
-    },
-    {
-      title: "Waarom gericht herstellen?",
-      body:
-        "Door eerst correct te lokaliseren, blijft de herstelling beperkt tot de relevante zone. Dat vermijdt onnodige werken, beperkt kosten en maakt een technisch gerichte oplossing mogelijk.",
-    }
-  ].map((s, idx) => {
-    if (!muniText) return s;
-    if (idx === 0) {
-      return {
-        ...s,
-        body: s.body + "\n\nActief in " + regionLabel + ": " + muniText + " en omgeving.",
-      };
-    }
-    return s;
-  });
-
-  const ctaBody =
-    "Neem contact op voor een snelle diagnose en gerichte rioolherstelling in Klein-Brabant." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
+  {
+    "title": "Wanneer een gerichte rioolherstelling nodig is in Klein-Brabant",
+    "body": "Een gerichte rioolherstelling is aangewezen bij breuk, verzakking, lekkage, schade aan aansluiting of terugkerende problemen die via inspectie exact gelokaliseerd werden. Niet elke situatie vraagt een volledige vervanging van een leiding; vaak volstaat een herstelling van de juiste zone."
+  },
+  {
+    "title": "Waarom gericht herstellen beter is",
+    "body": "Door eerst juist te lokaliseren, blijft de herstelling beperkt tot de relevante zone. Dat bespaart onnodige werken, tijd en bijkomende kosten. Het maakt de uitvoering ook technischer en beter verdedigbaar wanneer er meerdere partijen of discussies betrokken zijn."
+  },
+  {
+    "title": "Werkwijze",
+    "body": "Na lokalisatie van het probleem wordt bepaald welke gerichte ingreep technisch aangewezen is. Dat kan gaan om herstel van een lokale breuk, vervanging van een beschadigd deel of correctie van een aansluiting. Waar nodig wordt eerst camera-inspectie gebruikt om de schade exact in kaart te brengen."
+  },
+  {
+    "title": "Prijzen",
+    "body": "Prijzen variëren volgens de aard van de schade en de nodige interventie. Diagnose en interventie starten vanaf €160 exclusief btw. Camera-inspectie kan als supplement toegevoegd worden wanneer bijkomende lokalisatie nodig is."
+  },
+  {
+    "title": "Waarom diagnose vooraf belangrijk is",
+    "body": "Een juiste lokalisatie voorkomt dat er te ruim of op de verkeerde plaats wordt gewerkt. Dat beperkt risico, houdt de kost onder controle en maakt een technisch doelgerichte oplossing mogelijk."
+  }
+];
+  const faqs = [
+  {
+    "q": "Moet een rioolherstelling altijd vooraf onderzocht worden?",
+    "a": "Ja, in de meeste gevallen is een juiste lokalisatie nodig om gericht en efficiënt te herstellen."
+  },
+  {
+    "q": "Wordt altijd de volledige leiding vervangen?",
+    "a": "Nee. Wanneer de schade lokaal zit, kan een gerichte herstelling volstaan."
+  },
+  {
+    "q": "Kan dit na camera-inspectie ingepland worden?",
+    "a": "Ja. Camera-inspectie is vaak de logische eerste stap om het defect correct in kaart te brengen."
+  }
+];
 
   return (
     <DienstPageLayout
       serviceKey="gerichte-rioolherstellingen"
       serviceName="Gerichte rioolherstellingen"
-      regionKey={regionKey}
-      regionLabel={regionLabel}
+      regionKey="klein-brabant"
+      regionLabel="Klein-Brabant"
       municipalities={municipalities}
-      intro={intro}
+      intro={`Gerichte rioolherstellingen in Klein-Brabant zijn bedoeld voor situaties waarin schade of defecten in de leiding al gelokaliseerd zijn of via inspectie duidelijk kunnen worden vastgesteld. Turbo Services focust op de echte probleemzone, zodat de herstelling technisch gericht en beheersbaar blijft.`}
       sections={sections}
-      faqs={service?.faqs ?? []}
+      faqs={faqs}
       ctaTitle="Gerichte rioolherstelling nodig?"
-      ctaBody={ctaBody}
+      ctaBody={`Beschrijf kort welk defect of welke schade zich voordoet in Klein-Brabant. Turbo Services koppelt snel terug met een voorstel voor diagnose, herstelling en praktische aanpak.`}
       ctaButton="Vraag rioolherstelling aan"
       heroImageOverride="/assets/base/gerichte-rioolherstellingen.png"
-      municipalityLinks={municipalities.map((city) => ({
-        slug: slugify(city),
-        label: city,
-      }))}
+      municipalityLinks={municipalities.map((name) => ({ slug: name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, " en ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""), label: name }))}
     />
   );
 }

@@ -1,17 +1,78 @@
-
+import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+
+export const metadata: Metadata = {
+  title: `Noodherstellingen in Rupelstreek | Turbo Services`,
+  description: `Noodherstellingen in Rupelstreek bij lekken, breuken, verzakkingen en andere acute schade aan afvoer of riolering. Turbo Services grijpt snel in om verdere schade en uitval te beperken.`,
+};
+
 export default function Page() {
+  const serviceKey = "noodherstellingen";
+  const municipalities = [
+  "Boom",
+  "Hemiksem",
+  "Niel",
+  "Rumst",
+  "Schelle"
+];
+  const relatedRegionLinks = [];
+  const sections = [
+  {
+    "title": "Wanneer een noodherstelling nodig is in Rupelstreek",
+    "body": "Noodherstellingen zijn aangewezen bij acute lekken, gebroken leidingen, waterinfiltratie, losgekomen aansluitingen of situaties waar snel ingrijpen verdere schade voorkomt. Niet elk probleem vraagt meteen een volledige herstelling, maar stabiliseren en technisch veilig ingrijpen is vaak wel noodzakelijk."
+  },
+  {
+    "title": "Wat onder noodherstellingen valt",
+    "body": "Het gaat om dringende herstellingen aan afvoer, riolering of aansluitingen wanneer verdere schade, wateroverlast of uitval dreigt. Afhankelijk van de situatie kan eerst een noodoplossing nodig zijn, gevolgd door een definitieve herstelling."
+  },
+  {
+    "title": "Werkwijze",
+    "body": "Eerst wordt de acute situatie gestabiliseerd. Daarna volgt een gerichte beoordeling van de schade en een praktische oplossing om het probleem veilig en werkbaar op te lossen. Wanneer de oorzaak niet meteen zichtbaar is, kan bijkomende diagnose nodig zijn om gericht te herstellen."
+  },
+  {
+    "title": "Prijzen",
+    "body": "Prijzen variëren volgens het type probleem en de nodige interventie. Diagnose en interventie starten vanaf €160 exclusief btw. Camera-inspectie kan als supplement toegevoegd worden wanneer bijkomende lokalisatie nodig is."
+  },
+  {
+    "title": "Waarom snel ingrijpen",
+    "body": "Lekkages, breuken en verzakkingen kunnen snel grotere schade veroorzaken aan gebouw, afwerking of omliggende leidingen. Een snelle technische tussenkomst helpt om gevolgschade en verdere uitval te beperken."
+  }
+];
+  const faqs = [
+  {
+    "q": "Wat valt onder noodherstellingen?",
+    "a": "Dat zijn dringende herstellingen aan afvoer, riolering of aansluitingen wanneer verdere schade, wateroverlast of uitval dreigt."
+  },
+  {
+    "q": "Kan een noodherstelling ook buiten de kantooruren?",
+    "a": "Ja. Turbo Services werkt ook 's avonds en in het weekend. Na 22u geldt een supplement."
+  },
+  {
+    "q": "Is eerst diagnose nodig?",
+    "a": "Bij sommige situaties wel. Wanneer de oorzaak niet onmiddellijk zichtbaar is, kan bijkomende inspectie nodig zijn om gericht te herstellen."
+  },
+  {
+    "q": "Wordt alles meteen definitief hersteld?",
+    "a": "Dat hangt af van de aard van de schade. Soms gebeurt eerst een veilige noodoplossing, gevolgd door een definitieve herstelling."
+  }
+];
+
   return (
     <DienstPageLayout
       serviceKey="noodherstellingen"
       serviceName="Noodherstellingen"
       regionKey="rupelstreek"
       regionLabel="Rupelstreek"
-      municipalities={["Boom","Rumst","Niel"]}
-      intro={`Noodherstellingen in Rupelstreek nodig? In Boom, Rumst, Niel komen verstoppingen, geurhinder en afvoerproblemen frequent voor door oudere rioleringen en intensief gebruik. Turbo Services zorgt voor snelle en gerichte interventies zonder onnodige kosten.`}
-      sections={[{"title":"Veelvoorkomende problemen in Rupelstreek","body":"In Boom, Rumst, Niel zien we vaak verstoppingen door vetophoping, wortelgroei en verzakkingen. Vooral in oudere woningen komen terugkerende problemen voor die een gerichte aanpak vereisen."},{"title":"Onze aanpak","body":"Wij starten met een gerichte analyse van het probleem. Indien nodig voeren we een camera-inspectie uit om exact de oorzaak te bepalen. Daarna lossen we het probleem efficiënt op zonder onnodige breekwerken."},{"title":"Waarom Turbo Services","body":"Snelle interventie, duidelijke communicatie en correcte prijzen. Actief in Rupelstreek en directe omgeving, met kennis van lokale situaties en typische problemen."}]}
-      faqs={[{"q":"Hoe snel kunnen jullie ter plaatse zijn in Rupelstreek?","a":"In de meeste gevallen zijn we dezelfde dag nog ter plaatse in Rupelstreek en omliggende gemeenten zoals Boom, Rumst, Niel."},{"q":"Wat kost een noodherstellingen?","a":"Je krijgt altijd vooraf een duidelijke prijs. Geen verrassingen achteraf."}]}
+      municipalities={municipalities}
+      intro={`Noodherstellingen in Rupelstreek zijn nodig wanneer een afvoer of riolering acuut problemen veroorzaakt, zoals een lek, breuk, verzakking of losgekomen aansluiting. Turbo Services beoordeelt snel de situatie en voert een gerichte tussenkomst uit om verdere schade, wateroverlast en bijkomende uitval te beperken.`}
+      sections={sections}
+      faqs={faqs}
+      ctaTitle="Dringende herstelling nodig?"
+      ctaBody={`Geef kort door wat er dringend aan de hand is in Rupelstreek. Turbo Services schat de ernst van het probleem snel in en koppelt terug met een concrete aanpak.`}
+      ctaButton="Vraag noodherstelling aan"
+      heroImageOverride="/assets/base/noodherstellingen.png"
+      municipalityLinks={municipalities.map((name) => ({ slug: name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, " en ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""), label: name }))}
     />
   );
 }

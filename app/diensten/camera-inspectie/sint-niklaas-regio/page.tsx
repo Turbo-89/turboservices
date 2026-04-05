@@ -1,84 +1,77 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
-import { REGION_CITIES } from "@/content/regions";
-import { getServiceByKey } from "@/content/services";
-import { slugify } from "@/lib/slugify";
+
 
 export const metadata: Metadata = {
-  title: "Camera-inspectie in Sint-Niklaas regio",
-  description: "Camera-inspectie van afvoer en riolering in Sint-Niklaas regio met professionele apparatuur. Ideaal om scheuren, verzakkingen of verstoppingen in detail te lokaliseren.",
+  title: `Camera-inspectie in Sint-Niklaas regio | Turbo Services`,
+  description: `Camera-inspectie in Sint-Niklaas regio om breuken, verzakkingen, wortelgroei en hardnekkige verstoppingen exact in beeld te brengen. Turbo Services lokaliseert de oorzaak gericht en zonder onnodig breekwerk.`,
 };
 
 export default function Page() {
-  const regionKey = "sint-niklaas-regio" as const;
-  const regionLabel = "Sint-Niklaas regio";
-  const municipalities = REGION_CITIES[regionKey] ?? [];
-  const muniText = municipalities.slice(0, 12).join(", ");
-  const service = getServiceByKey("camera-inspectie");
-
-  const intro =
-    "Nood aan een professionele camera-inspectie in Sint-Niklaas regio? Wij brengen exact in beeld waar het probleem zit, zonder hak- of breekwerk." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
-
+  const serviceKey = "camera-inspectie";
+  const municipalities = [
+  "Sint-Niklaas",
+  "Waasmunster",
+  "Stekene",
+  "Temse"
+];
+  const relatedRegionLinks = [];
   const sections = [
-    {
-      title: "Camera-inspectie",
-      body:
-        "Nood aan een professionele camera-inspectie in Sint-Niklaas regio? Wij brengen exact in beeld waar het probleem zit, zonder hak- of breekwerk.",
-    },
-    {
-      title: "Wat we doen",
-      body:
-        "- Inspectie van hoofdriolering en binnenleidingen\n- Detectie van scheuren, verzakkingen en wortelgroei\n- Opmeting van leidingverloop\n- Digitale rapportage mogelijk\n- Snelle diagnose zonder hak- of breekwerk",
-    },
-    {
-      title: "Werkwijze",
-      body:
-        "1. Vooranalyse van het probleem\n2. Toegang creÃ«ren tot de betrokken leiding\n3. Camera-inspectie met hoge resolutie\n4. Analyse van beelden en vaststellen van oorzaak\n5. Advies voor oplossing of herstelling",
-    },
-    {
-      title: "Tarieven",
-      body:
-        "Camera-inspectie gebeurt als supplement bovenop de standaard interventiekost:\n\n- Standaard interventiekost: â‚¬160\n- Camera-inspectie supplement: â‚¬90\n- Bij combinatie geldt: â‚¬250",
-    },
-    {
-      title: "Waarom snel ingrijpen?",
-      body:
-        "Camera-inspectie is aangewezen bij terugkerende problemen, geurhinder, verzakkingen of onverklaarbare verstoppingen.",
-    }
-  ].map((s, idx) => {
-    if (!muniText) return s;
-    if (idx === 0) {
-      return {
-        ...s,
-        body: s.body + "\n\nActief in " + regionLabel + ": " + muniText + " en omgeving.",
-      };
-    }
-    return s;
-  });
-
-  const ctaBody =
-    "Wij brengen uw riolering in Sint-Niklaas regio exact in beeld en geven een duidelijk advies voor de juiste oplossing." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
+  {
+    "title": "Wanneer camera-inspectie zinvol is in Sint-Niklaas regio",
+    "body": "Camera-inspectie is nuttig bij terugkerende verstoppingen, geurproblemen, vermoeden van breuk of verzakking, vochtproblemen langs leidingen en discussies met aannemer, syndicus of verzekering. Het doel is de oorzaak visueel vast te stellen in plaats van te werken op vermoedens."
+  },
+  {
+    "title": "Wat een camera-inspectie zichtbaar maakt",
+    "body": "Met een leidingcamera kunnen onder meer breuken, scheuren, verzakkingen, wortelgroei, vervuiling, slecht uitgevoerde aansluitingen en andere obstructies zichtbaar worden gemaakt. Dat is vooral belangrijk wanneer een leiding herhaaldelijk problemen geeft zonder duidelijke externe oorzaak."
+  },
+  {
+    "title": "Werkwijze",
+    "body": "Indien nodig wordt de leiding eerst vrijgemaakt. Daarna wordt de camera systematisch ingebracht om probleemzones exact in beeld te brengen. Op basis daarvan volgt gerichte uitleg en advies over de juiste vervolgstap, zoals reinigen, herstellen of verder technisch onderzoek."
+  },
+  {
+    "title": "Prijzen",
+    "body": "Een camera-inspectie is geen aparte interventie van €90 op zich, maar een supplement van €90 boven op de basisinterventie van €160 exclusief btw. Samen geldt dus €250 exclusief btw."
+  },
+  {
+    "title": "Waarom dit vaak de juiste diagnose is",
+    "body": "Camera-inspectie voorkomt onnodig giswerk en maakt duidelijk waar het probleem effectief zit. Dat beperkt overbodige werken, verhoogt de technische zekerheid en maakt het gemakkelijker om gerichte beslissingen te nemen."
+  }
+];
+  const faqs = [
+  {
+    "q": "Wat kost een camera-inspectie?",
+    "a": "Camera-inspectie is een supplement van €90 boven op de basisinterventie van €160 exclusief btw. Samen bedraagt dit €250 exclusief btw."
+  },
+  {
+    "q": "Wanneer is camera-inspectie nodig?",
+    "a": "Bij terugkerende verstoppingen, geurhinder, vermoeden van schade aan de leiding of wanneer de exacte oorzaak van het probleem niet zichtbaar is."
+  },
+  {
+    "q": "Kan ik beelden of verslag krijgen?",
+    "a": "Ja. De vaststellingen kunnen gebruikt worden voor verdere bespreking met aannemer, syndicus of verzekering, afhankelijk van de situatie."
+  },
+  {
+    "q": "Moet een leiding eerst ontstopt worden voor camera-inspectie?",
+    "a": "Vaak wel. Wanneer de leiding niet toegankelijk is door vuil of blokkage, moet ze eerst vrijgemaakt worden om een correcte inspectie mogelijk te maken."
+  }
+];
 
   return (
     <DienstPageLayout
       serviceKey="camera-inspectie"
       serviceName="Camera-inspectie"
-      regionKey={regionKey}
-      regionLabel={regionLabel}
+      regionKey="sint-niklaas-regio"
+      regionLabel="Sint-Niklaas regio"
       municipalities={municipalities}
-      intro={intro}
+      intro={`Camera-inspectie in Sint-Niklaas regio is aangewezen wanneer de oorzaak van een riool- of afvoerprobleem niet duidelijk is of wanneer verstoppingen en geurhinder blijven terugkomen. Turbo Services brengt met camera-inspectie exact in beeld wat er in de leiding gebeurt, zodat verdere stappen technisch onderbouwd kunnen worden genomen.`}
       sections={sections}
-      faqs={service?.faqs ?? []}
-      ctaTitle="Camera-inspectie aanvragen?"
-      ctaBody={ctaBody}
-      ctaButton="Vraag inspectie aan"
+      faqs={faqs}
+      ctaTitle="Camera-inspectie nodig?"
+      ctaBody={`Geef kort door welk probleem zich voordoet in Sint-Niklaas regio. Turbo Services bekijkt of camera-inspectie de juiste stap is en koppelt terug met een concreet voorstel voor diagnose en aanpak.`}
+      ctaButton="Vraag camera-inspectie aan"
       heroImageOverride="/assets/base/camera-inspectie.png"
-      municipalityLinks={municipalities.map((city) => ({
-        slug: slugify(city),
-        label: city,
-      }))}
+      municipalityLinks={municipalities.map((name) => ({ slug: name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, " en ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""), label: name }))}
     />
   );
 }

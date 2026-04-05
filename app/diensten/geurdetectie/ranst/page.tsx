@@ -1,91 +1,88 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
-import { getServiceByKey } from "@/content/services";
+import { getCommercialLinksForServiceAndCity, getRelatedServiceLinksForCity } from "@/lib/internal-links";
+import { filterKnowledgeByService } from "@/lib/knowledge-links";
 
 export const metadata: Metadata = {
-  title: "Geurdetectie in Ranst | Turbo Services",
-  description:
-    "Last van rioolgeur in Ranst? Turbo Services spoort gericht op waar de oorzaak zich bevindt, zonder blind breekwerk.",
+  title: `Geurdetectie in Ranst | Turbo Services`,
+  description: `Geurdetectie in Ranst bij aanhoudende rioolgeur in badkamer, toilet, keuken of technische ruimte. Turbo Services zoekt gericht naar de bron van de stank zonder blind breekwerk.`,
 };
 
 export default function Page() {
-  const city = "Ranst";
-  const service = getServiceByKey("geurdetectie");
-
-  const intro =
-    "Last van rioolgeur in Ranst? Turbo Services spoort gericht op waar de oorzaak zich bevindt, zonder blind breekwerk.";
-
-  const sections = [
-    {
-      title: "Geurdetectie",
-      body:
-        "Last van rioolgeur in Ranst? Turbo Services spoort gericht op waar de oorzaak zich bevindt, zonder blind breekwerk.",
-    },
-    {
-      title: "Wat we doen",
-      body:
-        "- Detectie van geurproblemen\n- Opsporen van foutieve aansluitingen\n- Onderzoek van sifons, ontluchting en verbindingen\n- Snelle diagnose zonder blind breekwerk\n- Gericht advies voor herstelling",
-    },
-    {
-      title: "Werkwijze",
-      body:
-        "1. Vooranalyse op locatie\n2. Controle van sifons, aansluitingen en ontluchting\n3. Gericht onderzoek van afvoer en riolering\n4. Lokalisatie van de waarschijnlijke oorzaak\n5. Advies voor herstelling of vervolgstap",
-    },
-    {
-      title: "Tarieven",
-      body:
-        "Geurdetectie is vaak de snelste manier om geurproblemen te lokaliseren:\n\n- Basisinterventie: Ã¢â€šÂ¬160\n- Combinatie met camera-inspectie mogelijk\n- Herstellingen steeds na diagnose en bespreking",
-    },
-    {
-      title: "Waarom snel ingrijpen?",
-      body:
-        "Geurhinder wijst vaak op een technisch defect in afvoer of riolering. Een gerichte diagnose voorkomt nodeloos breekwerk en blijvende overlast.",
-    }
-  ];
-
+  const serviceKey = "geurdetectie";
+  const municipalities = [
+  "Ranst"
+];
   const relatedRegionLinks = [
-    { slug: "antwerpen-noordrand", label: "Antwerpen Noordrand" },
-    { slug: "antwerpen-stad", label: "Antwerpen Stad" },
-    { slug: "antwerpen-zuidrand", label: "Antwerpen Zuidrand" },
-    { slug: "brussel-centrum", label: "Brussel Centrum" },
-    { slug: "brussel-noord", label: "Brussel Noord" },
-    { slug: "brussel-zuid", label: "Brussel Zuid" },
-    { slug: "denderstreek", label: "Denderstreek" },
-    { slug: "druivenstreek", label: "Druivenstreek" },
-    { slug: "durmestreek-lokeren", label: "Durmestreek" },
-    { slug: "hageland", label: "Hageland" },
-    { slug: "kempen-noord", label: "Kempen Noord" },
-    { slug: "kempen-zuid", label: "Kempen Zuid" },
-    { slug: "klein-brabant", label: "Klein-Brabant" },
-    { slug: "leuven-dijleland", label: "Leuven & Dijleland" },
-    { slug: "lier-neteland", label: "Lier & Neteland" },
-    { slug: "mechelen-rivierenland", label: "Mechelen & Rivierenland" },
-    { slug: "noordrand-brussel", label: "Noordrand Brussel" },
-    { slug: "pajottenland", label: "Pajottenland" },
-    { slug: "rupelstreek", label: "Rupelstreek" },
-    { slug: "scheldeland", label: "Scheldeland" },
-    { slug: "sint-niklaas-regio", label: "Sint-Niklaas regio" },
-    { slug: "temse-omgeving", label: "Temse & omstreken" },
-    { slug: "waasland", label: "Waasland" },
-  ];
+  {
+    "slug": "antwerpen-noordrand",
+    "label": "Antwerpen Noordrand"
+  }
+];
+  const sections = [
+  {
+    "title": "Wanneer geurdetectie zinvol is in Ranst",
+    "body": "Geurdetectie is aangewezen bij aanhoudende rioolgeur, terugkerende stank zonder zichtbare verstopping of wanneer verschillende mogelijke oorzaken in aanmerking komen. Dat gebeurt bijvoorbeeld bij defecte sifons, lekkende verbindingen, foutieve aansluitingen of problemen met ontluchting."
+  },
+  {
+    "title": "Waar rioolgeur meestal vandaan komt",
+    "body": "De oorzaak ligt vaak bij defecte sifons, losse aansluitingen, lekkende afvoerverbindingen, gebrekkige ontluchting of verborgen schade in het rioleringssysteem. Een verstopping kan geur veroorzaken, maar geurdetectie focust op het achterhalen van de exacte bron."
+  },
+  {
+    "title": "Werkwijze",
+    "body": "De situatie wordt stap voor stap nagekeken, met focus op sifons, aansluitingen, ontluchting, lekken en defecten in de afvoer of riolering. Het doel is gericht te lokaliseren waar het probleem zit, zodat onnodig breekwerk wordt vermeden."
+  },
+  {
+    "title": "Prijzen",
+    "body": "Geurdetectie gebeurt binnen de basisstructuur van een interventie. De basisinterventie bedraagt €160 exclusief btw. Indien camera-inspectie nodig is als aanvulling, geldt een supplement van €90."
+  },
+  {
+    "title": "Waarom gericht opsporen belangrijk is",
+    "body": "Geurhinder is vaak hardnekkig en moeilijk correct in te schatten zonder gerichte controle. Door eerst de bron te lokaliseren, vermijd je nutteloze werken en wordt de oplossing veel preciezer en efficiënter."
+  }
+];
+  const faqs = [
+  {
+    "q": "Waar komt rioolgeur meestal vandaan?",
+    "a": "Vaak ligt de oorzaak bij defecte sifons, losse aansluitingen, lekkende afvoerverbindingen, gebrekkige ontluchting of verborgen schade in het rioleringssysteem."
+  },
+  {
+    "q": "Is geurdetectie hetzelfde als ontstopping?",
+    "a": "Nee. Een verstopping kan geur veroorzaken, maar geurdetectie focust op het achterhalen van de exacte bron van de stank."
+  },
+  {
+    "q": "Moet er altijd gebroken worden?",
+    "a": "Nee. Het doel is juist om eerst gericht te lokaliseren waar het probleem zit, zodat onnodig breekwerk vermeden wordt."
+  }
+];
+  const commercialLinks = [];
 
-  const ctaBody =
-    "Wij sporen geurproblemen in Ranst snel en zonder onnodig breekwerk op.";
+  const relatedServiceLinks = getRelatedServiceLinksForCity(
+    serviceKey,
+    "Ranst",
+    4
+  );
+
+  const knowledgeLinks = filterKnowledgeByService(serviceKey, 4);
 
   return (
     <DienstPageLayout
       serviceKey="geurdetectie"
       serviceName="Geurdetectie"
-      regionLabel={city}
-      municipalities={[city]}
-      intro={intro}
+      
+      regionLabel="Ranst"
+      municipalities={municipalities}
+      intro={`Geurdetectie in Ranst is aangewezen wanneer rioolgeur blijft terugkomen zonder dat de oorzaak duidelijk zichtbaar is. Turbo Services onderzoekt gericht waar de geur ontstaat, zodat niet op goed geluk moet worden opengebroken of hersteld. Doel is de bron van het probleem technisch correct te lokaliseren.`}
       sections={sections}
-      faqs={service?.faqs ?? []}
-      ctaTitle="Geurdetectie nodig?"
-      ctaBody={ctaBody}
+      faqs={faqs}
+      ctaTitle="Rioolgeur laten opsporen?"
+      ctaBody={`Beschrijf kort waar de geurhinder optreedt in Ranst en hoe lang het probleem al aanwezig is. Turbo Services koppelt snel terug met een gerichte aanpak voor opsporing en advies.`}
       ctaButton="Vraag geurdetectie aan"
       heroImageOverride="/assets/base/geurdetectie.png"
       relatedRegionLinks={relatedRegionLinks}
+      commercialLinks={commercialLinks}
+      relatedServiceLinks={relatedServiceLinks}
+      knowledgeLinks={knowledgeLinks}
     />
   );
 }

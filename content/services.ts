@@ -7,6 +7,11 @@ export type ServiceDef = {
   key: string;
   name: string;
   intro: string;
+  category?: "core" | "secondary" | "supporting" | "deprecated";
+  isPrimary?: boolean;
+  hasRegionalPages?: boolean;
+  hasMunicipalPages?: boolean;
+  heroImage?: string;
   sections?: {
     title: string;
     body: string;
@@ -21,13 +26,18 @@ export const SERVICES: ServiceDef[] = [
   {
     key: "ontstoppingen",
     name: "Ontstoppingen",
+    category: "core",
+    isPrimary: true,
+    hasRegionalPages: true,
+    hasMunicipalPages: true,
+    heroImage: "/assets/base/ontstoppingen.png",
     intro:
       "Verstopte wc, lavabo, douche of hoofdriolering? Turbo Services voert ontstoppingen uit met professionele apparatuur en een gerichte aanpak, ook buiten de kantooruren.",
     sections: [
       {
         title: "Waarmee ik help",
         body:
-          "Ik help bij verstopte wc’s, lavabo’s, douches, baden, keukenafvoeren en hoofdrioleringen. Ook borrelende leidingen, terugkerend water of geurproblemen wijzen vaak op een onderliggende verstopping.",
+          "Ik help bij verstopte wc's, lavabo's, douches, baden, keukenafvoeren en hoofdrioleringen. Ook borrelende leidingen, terugkerend water of geurproblemen wijzen vaak op een onderliggende verstopping.",
       },
       {
         title: "Werkwijze",
@@ -47,7 +57,7 @@ export const SERVICES: ServiceDef[] = [
       },
       {
         q: "Hoe snel kan een verstopping opgelost worden?",
-        a: "In veel gevallen kan een ontstopping meteen uitgevoerd worden. Turbo Services werkt ook ’s avonds en in het weekend aan hetzelfde tarief.",
+        a: "In veel gevallen kan een ontstopping meteen uitgevoerd worden. Turbo Services werkt ook 's avonds en in het weekend aan hetzelfde tarief.",
       },
       {
         q: "Wanneer is camera-inspectie nodig?",
@@ -70,6 +80,11 @@ export const SERVICES: ServiceDef[] = [
   {
     key: "camera-inspectie",
     name: "Camera-inspectie",
+    category: "core",
+    isPrimary: true,
+    hasRegionalPages: true,
+    hasMunicipalPages: true,
+    heroImage: "/assets/base/camera-inspectie.png",
     intro:
       "Met camera-inspectie zie je exact wat er in je leidingen gebeurt: breuken, verzakkingen, wortelgroei of hardnekkige verstoppingen. Ideaal bij terugkerende problemen of twijfel over de oorzaak.",
     sections: [
@@ -115,6 +130,11 @@ export const SERVICES: ServiceDef[] = [
   {
     key: "noodherstellingen",
     name: "Noodherstellingen",
+    category: "core",
+    isPrimary: true,
+    hasRegionalPages: true,
+    hasMunicipalPages: true,
+    heroImage: "/assets/base/noodherstellingen.png",
     intro:
       "Bij lekken, breuken of acute schade aan afvoer of riolering voert Turbo Services gerichte noodherstellingen uit om verdere schade en uitval te beperken.",
     sections: [
@@ -136,7 +156,7 @@ export const SERVICES: ServiceDef[] = [
       },
       {
         q: "Kan een noodherstelling ook buiten de kantooruren?",
-        a: "Ja. Turbo Services werkt ook ’s avonds en in het weekend. Na 22u geldt een supplement.",
+        a: "Ja. Turbo Services werkt ook 's avonds en in het weekend. Na 22u geldt een supplement.",
       },
       {
         q: "Is eerst diagnose nodig?",
@@ -155,6 +175,11 @@ export const SERVICES: ServiceDef[] = [
   {
     key: "geurdetectie",
     name: "Geurdetectie",
+    category: "core",
+    isPrimary: true,
+    hasRegionalPages: true,
+    hasMunicipalPages: true,
+    heroImage: "/assets/base/geurdetectie.png",
     intro:
       "Rioolgeur in badkamer, toilet, keuken of technische ruimte vraagt een gerichte analyse. Turbo Services lokaliseert de oorzaak van geurproblemen zonder blind breekwerk.",
     sections: [
@@ -191,6 +216,11 @@ export const SERVICES: ServiceDef[] = [
   {
     key: "gerichte-rioolherstellingen",
     name: "Gerichte rioolherstellingen",
+    category: "secondary",
+    isPrimary: false,
+    hasRegionalPages: true,
+    hasMunicipalPages: true,
+    heroImage: "/assets/base/gerichte-rioolherstellingen.png",
     intro:
       "Wanneer schade of defecten in de leiding exact gelokaliseerd zijn, voert Turbo Services gerichte rioolherstellingen uit met focus op de echte probleemzone.",
     sections: [
@@ -227,6 +257,11 @@ export const SERVICES: ServiceDef[] = [
   {
     key: "vervangen-van-deksels",
     name: "Vervangen van deksels",
+    category: "secondary",
+    isPrimary: false,
+    hasRegionalPages: true,
+    hasMunicipalPages: true,
+    heroImage: "/assets/base/vervangen-van-deksels.png",
     intro:
       "Beschadigde, verzakte of losliggende putdeksels zorgen voor risico, geurhinder en een onveilige afwerking. Turbo Services vervangt en corrigeert deze gericht.",
     sections: [

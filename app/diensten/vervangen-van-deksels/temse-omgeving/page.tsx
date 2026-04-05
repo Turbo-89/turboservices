@@ -1,65 +1,73 @@
+import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+
+export const metadata: Metadata = {
+  title: `Vervangen van deksels in Temse & omstreken | Turbo Services`,
+  description: `Vervangen van deksels in Temse & omstreken voor beschadigde, verzakte of losliggende putdeksels en inspectiedeksels. Turbo Services vervangt en corrigeert deksels gericht, veilig en technisch passend.`,
+};
+
 export default function Page() {
+  const serviceKey = "vervangen-van-deksels";
+  const municipalities = [
+  "Temse",
+  "Sint-Niklaas",
+  "Beveren-Kruibeke-Zwijndrecht",
+  "Bornem"
+];
+  const relatedRegionLinks = [];
+  const sections = [
+  {
+    "title": "Wanneer een deksel vervangen moet worden in Temse & omstreken",
+    "body": "Een putdeksel of inspectiedeksel moet worden vervangen wanneer het beschadigd, verzakt, losliggend of slecht afsluitend is, of wanneer geur- en veiligheidsproblemen ontstaan. Ook waterinsijpeling en onveilige belasting kunnen wijzen op een technisch probleem met de huidige afdekking."
+  },
+  {
+    "title": "Waarom dit technisch belangrijk is",
+    "body": "Een slecht passend of beschadigd deksel is niet alleen een esthetisch probleem. Het kan geurhinder, waterinsijpeling, instabiliteit en bijkomende schade veroorzaken. Tijdige vervanging voorkomt dat de situatie verder verslechtert."
+  },
+  {
+    "title": "Werkwijze",
+    "body": "De bestaande situatie wordt beoordeeld, het juiste type deksel gekozen en de plaatsing of correctie gebeurt met aandacht voor stevigheid, aansluiting en duurzaamheid. Indien nodig wordt ook bekeken of de rand, ondersteuning of omliggende situatie bijkomende aanpassing vraagt."
+  },
+  {
+    "title": "Prijs en beoordeling",
+    "body": "De prijs hangt af van het type deksel, de staat van de bestaande situatie en de nodige aanpassing ter plaatse. Waar nodig gebeurt eerst een beoordeling om technisch de juiste oplossing te bepalen."
+  },
+  {
+    "title": "Waarom correcte vervanging telt",
+    "body": "Een correcte vervanging voorkomt geurproblemen, waterinsijpeling en risico's door instabiliteit of foutieve belasting. Dat is belangrijk zowel voor gebruikscomfort als voor technische duurzaamheid."
+  }
+];
+  const faqs = [
+  {
+    "q": "Wanneer moet een putdeksel vervangen worden?",
+    "a": "Wanneer het beschadigd, verzakt, losliggend of slecht afsluitend is, of wanneer geur- en veiligheidsproblemen ontstaan."
+  },
+  {
+    "q": "Kan enkel het deksel vervangen worden?",
+    "a": "Ja, als de omliggende structuur nog in goede staat is. Wanneer ook de rand of aansluiting beschadigd is, kan bijkomende correctie nodig zijn."
+  },
+  {
+    "q": "Is dit enkel esthetisch of ook technisch belangrijk?",
+    "a": "Het is technisch belangrijk. Een slecht passend of beschadigd deksel kan geurhinder, waterinsijpeling en onveilige situaties veroorzaken."
+  }
+];
+
   return (
     <DienstPageLayout
       serviceKey="vervangen-van-deksels"
       serviceName="Vervangen van deksels"
       regionKey="temse-omgeving"
-      regionLabel="Temse Omgeving"
-      municipalities={[
-  "Temse",
-  "Sint-Niklaas",
-  "Beveren-Kruibeke-Zwijndrecht",
-  "Bornem"
-]}
-      municipalityLinks={[
-  {
-    "slug": "temse",
-    "label": "Temse"
-  },
-  {
-    "slug": "sint-niklaas",
-    "label": "Sint-Niklaas"
-  },
-  {
-    "slug": "beveren-kruibeke-zwijndrecht",
-    "label": "Beveren-Kruibeke-Zwijndrecht"
-  },
-  {
-    "slug": "bornem",
-    "label": "Bornem"
-  }
-]}
-      intro={"Vervangen van deksels in Temse Omgeving nodig? In Temse, Sint-Niklaas, Beveren-Kruibeke-Zwijndrecht, Bornem zien we regelmatig beschadigde, verzakte of versleten putdeksels en inspectiedeksels. Turbo Services vervangt deksels veilig en correct, met aandacht voor bereikbaarheid, belasting en de bestaande situatie ter plaatse."}
-      sections={[
-  {
-    "title": "Wanneer is vervangen van deksels nodig in Temse Omgeving?",
-    "body": "In Temse, Sint-Niklaas, Beveren-Kruibeke-Zwijndrecht, Bornem komen beschadigde, losliggende of verzakte deksels regelmatig voor. Dat kan zorgen voor geurhinder, onveilige situaties, waterinsijpeling of bijkomende schade aan de put of aansluiting. Tijdig vervangen voorkomt verdere problemen en maakt de situatie opnieuw veilig en bruikbaar."
-  },
-  {
-    "title": "Onze aanpak in Temse Omgeving",
-    "body": "We bekijken eerst het type deksel, de maat, de belasting en de toestand van de bestaande putrand. Daarna vervangen we het beschadigde of foutieve deksel door een geschikte oplossing. Waar nodig stemmen we de uitvoering af op de omliggende verharding en de praktische toegankelijkheid ter plaatse."
-  },
-  {
-    "title": "Actief in Temse Omgeving",
-    "body": "Turbo Services werkt actief in Temse Omgeving, onder meer in Temse, Sint-Niklaas, Beveren-Kruibeke-Zwijndrecht, Bornem. We zorgen voor een duidelijke aanpak, correcte uitvoering en snelle opvolging zonder onnodige omwegen."
-  }
-]}
-      faqs={[
-  {
-    "q": "Doen jullie vervanging van deksels in Temse Omgeving?",
-    "a": "Ja. We zijn actief in Temse Omgeving, onder meer in Temse, Sint-Niklaas, Beveren-Kruibeke-Zwijndrecht, Bornem, en vervangen beschadigde, verzakte of versleten deksels afhankelijk van de situatie ter plaatse."
-  },
-  {
-    "q": "Wanneer moet een putdeksel vervangen worden?",
-    "a": "Wanneer een deksel scheurt, verzakt, los ligt, niet meer correct afsluit of onveilig wordt om te belasten, is vervanging meestal de juiste oplossing."
-  },
-  {
-    "q": "Bekijken jullie eerst welke oplossing technisch past?",
-    "a": "Ja. We bekijken eerst het type put, de maat, de belasting en de plaatsingssituatie zodat het juiste deksel en de juiste uitvoering gekozen worden."
-  }
-]}
+      regionLabel="Temse & omstreken"
+      municipalities={municipalities}
+      intro={`Vervangen van deksels in Temse & omstreken is aangewezen wanneer een putdeksel of inspectiedeksel beschadigd, verzakt, losliggend of slecht afsluitend is. Turbo Services beoordeelt de bestaande situatie en zorgt voor een correcte, veilige en duurzame vervanging afgestemd op belasting, aansluiting en praktische omstandigheden ter plaatse.`}
+      sections={sections}
+      faqs={faqs}
+      ctaTitle="Deksel laten vervangen?"
+      ctaBody={`Beschrijf kort welk type deksel of putprobleem zich voordoet in Temse & omstreken. Turbo Services koppelt snel terug met een voorstel voor beoordeling en vervanging.`}
+      ctaButton="Vraag vervanging aan"
+      heroImageOverride="/assets/base/vervangen-van-deksels.png"
+      municipalityLinks={municipalities.map((name) => ({ slug: name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, " en ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""), label: name }))}
     />
   );
 }

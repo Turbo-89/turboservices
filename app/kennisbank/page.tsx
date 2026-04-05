@@ -1,6 +1,6 @@
 import Link from "next/link";
 import HeroLogo from "@/components/HeroLogo";
-import { getKnowledgeLinks } from "@/lib/internal-links";
+import { getKnowledgeLinks } from "@/lib/knowledge-links";
 
 export const metadata = {
   title: "Kennisbank | Turbo Services",
@@ -32,19 +32,24 @@ export default function KennisbankHome() {
       <main className="mx-auto max-w-5xl px-4 py-12">
         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
           {artikelen.map((it) => (
-            <Link
-              key={it.href}
-              href={it.href}
-              className="rounded-xl border p-4 hover:bg-slate-50"
-            >
-              <span className="font-medium text-slate-900">
-                {it.label}
-              </span>
-              <span className="block text-sm text-slate-600">
-                Lees meer →
-              </span>
-            </Link>
-          ))}
+  <Link
+    key={it.href}
+    href={it.href}
+    className="rounded-xl border p-4 hover:bg-slate-50"
+  >
+    <span className="font-medium text-slate-900">
+      {it.title}
+    </span>
+    {it.description ? (
+      <span className="mt-1 block text-sm text-slate-600">
+        {it.description}
+      </span>
+    ) : null}
+    <span className="block text-sm text-slate-600">
+      Lees meer →
+    </span>
+  </Link>
+))}
         </div>
       </main>
     </>

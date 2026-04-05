@@ -1,43 +1,8 @@
 ﻿import type { MetadataRoute } from "next";
+import { SERVICES } from "@/content/services";
 import { REGION_CITIES } from "@/content/regions";
+import { SITE_URL } from "@/content/site";
 import { slugify } from "@/lib/slugify";
-
-const SITE = "https://www.turboservices.be";
-
-const SERVICES = [
-  "ontstoppingen",
-  "camera-inspectie",
-  "noodherstellingen",
-  "geurdetectie",
-  "gerichte-rioolherstellingen",
-  "vervangen-van-deksels",
-] as const;
-
-const REGIONS = [
-  "antwerpen-noordrand",
-  "antwerpen-stad",
-  "antwerpen-zuidrand",
-  "brussel-centrum",
-  "brussel-noord",
-  "brussel-zuid",
-  "denderstreek",
-  "druivenstreek",
-  "durmestreek-lokeren",
-  "hageland",
-  "kempen-noord",
-  "kempen-zuid",
-  "klein-brabant",
-  "leuven-dijleland",
-  "lier-neteland",
-  "mechelen-rivierenland",
-  "noordrand-brussel",
-  "pajottenland",
-  "rupelstreek",
-  "scheldeland",
-  "sint-niklaas-regio",
-  "temse-omgeving",
-  "waasland",
-] as const;
 
 const STATIC_PAGES = [
   "",
@@ -76,34 +41,44 @@ function getUniqueCities() {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+
+  const regionKeys = Object.keys(REGION_CITIES);
   const cities = getUniqueCities();
 
+  const allServiceKeys = SERVICES.map((service) => service.key);
+  const regionalServiceKeys = SERVICES.filter((service) => service.hasRegionalPages).map(
+    (service) => service.key
+  );
+  const municipalServiceKeys = SERVICES.filter((service) => service.hasMunicipalPages).map(
+    (service) => service.key
+  );
+
   const staticUrls: MetadataRoute.Sitemap = STATIC_PAGES.map((path) => ({
-    url: `${SITE}${path}`,
+    url: `${SITE_URL}${path}`,
     lastModified: now,
   }));
 
-  const serviceUrls: MetadataRoute.Sitemap = SERVICES.map((service) => ({
-    url: `${SITE}/diensten/${service}`,
+  const serviceUrls: MetadataRoute.Sitemap = allServiceKeys.map((serviceKey) => ({
+    url: `${SITE_URL}/diensten/${serviceKey}`,
     lastModified: now,
   }));
 
-  const regionalServiceUrls: MetadataRoute.Sitemap = SERVICES.flatMap((service) =>
-    REGIONS.map((region) => ({
-      url: `${SITE}/diensten/${service}/${region}`,
+  const regionalServiceUrls: MetadataRoute.Sitemap = regionalServiceKeys.flatMap((serviceKey) =>
+    regionKeys.map((regionKey) => ({
+      url: `${SITE_URL}/diensten/${serviceKey}/${regionKey}`,
       lastModified: now,
     }))
   );
 
-  const municipalServiceUrls: MetadataRoute.Sitemap = SERVICES.flatMap((service) =>
+  const municipalServiceUrls: MetadataRoute.Sitemap = municipalServiceKeys.flatMap((serviceKey) =>
     cities.map((city) => ({
-      url: `${SITE}/diensten/${service}/${slugify(city)}`,
+      url: `${SITE_URL}/diensten/${serviceKey}/${slugify(city)}`,
       lastModified: now,
     }))
   );
 
   const knowledgeUrls: MetadataRoute.Sitemap = KNOWLEDGE_PAGES.map((path) => ({
-    url: `${SITE}${path}`,
+    url: `${SITE_URL}${path}`,
     lastModified: now,
   }));
 
@@ -115,3 +90,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...knowledgeUrls,
   ];
 }
+

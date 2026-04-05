@@ -1,84 +1,85 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
-import { REGION_CITIES } from "@/content/regions";
-import { getServiceByKey } from "@/content/services";
-import { slugify } from "@/lib/slugify";
+
 
 export const metadata: Metadata = {
-  title: "Ontstoppingen in Antwerpen Zuidrand",
-  description: "Ontstopping van wc, lavabo, douche en hoofdriolering in Antwerpen Zuidrand. Turbo Services lost verstoppingen snel en professioneel op, ook 's avonds en in het weekend aan hetzelfde tarief.",
+  title: `Ontstoppingen in Antwerpen Zuidrand | Turbo Services`,
+  description: `Ontstoppingen in Antwerpen Zuidrand voor verstopte wc's, lavabo's, douches, baden, keukenafvoeren en hoofdrioleringen. Turbo Services werkt snel, gericht en ook 's avonds en in het weekend aan hetzelfde tarief.`,
 };
 
 export default function Page() {
-  const regionKey = "antwerpen-zuidrand" as const;
-  const regionLabel = "Antwerpen Zuidrand";
-  const municipalities = REGION_CITIES[regionKey] ?? [];
-  const muniText = municipalities.slice(0, 12).join(", ");
-  const service = getServiceByKey("ontstoppingen");
-
-  const intro =
-    "Verstopte wc, lavabo, douche of hoofdriolering in Antwerpen Zuidrand? Turbo Services lost het op met professionele machines, ook 's avonds en in het weekend aan hetzelfde tarief." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
-
+  const serviceKey = "ontstoppingen";
+  const municipalities = [
+  "Aartselaar",
+  "Boechout",
+  "Borsbeek",
+  "Edegem",
+  "Hove",
+  "Kontich",
+  "Lint",
+  "Mortsel"
+];
+  const relatedRegionLinks = [];
   const sections = [
-    {
-      title: "Ontstoppingen",
-      body:
-        "Verstopte wc, lavabo, douche of hoofdriolering in Antwerpen Zuidrand? Turbo Services lost het op met professionele machines, ook 's avonds en in het weekend aan hetzelfde tarief.",
-    },
-    {
-      title: "Wat we doen",
-      body:
-        "- Verstopte wc, douche, bad en lavabo\n- Keukenafvoer en vetleidingen\n- Hoofdriolering binnen en buiten de woning\n- Water dat terugkomt via vloerputjes of kelderafvoeren\n- Rioolgeur, borrelende geluiden en terugslagproblemen",
-    },
-    {
-      title: "Werkwijze",
-      body:
-        "1. Korte bevraging van het probleem\n2. Inspectie van de betrokken afvoeren\n3. Mechanische ontstopping met professionele apparatuur\n4. Indien nodig: camera-inspectie voor diagnose\n5. Controle en advies om herhaling te vermijden",
-    },
-    {
-      title: "Tarieven",
-      body:
-        "Wij werken met vaste en transparante prijzen, ook 's avonds en in het weekend:\n\n- Interventie ontstopping: â‚¬160\n- Camera-inspectie: â‚¬90\n- Totaalpakket (ontstopping + camera): â‚¬250",
-    },
-    {
-      title: "Waarom snel ingrijpen?",
-      body:
-        "Hoe sneller je ingrijpt, hoe kleiner de kans op bijkomende schade zoals geurhinder, overstroming of lekkages. Een korte interventie voorkomt vaak duurdere herstellingen.",
-    }
-  ].map((s, idx) => {
-    if (!muniText) return s;
-    if (idx === 0) {
-      return {
-        ...s,
-        body: s.body + "\n\nActief in " + regionLabel + ": " + muniText + " en omgeving.",
-      };
-    }
-    return s;
-  });
-
-  const ctaBody =
-    "Beschrijf kort het probleem en voeg indien mogelijk een foto toe. Wij koppelen snel terug met een concreet tijdsblok in Antwerpen Zuidrand." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
+  {
+    "title": "Waarmee ik help in Antwerpen Zuidrand",
+    "body": "Ik help in Antwerpen Zuidrand bij verstopte wc's, lavabo's, douches, baden, keukenafvoeren en hoofdrioleringen. Ook borrelende leidingen, terugkerend water, geurhinder of afvoeren die traag weglopen wijzen vaak op een onderliggende verstopping die gericht moet worden aangepakt."
+  },
+  {
+    "title": "Wanneer een ontstopping nodig is",
+    "body": "Een ontstopping is aangewezen wanneer water niet meer normaal wegloopt, terugkomt via een ander afvoerpunt of wanneer dezelfde verstopping blijft terugkomen. In die gevallen is het belangrijk om niet alleen de hinder tijdelijk weg te nemen, maar ook de oorzaak correct te beoordelen."
+  },
+  {
+    "title": "Werkwijze",
+    "body": "Na een korte analyse van het probleem wordt de betrokken leiding gecontroleerd en mechanisch ontstopt met professioneel materiaal. Indien nodig volgt een camera-inspectie om de oorzaak exact vast te stellen, bijvoorbeeld bij schade, verzakking, wortelgroei of hardnekkige vervuiling."
+  },
+  {
+    "title": "Prijzen",
+    "body": "De basisprijs voor een ontstopping bedraagt €160 exclusief btw. Een camera-inspectie is een supplement van €90. Wanneer beide samen nodig zijn, geldt het totaalpakket van €250 exclusief btw."
+  },
+  {
+    "title": "Waarom snel ingrijpen",
+    "body": "Hoe sneller een verstopping wordt aangepakt, hoe kleiner de kans op bijkomende schade zoals wateroverlast, geurhinder, vervuiling of druk op andere afvoeren. Een gerichte interventie voorkomt vaak duurdere vervolgproblemen."
+  }
+];
+  const faqs = [
+  {
+    "q": "Wat kost een ontstopping?",
+    "a": "De basisprijs voor een ontstopping bedraagt €160 exclusief btw. Indien camera-inspectie nodig is, komt daar €90 bij."
+  },
+  {
+    "q": "Hoe snel kan een verstopping opgelost worden?",
+    "a": "In veel gevallen kan een ontstopping meteen uitgevoerd worden. Turbo Services werkt ook 's avonds en in het weekend aan hetzelfde tarief."
+  },
+  {
+    "q": "Wanneer is camera-inspectie nodig?",
+    "a": "Bij terugkerende verstoppingen of wanneer de oorzaak niet duidelijk is, helpt camera-inspectie om breuken, verzakkingen of wortelgroei vast te stellen."
+  },
+  {
+    "q": "Kan een verstopping terugkomen?",
+    "a": "Ja. Als de oorzaak structureel is, zoals vetophoping, verzakking of schade aan de leiding, kan het probleem terugkeren zonder bijkomende diagnose of herstelling."
+  },
+  {
+    "q": "Wanneer moet ik dringend een ontstopping laten uitvoeren?",
+    "a": "Wanneer water terugkomt via toilet, douche of vloerputjes is snel ingrijpen belangrijk om bijkomende schade en geurhinder te vermijden."
+  }
+];
 
   return (
     <DienstPageLayout
       serviceKey="ontstoppingen"
       serviceName="Ontstoppingen"
-      regionKey={regionKey}
-      regionLabel={regionLabel}
+      regionKey="antwerpen-zuidrand"
+      regionLabel="Antwerpen Zuidrand"
       municipalities={municipalities}
-      intro={intro}
+      intro={`Problemen met een verstopte wc, lavabo, douche, bad of hoofdriolering in Antwerpen Zuidrand? Turbo Services voert ontstoppingen uit met professionele apparatuur en een gerichte aanpak. Ook bij terugkerende verstoppingen, borrelende afvoeren of water dat terugkomt via toilet, douche of vloerputjes is snelle tussenkomst belangrijk om bijkomende schade en geurhinder te vermijden.`}
       sections={sections}
-      faqs={service?.faqs ?? []}
-      ctaTitle="Hulp nodig bij een verstopping?"
-      ctaBody={ctaBody}
+      faqs={faqs}
+      ctaTitle="Direct hulp nodig bij een verstopping?"
+      ctaBody={`Beschrijf kort het probleem en de locatie in Antwerpen Zuidrand. Turbo Services koppelt snel terug met een concreet tijdsvenster en een gerichte aanpak voor de situatie ter plaatse.`}
       ctaButton="Vraag ontstopping aan"
       heroImageOverride="/assets/base/ontstoppingen.png"
-      municipalityLinks={municipalities.map((city) => ({
-        slug: slugify(city),
-        label: city,
-      }))}
+      municipalityLinks={municipalities.map((name) => ({ slug: name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, " en ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""), label: name }))}
     />
   );
 }

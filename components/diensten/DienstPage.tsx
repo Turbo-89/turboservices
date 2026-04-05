@@ -5,7 +5,6 @@ import { REGION_CITIES, type RegionKey } from "@/content/regions";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { ServiceJsonLd } from "@/components/seo/ServiceJsonLd";
 import FAQJsonLd from "@/components/seo/FAQJsonLd";
-import { getCommercialLinks, getKnowledgeLinks, filterKnowledgeByService } from "@/lib/internal-links";
 
 export type DienstSection = {
   title: string;
@@ -20,6 +19,20 @@ export type DienstFaq = {
 type LocationLink = {
   slug: string;
   label: string;
+};
+
+type InternalLink = {
+  href: string;
+  label: string;
+};
+
+type KnowledgeLink = {
+  href: string;
+  title: string;
+  description: string;
+  service: string;
+  keywords: string[];
+  slug: string;
 };
 
 type Props = {
@@ -44,6 +57,10 @@ type Props = {
 
   municipalityLinks?: LocationLink[];
   relatedRegionLinks?: LocationLink[];
+
+  commercialLinks?: InternalLink[];
+  relatedServiceLinks?: InternalLink[];
+  knowledgeLinks?: KnowledgeLink[];
 };
 
 type Crumb = { name: string; url: string };
@@ -151,6 +168,10 @@ export function DienstPageLayout({
   ctaTitle,
   ctaBody,
   ctaButton,
+
+  commercialLinks = [],
+  relatedServiceLinks = [],
+  knowledgeLinks = [],
 }: Props) {
   const workArea = buildWorkAreaText(regionKey, municipalities);
   const computedH1 =
@@ -317,6 +338,77 @@ export function DienstPageLayout({
           </section>
         )}
 
+        {commercialLinks.length > 0 && (
+          <section className="mt-10">
+            <h2 className="mb-4 text-2xl font-semibold text-slate-900">
+              Veelgezochte oplossingen in {regionLabel}
+            </h2>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {commercialLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-xl border p-4 hover:bg-slate-50"
+                >
+                  <span className="font-medium text-slate-900">{item.label}</span>
+                  <span className="block text-sm text-slate-600">
+                    Bekijk oplossing →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {relatedServiceLinks.length > 0 && (
+          <section className="mt-10">
+            <h2 className="mb-4 text-2xl font-semibold text-slate-900">
+              Gerelateerde diensten in {regionLabel}
+            </h2>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {relatedServiceLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-xl border p-4 hover:bg-slate-50"
+                >
+                  <span className="font-medium text-slate-900">{item.label}</span>
+                  <span className="block text-sm text-slate-600">
+                    Bekijk dienst →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {knowledgeLinks.length > 0 && (
+          <section className="mt-10">
+            <h2 className="mb-4 text-2xl font-semibold text-slate-900">
+              Relevante kennisbankartikels
+            </h2>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {knowledgeLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-xl border p-4 hover:bg-slate-50"
+                >
+                  <span className="font-medium text-slate-900">{item.title}</span>
+                  {item.description ? (
+                    <span className="mt-1 block text-sm text-slate-600">
+                      {item.description}
+                    </span>
+                  ) : null}
+                  <span className="block text-sm text-slate-600">
+                    Lees artikel →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
         {faqs.length > 0 && (
           <section className="mt-10">
             <h2 className="mb-4 text-2xl font-semibold text-slate-900">
@@ -337,53 +429,6 @@ export function DienstPageLayout({
             </div>
           </section>
         )}
-{/* AUTO LINKS */}
-{(() => {
-  const commercial = getCommercialLinks(serviceKey);
-  const knowledge = filterKnowledgeByService(getKnowledgeLinks(), serviceKey);
-
-  if (commercial.length === 0 && knowledge.length === 0) return null;
-
-  return (
-    <section className="mt-12">
-      <h2 className="mb-4 text-2xl font-semibold text-slate-900">
-        Veelgezochte oplossingen & uitleg
-      </h2>
-
-      <div className="grid gap-3 sm:grid-cols-2">
-        {commercial.slice(0, 6).map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="rounded-xl border p-4 hover:bg-slate-50"
-          >
-            <span className="font-medium text-slate-900">
-              {item.label}
-            </span>
-            <span className="block text-sm text-slate-600">
-              Bekijk oplossing →
-            </span>
-          </Link>
-        ))}
-
-        {knowledge.slice(0, 6).map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="rounded-xl border p-4 hover:bg-slate-50"
-          >
-            <span className="font-medium text-slate-900">
-              {item.label}
-            </span>
-            <span className="block text-sm text-slate-600">
-              Lees uitleg →
-            </span>
-          </Link>
-        ))}
-      </div>
-    </section>
-  );
-})()}
 
         <div className="mt-12 rounded-2xl border bg-slate-50 p-6 shadow-sm md:p-8">
           <h2 className="mb-3 text-2xl font-semibold text-slate-900">
