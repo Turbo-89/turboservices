@@ -22,7 +22,7 @@ export default function Page() {
       ctaTitle={service.ctaTitle}
       ctaBody={service.ctaBody}
       ctaButton={service.ctaButton}
-      heroImageOverride="/assets/base/ontstoppingen.png"
+      heroImageOverride={service.heroImage}
     />
   );
 }

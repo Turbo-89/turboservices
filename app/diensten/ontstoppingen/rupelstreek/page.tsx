@@ -1,17 +1,80 @@
-
+import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+export const metadata: Metadata = {
+  title: `Ontstoppingen in Rupelstreek | Turbo Services`,
+  description: `Ontstoppingen in Rupelstreek voor verstopte wc's, lavabo's, douches, baden, keukenafvoeren en hoofdrioleringen. Turbo Services werkt snel, gericht en ook 's avonds en in het weekend aan hetzelfde tarief.`,
+};
+
 export default function Page() {
+  const municipalities = [
+  "Boom",
+  "Hemiksem",
+  "Niel",
+  "Rumst",
+  "Schelle"
+];
+  const relatedRegionLinks = [];
+  const sections = [
+  {
+    "title": "Waarmee ik help in Rupelstreek",
+    "body": "Ik help in Rupelstreek bij verstopte wc's, lavabo's, douches, baden, keukenafvoeren en hoofdrioleringen. Ook borrelende leidingen, terugkerend water, geurhinder of afvoeren die traag weglopen wijzen vaak op een onderliggende verstopping die gericht moet worden aangepakt."
+  },
+  {
+    "title": "Wanneer een ontstopping nodig is",
+    "body": "Een ontstopping is aangewezen wanneer water niet meer normaal wegloopt, terugkomt via een ander afvoerpunt of wanneer dezelfde verstopping blijft terugkomen. In die gevallen is het belangrijk om niet alleen de hinder tijdelijk weg te nemen, maar ook de oorzaak correct te beoordelen."
+  },
+  {
+    "title": "Werkwijze",
+    "body": "Na een korte analyse van het probleem wordt de betrokken leiding gecontroleerd en mechanisch ontstopt met professioneel materiaal. Indien nodig volgt een camera-inspectie om de oorzaak exact vast te stellen, bijvoorbeeld bij schade, verzakking, wortelgroei of hardnekkige vervuiling."
+  },
+  {
+    "title": "Prijzen",
+    "body": "De basisprijs voor een ontstopping bedraagt €160 exclusief btw. Een camera-inspectie is een supplement van €90. Wanneer beide samen nodig zijn, geldt het totaalpakket van €250 exclusief btw."
+  },
+  {
+    "title": "Waarom snel ingrijpen",
+    "body": "Hoe sneller een verstopping wordt aangepakt, hoe kleiner de kans op bijkomende schade zoals wateroverlast, geurhinder, vervuiling of druk op andere afvoeren. Een gerichte interventie voorkomt vaak duurdere vervolgproblemen."
+  }
+];
+  const faqs = [
+  {
+    "q": "Wat kost een ontstopping?",
+    "a": "De basisprijs voor een ontstopping bedraagt €160 exclusief btw. Indien camera-inspectie nodig is, komt daar €90 bij."
+  },
+  {
+    "q": "Hoe snel kan een verstopping opgelost worden?",
+    "a": "In veel gevallen kan een ontstopping meteen uitgevoerd worden. Turbo Services werkt ook 's avonds en in het weekend aan hetzelfde tarief."
+  },
+  {
+    "q": "Wanneer is camera-inspectie nodig?",
+    "a": "Bij terugkerende verstoppingen of wanneer de oorzaak niet duidelijk is, helpt camera-inspectie om breuken, verzakkingen of wortelgroei vast te stellen."
+  },
+  {
+    "q": "Kan een verstopping terugkomen?",
+    "a": "Ja. Als de oorzaak structureel is, zoals vetophoping, verzakking of schade aan de leiding, kan het probleem terugkeren zonder bijkomende diagnose of herstelling."
+  },
+  {
+    "q": "Wanneer moet ik dringend een ontstopping laten uitvoeren?",
+    "a": "Wanneer water terugkomt via toilet, douche of vloerputjes is snel ingrijpen belangrijk om bijkomende schade en geurhinder te vermijden."
+  }
+];
+
   return (
     <DienstPageLayout
       serviceKey="ontstoppingen"
       serviceName="Ontstoppingen"
       regionKey="rupelstreek"
       regionLabel="Rupelstreek"
-      municipalities={["Boom","Rumst","Niel"]}
-      intro={`Ontstoppingen in Rupelstreek nodig? In Boom, Rumst, Niel komen verstoppingen, geurhinder en afvoerproblemen frequent voor door oudere rioleringen en intensief gebruik. Turbo Services zorgt voor snelle en gerichte interventies zonder onnodige kosten.`}
-      sections={[{"title":"Veelvoorkomende problemen in Rupelstreek","body":"In Boom, Rumst, Niel zien we vaak verstoppingen door vetophoping, wortelgroei en verzakkingen. Vooral in oudere woningen komen terugkerende problemen voor die een gerichte aanpak vereisen."},{"title":"Onze aanpak","body":"Wij starten met een gerichte analyse van het probleem. Indien nodig voeren we een camera-inspectie uit om exact de oorzaak te bepalen. Daarna lossen we het probleem efficiënt op zonder onnodige breekwerken."},{"title":"Waarom Turbo Services","body":"Snelle interventie, duidelijke communicatie en correcte prijzen. Actief in Rupelstreek en directe omgeving, met kennis van lokale situaties en typische problemen."}]}
-      faqs={[{"q":"Hoe snel kunnen jullie ter plaatse zijn in Rupelstreek?","a":"In de meeste gevallen zijn we dezelfde dag nog ter plaatse in Rupelstreek en omliggende gemeenten zoals Boom, Rumst, Niel."},{"q":"Wat kost een ontstoppingen?","a":"Je krijgt altijd vooraf een duidelijke prijs. Geen verrassingen achteraf."}]}
+      municipalities={municipalities}
+      intro={`Problemen met een verstopte wc, lavabo, douche, bad of hoofdriolering in Rupelstreek? Turbo Services voert ontstoppingen uit met professionele apparatuur en een gerichte aanpak. Ook bij terugkerende verstoppingen, borrelende afvoeren of water dat terugkomt via toilet, douche of vloerputjes is snelle tussenkomst belangrijk om bijkomende schade en geurhinder te vermijden.`}
+      sections={sections}
+      faqs={faqs}
+      ctaTitle="Direct hulp nodig bij een verstopping?"
+      ctaBody={`Beschrijf kort het probleem en de locatie in Rupelstreek. Turbo Services koppelt snel terug met een concreet tijdsvenster en een gerichte aanpak voor de situatie ter plaatse.`}
+      ctaButton="Vraag ontstopping aan"
+      heroImageOverride="/assets/base/ontstoppingen.png"
+      municipalityLinks={municipalities.map((name) => ({ slug: name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, " en ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""), label: name }))}
     />
   );
 }

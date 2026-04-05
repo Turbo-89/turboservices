@@ -1,84 +1,79 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
-import { REGION_CITIES } from "@/content/regions";
-import { getServiceByKey } from "@/content/services";
-import { slugify } from "@/lib/slugify";
 
 export const metadata: Metadata = {
-  title: "Noodherstellingen in Hageland",
-  description: "Noodherstellingen aan afvoer en riolering in Hageland, inclusief lekken, verzakkingen en acute schade. Snelle interventie bij dringende problemen.",
+  title: `Noodherstellingen in Hageland | Turbo Services`,
+  description: `Noodherstellingen in Hageland bij lekken, breuken, verzakkingen en andere acute schade aan afvoer of riolering. Turbo Services grijpt snel in om verdere schade en uitval te beperken.`,
 };
 
 export default function Page() {
-  const regionKey = "hageland" as const;
-  const regionLabel = "Hageland";
-  const municipalities = REGION_CITIES[regionKey] ?? [];
-  const muniText = municipalities.slice(0, 12).join(", ");
-  const service = getServiceByKey("noodherstellingen");
-
-  const intro =
-    "Lek, verzakking of acute schade aan afvoer of riolering in Hageland? Turbo Services voert snelle en gerichte noodherstellingen uit om verdere schade en overlast te beperken." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
-
+  const municipalities = [
+  "Aarschot",
+  "Diest",
+  "Tienen",
+  "Scherpenheuvel-Zichem",
+  "Bekkevoort",
+  "Geetbets",
+  "Kortenaken",
+  "Linter"
+];
+  const relatedRegionLinks = [];
   const sections = [
-    {
-      title: "Noodherstellingen",
-      body:
-        "Lek, verzakking of acute schade aan afvoer of riolering in Hageland? Turbo Services voert snelle en gerichte noodherstellingen uit om verdere schade en overlast te beperken.",
-    },
-    {
-      title: "Wat we doen",
-      body:
-        "- Dringende herstellingen aan afvoer en riolering\n- Aanpak van lekken, breuken en verzakkingen\n- Vervanging van beschadigde delen waar nodig\n- Gerichte lokalisatie van het probleem\n- Snelle tussenkomst bij acute schade",
-    },
-    {
-      title: "Werkwijze",
-      body:
-        "1. Snelle inschatting van de urgentie\n2. Lokalisatie van het probleem\n3. Indien nodig eerst diagnose via camera-inspectie of andere controle\n4. Uitvoeren van een technisch verantwoorde noodherstelling\n5. Advies over verdere of definitieve aanpak",
-    },
-    {
-      title: "Tarieven",
-      body:
-        "Prijzen variÃ«ren volgens het type probleem en de nodige interventie:\n\n- Diagnose en interventie starten vanaf â‚¬160 exclusief btw\n- Camera-inspectie kan als supplement toegevoegd worden\n- Bijkomende herstellingen of structurele werken steeds na duidelijke bespreking",
-    },
-    {
-      title: "Waarom snel ingrijpen?",
-      body:
-        "Lekkages, breuken en verzakkingen kunnen snel grotere schade veroorzaken. Snelle noodherstelling helpt om gevolgschade, vochtproblemen en verdere uitval te beperken.",
-    }
-  ].map((s, idx) => {
-    if (!muniText) return s;
-    if (idx === 0) {
-      return {
-        ...s,
-        body: s.body + "\n\nActief in " + regionLabel + ": " + muniText + " en omgeving.",
-      };
-    }
-    return s;
-  });
-
-  const ctaBody =
-    "Neem contact op voor een snelle inschatting en noodherstelling in Hageland." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
+  {
+    "title": "Wanneer een noodherstelling nodig is in Hageland",
+    "body": "Noodherstellingen zijn aangewezen bij acute lekken, gebroken leidingen, waterinfiltratie, losgekomen aansluitingen of situaties waar snel ingrijpen verdere schade voorkomt. Niet elk probleem vraagt meteen een volledige herstelling, maar stabiliseren en technisch veilig ingrijpen is vaak wel noodzakelijk."
+  },
+  {
+    "title": "Wat onder noodherstellingen valt",
+    "body": "Het gaat om dringende herstellingen aan afvoer, riolering of aansluitingen wanneer verdere schade, wateroverlast of uitval dreigt. Afhankelijk van de situatie kan eerst een noodoplossing nodig zijn, gevolgd door een definitieve herstelling."
+  },
+  {
+    "title": "Werkwijze",
+    "body": "Eerst wordt de acute situatie gestabiliseerd. Daarna volgt een gerichte beoordeling van de schade en een praktische oplossing om het probleem veilig en werkbaar op te lossen. Wanneer de oorzaak niet meteen zichtbaar is, kan bijkomende diagnose nodig zijn om gericht te herstellen."
+  },
+  {
+    "title": "Prijzen",
+    "body": "Prijzen variëren volgens het type probleem en de nodige interventie. Diagnose en interventie starten vanaf €160 exclusief btw. Camera-inspectie kan als supplement toegevoegd worden wanneer bijkomende lokalisatie nodig is."
+  },
+  {
+    "title": "Waarom snel ingrijpen",
+    "body": "Lekkages, breuken en verzakkingen kunnen snel grotere schade veroorzaken aan gebouw, afwerking of omliggende leidingen. Een snelle technische tussenkomst helpt om gevolgschade en verdere uitval te beperken."
+  }
+];
+  const faqs = [
+  {
+    "q": "Wat valt onder noodherstellingen?",
+    "a": "Dat zijn dringende herstellingen aan afvoer, riolering of aansluitingen wanneer verdere schade, wateroverlast of uitval dreigt."
+  },
+  {
+    "q": "Kan een noodherstelling ook buiten de kantooruren?",
+    "a": "Ja. Turbo Services werkt ook 's avonds en in het weekend. Na 22u geldt een supplement."
+  },
+  {
+    "q": "Is eerst diagnose nodig?",
+    "a": "Bij sommige situaties wel. Wanneer de oorzaak niet onmiddellijk zichtbaar is, kan bijkomende inspectie nodig zijn om gericht te herstellen."
+  },
+  {
+    "q": "Wordt alles meteen definitief hersteld?",
+    "a": "Dat hangt af van de aard van de schade. Soms gebeurt eerst een veilige noodoplossing, gevolgd door een definitieve herstelling."
+  }
+];
 
   return (
     <DienstPageLayout
       serviceKey="noodherstellingen"
       serviceName="Noodherstellingen"
-      regionKey={regionKey}
-      regionLabel={regionLabel}
+      regionKey="hageland"
+      regionLabel="Hageland"
       municipalities={municipalities}
-      intro={intro}
+      intro={`Noodherstellingen in Hageland zijn nodig wanneer een afvoer of riolering acuut problemen veroorzaakt, zoals een lek, breuk, verzakking of losgekomen aansluiting. Turbo Services beoordeelt snel de situatie en voert een gerichte tussenkomst uit om verdere schade, wateroverlast en bijkomende uitval te beperken.`}
       sections={sections}
-      faqs={service?.faqs ?? []}
+      faqs={faqs}
       ctaTitle="Dringende herstelling nodig?"
-      ctaBody={ctaBody}
+      ctaBody={`Geef kort door wat er dringend aan de hand is in Hageland. Turbo Services schat de ernst van het probleem snel in en koppelt terug met een concrete aanpak.`}
       ctaButton="Vraag noodherstelling aan"
       heroImageOverride="/assets/base/noodherstellingen.png"
-      municipalityLinks={municipalities.map((city) => ({
-        slug: slugify(city),
-        label: city,
-      }))}
+      municipalityLinks={municipalities.map((name) => ({ slug: name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, " en ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""), label: name }))}
     />
   );
 }

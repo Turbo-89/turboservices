@@ -1,89 +1,75 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
-import { getServiceByKey } from "@/content/services";
 
 export const metadata: Metadata = {
-  title: "Noodherstellingen in Machelen | Turbo Services",
-  description:
-    "Lek, verzakking of acute schade aan afvoer of riolering in Machelen? Turbo Services voert snelle en gerichte noodherstellingen uit om verdere schade en overlast te beperken.",
+  title: `Noodherstellingen in Machelen | Turbo Services`,
+  description: `Noodherstellingen in Machelen bij lekken, breuken, verzakkingen en andere acute schade aan afvoer of riolering. Turbo Services grijpt snel in om verdere schade en uitval te beperken.`,
 };
 
 export default function Page() {
-  const city = "Machelen";
-  const service = getServiceByKey("noodherstellingen");
-
-  const intro =
-    "Lek, verzakking of acute schade aan afvoer of riolering in Machelen? Turbo Services voert snelle en gerichte noodherstellingen uit om verdere schade en overlast te beperken.";
-
-  const sections = [
-    {
-      title: "Noodherstellingen",
-      body:
-        "Lek, verzakking of acute schade aan afvoer of riolering in Machelen? Turbo Services voert snelle en gerichte noodherstellingen uit om verdere schade en overlast te beperken.",
-    },
-    {
-      title: "Wat we doen",
-      body:
-        "- Dringende herstellingen aan afvoer en riolering\n- Aanpak van lekken, breuken en verzakkingen\n- Vervanging van beschadigde delen waar nodig\n- Gerichte lokalisatie van het probleem\n- Snelle tussenkomst bij acute schade",
-    },
-    {
-      title: "Werkwijze",
-      body:
-        "1. Snelle inschatting van de urgentie\n2. Lokalisatie van het probleem\n3. Indien nodig eerst diagnose via camera-inspectie of andere controle\n4. Uitvoeren van een technisch verantwoorde noodherstelling\n5. Advies over verdere of definitieve aanpak",
-    },
-    {
-      title: "Tarieven",
-      body:
-        "Prijzen variÃƒÂ«ren volgens het type probleem en de nodige interventie:\n\n- Diagnose en interventie starten vanaf Ã¢â€šÂ¬160 exclusief btw\n- Camera-inspectie kan als supplement toegevoegd worden\n- Bijkomende herstellingen of structurele werken steeds na duidelijke bespreking",
-    },
-    {
-      title: "Waarom snel ingrijpen?",
-      body:
-        "Lekkages, breuken en verzakkingen kunnen snel grotere schade veroorzaken. Snelle noodherstelling helpt om gevolgschade, vochtproblemen en verdere uitval te beperken.",
-    }
-  ];
-
+  const municipalities = [
+  "Machelen"
+];
   const relatedRegionLinks = [
-    { slug: "antwerpen-noordrand", label: "Antwerpen Noordrand" },
-    { slug: "antwerpen-stad", label: "Antwerpen Stad" },
-    { slug: "antwerpen-zuidrand", label: "Antwerpen Zuidrand" },
-    { slug: "brussel-centrum", label: "Brussel Centrum" },
-    { slug: "brussel-noord", label: "Brussel Noord" },
-    { slug: "brussel-zuid", label: "Brussel Zuid" },
-    { slug: "denderstreek", label: "Denderstreek" },
-    { slug: "druivenstreek", label: "Druivenstreek" },
-    { slug: "durmestreek-lokeren", label: "Durmestreek" },
-    { slug: "hageland", label: "Hageland" },
-    { slug: "kempen-noord", label: "Kempen Noord" },
-    { slug: "kempen-zuid", label: "Kempen Zuid" },
-    { slug: "klein-brabant", label: "Klein-Brabant" },
-    { slug: "leuven-dijleland", label: "Leuven & Dijleland" },
-    { slug: "lier-neteland", label: "Lier & Neteland" },
-    { slug: "mechelen-rivierenland", label: "Mechelen & Rivierenland" },
-    { slug: "noordrand-brussel", label: "Noordrand Brussel" },
-    { slug: "pajottenland", label: "Pajottenland" },
-    { slug: "rupelstreek", label: "Rupelstreek" },
-    { slug: "scheldeland", label: "Scheldeland" },
-    { slug: "sint-niklaas-regio", label: "Sint-Niklaas regio" },
-    { slug: "temse-omgeving", label: "Temse & omstreken" },
-    { slug: "waasland", label: "Waasland" },
-  ];
-
-  const ctaBody =
-    "Neem contact op voor een snelle inschatting en noodherstelling in Machelen.";
+  {
+    "slug": "noordrand-brussel",
+    "label": "Noordrand Brussel"
+  }
+];
+  const sections = [
+  {
+    "title": "Wanneer een noodherstelling nodig is in Machelen",
+    "body": "Noodherstellingen zijn aangewezen bij acute lekken, gebroken leidingen, waterinfiltratie, losgekomen aansluitingen of situaties waar snel ingrijpen verdere schade voorkomt. Niet elk probleem vraagt meteen een volledige herstelling, maar stabiliseren en technisch veilig ingrijpen is vaak wel noodzakelijk."
+  },
+  {
+    "title": "Wat onder noodherstellingen valt",
+    "body": "Het gaat om dringende herstellingen aan afvoer, riolering of aansluitingen wanneer verdere schade, wateroverlast of uitval dreigt. Afhankelijk van de situatie kan eerst een noodoplossing nodig zijn, gevolgd door een definitieve herstelling."
+  },
+  {
+    "title": "Werkwijze",
+    "body": "Eerst wordt de acute situatie gestabiliseerd. Daarna volgt een gerichte beoordeling van de schade en een praktische oplossing om het probleem veilig en werkbaar op te lossen. Wanneer de oorzaak niet meteen zichtbaar is, kan bijkomende diagnose nodig zijn om gericht te herstellen."
+  },
+  {
+    "title": "Prijzen",
+    "body": "Prijzen variëren volgens het type probleem en de nodige interventie. Diagnose en interventie starten vanaf €160 exclusief btw. Camera-inspectie kan als supplement toegevoegd worden wanneer bijkomende lokalisatie nodig is."
+  },
+  {
+    "title": "Waarom snel ingrijpen",
+    "body": "Lekkages, breuken en verzakkingen kunnen snel grotere schade veroorzaken aan gebouw, afwerking of omliggende leidingen. Een snelle technische tussenkomst helpt om gevolgschade en verdere uitval te beperken."
+  }
+];
+  const faqs = [
+  {
+    "q": "Wat valt onder noodherstellingen?",
+    "a": "Dat zijn dringende herstellingen aan afvoer, riolering of aansluitingen wanneer verdere schade, wateroverlast of uitval dreigt."
+  },
+  {
+    "q": "Kan een noodherstelling ook buiten de kantooruren?",
+    "a": "Ja. Turbo Services werkt ook 's avonds en in het weekend. Na 22u geldt een supplement."
+  },
+  {
+    "q": "Is eerst diagnose nodig?",
+    "a": "Bij sommige situaties wel. Wanneer de oorzaak niet onmiddellijk zichtbaar is, kan bijkomende inspectie nodig zijn om gericht te herstellen."
+  },
+  {
+    "q": "Wordt alles meteen definitief hersteld?",
+    "a": "Dat hangt af van de aard van de schade. Soms gebeurt eerst een veilige noodoplossing, gevolgd door een definitieve herstelling."
+  }
+];
 
   return (
     <DienstPageLayout
       serviceKey="noodherstellingen"
       serviceName="Noodherstellingen"
-      regionLabel={city}
-      municipalities={[city]}
-      intro={intro}
+      
+      regionLabel="Machelen"
+      municipalities={municipalities}
+      intro={`Noodherstellingen in Machelen zijn nodig wanneer een afvoer of riolering acuut problemen veroorzaakt, zoals een lek, breuk, verzakking of losgekomen aansluiting. Turbo Services beoordeelt snel de situatie en voert een gerichte tussenkomst uit om verdere schade, wateroverlast en bijkomende uitval te beperken.`}
       sections={sections}
-      faqs={service?.faqs ?? []}
+      faqs={faqs}
       ctaTitle="Dringende herstelling nodig?"
-      ctaBody={ctaBody}
-      ctaButton="Vraag noodherstelling aan Ã¢â€ â€™"
+      ctaBody={`Geef kort door wat er dringend aan de hand is in Machelen. Turbo Services schat de ernst van het probleem snel in en koppelt terug met een concrete aanpak.`}
+      ctaButton="Vraag noodherstelling aan"
       heroImageOverride="/assets/base/noodherstellingen.png"
       relatedRegionLinks={relatedRegionLinks}
     />

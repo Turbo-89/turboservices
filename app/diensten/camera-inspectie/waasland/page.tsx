@@ -1,17 +1,77 @@
-
+import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+export const metadata: Metadata = {
+  title: `Camera-inspectie in Waasland | Turbo Services`,
+  description: `Camera-inspectie in Waasland om breuken, verzakkingen, wortelgroei en hardnekkige verstoppingen exact in beeld te brengen. Turbo Services lokaliseert de oorzaak gericht en zonder onnodig breekwerk.`,
+};
+
 export default function Page() {
+  const municipalities = [
+  "Sint-Niklaas",
+  "Beveren-Kruibeke-Zwijndrecht",
+  "Temse",
+  "Stekene",
+  "Lokeren",
+  "Waasmunster"
+];
+  const relatedRegionLinks = [];
+  const sections = [
+  {
+    "title": "Wanneer camera-inspectie zinvol is in Waasland",
+    "body": "Camera-inspectie is nuttig bij terugkerende verstoppingen, geurproblemen, vermoeden van breuk of verzakking, vochtproblemen langs leidingen en discussies met aannemer, syndicus of verzekering. Het doel is de oorzaak visueel vast te stellen in plaats van te werken op vermoedens."
+  },
+  {
+    "title": "Wat een camera-inspectie zichtbaar maakt",
+    "body": "Met een leidingcamera kunnen onder meer breuken, scheuren, verzakkingen, wortelgroei, vervuiling, slecht uitgevoerde aansluitingen en andere obstructies zichtbaar worden gemaakt. Dat is vooral belangrijk wanneer een leiding herhaaldelijk problemen geeft zonder duidelijke externe oorzaak."
+  },
+  {
+    "title": "Werkwijze",
+    "body": "Indien nodig wordt de leiding eerst vrijgemaakt. Daarna wordt de camera systematisch ingebracht om probleemzones exact in beeld te brengen. Op basis daarvan volgt gerichte uitleg en advies over de juiste vervolgstap, zoals reinigen, herstellen of verder technisch onderzoek."
+  },
+  {
+    "title": "Prijzen",
+    "body": "Een camera-inspectie is geen aparte interventie van €90 op zich, maar een supplement van €90 boven op de basisinterventie van €160 exclusief btw. Samen geldt dus €250 exclusief btw."
+  },
+  {
+    "title": "Waarom dit vaak de juiste diagnose is",
+    "body": "Camera-inspectie voorkomt onnodig giswerk en maakt duidelijk waar het probleem effectief zit. Dat beperkt overbodige werken, verhoogt de technische zekerheid en maakt het gemakkelijker om gerichte beslissingen te nemen."
+  }
+];
+  const faqs = [
+  {
+    "q": "Wat kost een camera-inspectie?",
+    "a": "Camera-inspectie is een supplement van €90 boven op de basisinterventie van €160 exclusief btw. Samen bedraagt dit €250 exclusief btw."
+  },
+  {
+    "q": "Wanneer is camera-inspectie nodig?",
+    "a": "Bij terugkerende verstoppingen, geurhinder, vermoeden van schade aan de leiding of wanneer de exacte oorzaak van het probleem niet zichtbaar is."
+  },
+  {
+    "q": "Kan ik beelden of verslag krijgen?",
+    "a": "Ja. De vaststellingen kunnen gebruikt worden voor verdere bespreking met aannemer, syndicus of verzekering, afhankelijk van de situatie."
+  },
+  {
+    "q": "Moet een leiding eerst ontstopt worden voor camera-inspectie?",
+    "a": "Vaak wel. Wanneer de leiding niet toegankelijk is door vuil of blokkage, moet ze eerst vrijgemaakt worden om een correcte inspectie mogelijk te maken."
+  }
+];
+
   return (
     <DienstPageLayout
       serviceKey="camera-inspectie"
-      serviceName="Camera Inspectie"
+      serviceName="Camera-inspectie"
       regionKey="waasland"
       regionLabel="Waasland"
-      municipalities={["Sint-Niklaas","Temse","Lokeren"]}
-      intro={`Camera Inspectie in Waasland nodig? In Sint-Niklaas, Temse, Lokeren komen verstoppingen, geurhinder en afvoerproblemen frequent voor door oudere rioleringen en intensief gebruik. Turbo Services zorgt voor snelle en gerichte interventies zonder onnodige kosten.`}
-      sections={[{"title":"Veelvoorkomende problemen in Waasland","body":"In Sint-Niklaas, Temse, Lokeren zien we vaak verstoppingen door vetophoping, wortelgroei en verzakkingen. Vooral in oudere woningen komen terugkerende problemen voor die een gerichte aanpak vereisen."},{"title":"Onze aanpak","body":"Wij starten met een gerichte analyse van het probleem. Indien nodig voeren we een camera-inspectie uit om exact de oorzaak te bepalen. Daarna lossen we het probleem efficiënt op zonder onnodige breekwerken."},{"title":"Waarom Turbo Services","body":"Snelle interventie, duidelijke communicatie en correcte prijzen. Actief in Waasland en directe omgeving, met kennis van lokale situaties en typische problemen."}]}
-      faqs={[{"q":"Hoe snel kunnen jullie ter plaatse zijn in Waasland?","a":"In de meeste gevallen zijn we dezelfde dag nog ter plaatse in Waasland en omliggende gemeenten zoals Sint-Niklaas, Temse, Lokeren."},{"q":"Wat kost een camera inspectie?","a":"Je krijgt altijd vooraf een duidelijke prijs. Geen verrassingen achteraf."}]}
+      municipalities={municipalities}
+      intro={`Camera-inspectie in Waasland is aangewezen wanneer de oorzaak van een riool- of afvoerprobleem niet duidelijk is of wanneer verstoppingen en geurhinder blijven terugkomen. Turbo Services brengt met camera-inspectie exact in beeld wat er in de leiding gebeurt, zodat verdere stappen technisch onderbouwd kunnen worden genomen.`}
+      sections={sections}
+      faqs={faqs}
+      ctaTitle="Camera-inspectie nodig?"
+      ctaBody={`Geef kort door welk probleem zich voordoet in Waasland. Turbo Services bekijkt of camera-inspectie de juiste stap is en koppelt terug met een concreet voorstel voor diagnose en aanpak.`}
+      ctaButton="Vraag camera-inspectie aan"
+      heroImageOverride="/assets/base/camera-inspectie.png"
+      municipalityLinks={municipalities.map((name) => ({ slug: name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, " en ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""), label: name }))}
     />
   );
 }

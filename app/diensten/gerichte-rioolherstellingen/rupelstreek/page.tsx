@@ -1,17 +1,72 @@
-
+import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+export const metadata: Metadata = {
+  title: `Gerichte rioolherstellingen in Rupelstreek | Turbo Services`,
+  description: `Gerichte rioolherstellingen in Rupelstreek bij breuken, verzakkingen, lekkages en lokale schade aan afvoer of riolering. Turbo Services herstelt gericht op basis van duidelijke vaststellingen en zonder onnodige uitbreidingen.`,
+};
+
 export default function Page() {
+  const municipalities = [
+  "Boom",
+  "Hemiksem",
+  "Niel",
+  "Rumst",
+  "Schelle"
+];
+  const relatedRegionLinks = [];
+  const sections = [
+  {
+    "title": "Wanneer een gerichte rioolherstelling nodig is in Rupelstreek",
+    "body": "Een gerichte rioolherstelling is aangewezen bij breuk, verzakking, lekkage, schade aan aansluiting of terugkerende problemen die via inspectie exact gelokaliseerd werden. Niet elke situatie vraagt een volledige vervanging van een leiding; vaak volstaat een herstelling van de juiste zone."
+  },
+  {
+    "title": "Waarom gericht herstellen beter is",
+    "body": "Door eerst juist te lokaliseren, blijft de herstelling beperkt tot de relevante zone. Dat bespaart onnodige werken, tijd en bijkomende kosten. Het maakt de uitvoering ook technischer en beter verdedigbaar wanneer er meerdere partijen of discussies betrokken zijn."
+  },
+  {
+    "title": "Werkwijze",
+    "body": "Na lokalisatie van het probleem wordt bepaald welke gerichte ingreep technisch aangewezen is. Dat kan gaan om herstel van een lokale breuk, vervanging van een beschadigd deel of correctie van een aansluiting. Waar nodig wordt eerst camera-inspectie gebruikt om de schade exact in kaart te brengen."
+  },
+  {
+    "title": "Prijzen",
+    "body": "Prijzen variëren volgens de aard van de schade en de nodige interventie. Diagnose en interventie starten vanaf €160 exclusief btw. Camera-inspectie kan als supplement toegevoegd worden wanneer bijkomende lokalisatie nodig is."
+  },
+  {
+    "title": "Waarom diagnose vooraf belangrijk is",
+    "body": "Een juiste lokalisatie voorkomt dat er te ruim of op de verkeerde plaats wordt gewerkt. Dat beperkt risico, houdt de kost onder controle en maakt een technisch doelgerichte oplossing mogelijk."
+  }
+];
+  const faqs = [
+  {
+    "q": "Moet een rioolherstelling altijd vooraf onderzocht worden?",
+    "a": "Ja, in de meeste gevallen is een juiste lokalisatie nodig om gericht en efficiënt te herstellen."
+  },
+  {
+    "q": "Wordt altijd de volledige leiding vervangen?",
+    "a": "Nee. Wanneer de schade lokaal zit, kan een gerichte herstelling volstaan."
+  },
+  {
+    "q": "Kan dit na camera-inspectie ingepland worden?",
+    "a": "Ja. Camera-inspectie is vaak de logische eerste stap om het defect correct in kaart te brengen."
+  }
+];
+
   return (
     <DienstPageLayout
       serviceKey="gerichte-rioolherstellingen"
-      serviceName="Gerichte Rioolherstellingen"
+      serviceName="Gerichte rioolherstellingen"
       regionKey="rupelstreek"
       regionLabel="Rupelstreek"
-      municipalities={["Boom","Rumst","Niel"]}
-      intro={`Gerichte Rioolherstellingen in Rupelstreek nodig? In Boom, Rumst, Niel komen verstoppingen, geurhinder en afvoerproblemen frequent voor door oudere rioleringen en intensief gebruik. Turbo Services zorgt voor snelle en gerichte interventies zonder onnodige kosten.`}
-      sections={[{"title":"Veelvoorkomende problemen in Rupelstreek","body":"In Boom, Rumst, Niel zien we vaak verstoppingen door vetophoping, wortelgroei en verzakkingen. Vooral in oudere woningen komen terugkerende problemen voor die een gerichte aanpak vereisen."},{"title":"Onze aanpak","body":"Wij starten met een gerichte analyse van het probleem. Indien nodig voeren we een camera-inspectie uit om exact de oorzaak te bepalen. Daarna lossen we het probleem efficiënt op zonder onnodige breekwerken."},{"title":"Waarom Turbo Services","body":"Snelle interventie, duidelijke communicatie en correcte prijzen. Actief in Rupelstreek en directe omgeving, met kennis van lokale situaties en typische problemen."}]}
-      faqs={[{"q":"Hoe snel kunnen jullie ter plaatse zijn in Rupelstreek?","a":"In de meeste gevallen zijn we dezelfde dag nog ter plaatse in Rupelstreek en omliggende gemeenten zoals Boom, Rumst, Niel."},{"q":"Wat kost een gerichte rioolherstellingen?","a":"Je krijgt altijd vooraf een duidelijke prijs. Geen verrassingen achteraf."}]}
+      municipalities={municipalities}
+      intro={`Gerichte rioolherstellingen in Rupelstreek zijn bedoeld voor situaties waarin schade of defecten in de leiding al gelokaliseerd zijn of via inspectie duidelijk kunnen worden vastgesteld. Turbo Services focust op de echte probleemzone, zodat de herstelling technisch gericht en beheersbaar blijft.`}
+      sections={sections}
+      faqs={faqs}
+      ctaTitle="Gerichte rioolherstelling nodig?"
+      ctaBody={`Beschrijf kort welk defect of welke schade zich voordoet in Rupelstreek. Turbo Services koppelt snel terug met een voorstel voor diagnose, herstelling en praktische aanpak.`}
+      ctaButton="Vraag rioolherstelling aan"
+      heroImageOverride="/assets/base/gerichte-rioolherstellingen.png"
+      municipalityLinks={municipalities.map((name) => ({ slug: name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, " en ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""), label: name }))}
     />
   );
 }

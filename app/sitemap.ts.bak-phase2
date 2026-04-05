@@ -1,0 +1,71 @@
+﻿import type { MetadataRoute } from "next";
+import { SERVICES } from "@/content/services";
+import { REGION_CITIES } from "@/content/regions";
+import { SITE_URL } from "@/content/site";
+
+const STATIC_PAGES = [
+  "",
+  "/diensten",
+  "/prijzen",
+  "/over-ons",
+  "/boeken",
+  "/kennisbank",
+  "/blog",
+  "/privacy",
+] as const;
+
+const KNOWLEDGE_PAGES = [
+  "/kennisbank/ontstopping",
+  "/kennisbank/ontstopping/afvoer-borrelt",
+  "/kennisbank/ontstopping/appartement-gedeelde-riolering",
+  "/kennisbank/ontstopping/camera-inspectie",
+  "/kennisbank/ontstopping/chemische-ontstoppers",
+  "/kennisbank/ontstopping/gereedschap-ontstopping",
+  "/kennisbank/ontstopping/gootsteen-ontstoppen",
+  "/kennisbank/ontstopping/keukenafvoer-voorkomen",
+  "/kennisbank/ontstopping/leiding-vervangen-of-ontstoppen",
+  "/kennisbank/ontstopping/leidingen-hoe-vaak-reinigen",
+  "/kennisbank/ontstopping/ontstopping-kost",
+  "/kennisbank/ontstopping/riool-verstopt-signalen",
+  "/kennisbank/ontstopping/septische-put-onderhoud",
+  "/kennisbank/ontstopping/stank-uit-afvoer",
+  "/kennisbank/ontstopping/terugstromend-toilet-douche",
+  "/kennisbank/ontstopping/verstopte-wc",
+] as const;
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+
+  const serviceKeys = SERVICES.map((service) => service.key);
+  const regionKeys = Object.keys(REGION_CITIES);
+
+  const staticUrls: MetadataRoute.Sitemap = STATIC_PAGES.map((path) => ({
+    url: `${SITE_URL}${path}`,
+    lastModified: now,
+  }));
+
+  const serviceUrls: MetadataRoute.Sitemap = serviceKeys.map((serviceKey) => ({
+    url: `${SITE_URL}/diensten/${serviceKey}`,
+    lastModified: now,
+  }));
+
+  const regionalServiceUrls: MetadataRoute.Sitemap = serviceKeys.flatMap((serviceKey) =>
+    regionKeys.map((regionKey) => ({
+      url: `${SITE_URL}/diensten/${serviceKey}/${regionKey}`,
+      lastModified: now,
+    }))
+  );
+
+  const knowledgeUrls: MetadataRoute.Sitemap = KNOWLEDGE_PAGES.map((path) => ({
+    url: `${SITE_URL}${path}`,
+    lastModified: now,
+  }));
+
+  return [
+    ...staticUrls,
+    ...serviceUrls,
+    ...regionalServiceUrls,
+    ...knowledgeUrls,
+  ];
+}
+

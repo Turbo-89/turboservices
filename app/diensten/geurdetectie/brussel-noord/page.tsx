@@ -1,84 +1,73 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
-import { REGION_CITIES } from "@/content/regions";
-import { getServiceByKey } from "@/content/services";
-import { slugify } from "@/lib/slugify";
 
 export const metadata: Metadata = {
-  title: "Geurdetectie in Brussel Noord",
-  description: "Geurdetectie en onderzoek van rioolgeur in Brussel Noord om lekken, foutieve aansluitingen of verborgen defecten in afvoer en riolering vast te stellen.",
+  title: `Geurdetectie in Brussel Noord | Turbo Services`,
+  description: `Geurdetectie in Brussel Noord bij aanhoudende rioolgeur in badkamer, toilet, keuken of technische ruimte. Turbo Services zoekt gericht naar de bron van de stank zonder blind breekwerk.`,
 };
 
 export default function Page() {
-  const regionKey = "brussel-noord" as const;
-  const regionLabel = "Brussel Noord";
-  const municipalities = REGION_CITIES[regionKey] ?? [];
-  const muniText = municipalities.slice(0, 12).join(", ");
-  const service = getServiceByKey("geurdetectie");
-
-  const intro =
-    "Last van rioolgeur in Brussel Noord? Turbo Services spoort gericht op waar de oorzaak zich bevindt, zonder onnodig breekwerk." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
-
+  const municipalities = [
+  "Schaarbeek",
+  "Evere",
+  "Jette",
+  "Ganshoren",
+  "Koekelberg",
+  "Sint-Jans-Molenbeek"
+];
+  const relatedRegionLinks = [];
   const sections = [
-    {
-      title: "Geurdetectie",
-      body:
-        "Last van rioolgeur in Brussel Noord? Turbo Services spoort gericht op waar de oorzaak zich bevindt, zonder onnodig breekwerk.",
-    },
-    {
-      title: "Wat we doen",
-      body:
-        "- Detectie van geurproblemen\n- Opsporen van foutieve aansluitingen\n- Onderzoek van sifons, ontluchting en verbindingen\n- Snelle diagnose zonder blind breekwerk\n- Gericht advies voor herstelling",
-    },
-    {
-      title: "Werkwijze",
-      body:
-        "1. Vooranalyse op locatie\n2. Controle van sifons, aansluitingen en ontluchting\n3. Gericht onderzoek van afvoer en riolering\n4. Lokalisatie van de waarschijnlijke oorzaak\n5. Advies voor herstelling of vervolgstap",
-    },
-    {
-      title: "Tarieven",
-      body:
-        "Geurdetectie is vaak de snelste manier om geurproblemen te lokaliseren:\n\n- Basisinterventie: â‚¬160\n- Combinatie met camera-inspectie mogelijk\n- Herstellingen steeds na diagnose en bespreking",
-    },
-    {
-      title: "Waarom snel ingrijpen?",
-      body:
-        "Geurhinder wijst vaak op lekkage, defecte aansluiting of een probleem in het rioleringssysteem. Gericht onderzoek vermijdt onnodig breekwerk.",
-    }
-  ].map((s, idx) => {
-    if (!muniText) return s;
-    if (idx === 0) {
-      return {
-        ...s,
-        body: s.body + "\n\nActief in " + regionLabel + ": " + muniText + " en omgeving.",
-      };
-    }
-    return s;
-  });
-
-  const ctaBody =
-    "Wij sporen geurproblemen in Brussel Noord snel en gericht op en geven duidelijk advies voor de juiste oplossing." +
-    (muniText ? "\n\nWerkgebied: " + muniText + " en omgeving." : "");
+  {
+    "title": "Wanneer geurdetectie zinvol is in Brussel Noord",
+    "body": "Geurdetectie is aangewezen bij aanhoudende rioolgeur, terugkerende stank zonder zichtbare verstopping of wanneer verschillende mogelijke oorzaken in aanmerking komen. Dat gebeurt bijvoorbeeld bij defecte sifons, lekkende verbindingen, foutieve aansluitingen of problemen met ontluchting."
+  },
+  {
+    "title": "Waar rioolgeur meestal vandaan komt",
+    "body": "De oorzaak ligt vaak bij defecte sifons, losse aansluitingen, lekkende afvoerverbindingen, gebrekkige ontluchting of verborgen schade in het rioleringssysteem. Een verstopping kan geur veroorzaken, maar geurdetectie focust op het achterhalen van de exacte bron."
+  },
+  {
+    "title": "Werkwijze",
+    "body": "De situatie wordt stap voor stap nagekeken, met focus op sifons, aansluitingen, ontluchting, lekken en defecten in de afvoer of riolering. Het doel is gericht te lokaliseren waar het probleem zit, zodat onnodig breekwerk wordt vermeden."
+  },
+  {
+    "title": "Prijzen",
+    "body": "Geurdetectie gebeurt binnen de basisstructuur van een interventie. De basisinterventie bedraagt €160 exclusief btw. Indien camera-inspectie nodig is als aanvulling, geldt een supplement van €90."
+  },
+  {
+    "title": "Waarom gericht opsporen belangrijk is",
+    "body": "Geurhinder is vaak hardnekkig en moeilijk correct in te schatten zonder gerichte controle. Door eerst de bron te lokaliseren, vermijd je nutteloze werken en wordt de oplossing veel preciezer en efficiënter."
+  }
+];
+  const faqs = [
+  {
+    "q": "Waar komt rioolgeur meestal vandaan?",
+    "a": "Vaak ligt de oorzaak bij defecte sifons, losse aansluitingen, lekkende afvoerverbindingen, gebrekkige ontluchting of verborgen schade in het rioleringssysteem."
+  },
+  {
+    "q": "Is geurdetectie hetzelfde als ontstopping?",
+    "a": "Nee. Een verstopping kan geur veroorzaken, maar geurdetectie focust op het achterhalen van de exacte bron van de stank."
+  },
+  {
+    "q": "Moet er altijd gebroken worden?",
+    "a": "Nee. Het doel is juist om eerst gericht te lokaliseren waar het probleem zit, zodat onnodig breekwerk vermeden wordt."
+  }
+];
 
   return (
     <DienstPageLayout
       serviceKey="geurdetectie"
       serviceName="Geurdetectie"
-      regionKey={regionKey}
-      regionLabel={regionLabel}
+      regionKey="brussel-noord"
+      regionLabel="Brussel Noord"
       municipalities={municipalities}
-      intro={intro}
+      intro={`Geurdetectie in Brussel Noord is aangewezen wanneer rioolgeur blijft terugkomen zonder dat de oorzaak duidelijk zichtbaar is. Turbo Services onderzoekt gericht waar de geur ontstaat, zodat niet op goed geluk moet worden opengebroken of hersteld. Doel is de bron van het probleem technisch correct te lokaliseren.`}
       sections={sections}
-      faqs={service?.faqs ?? []}
+      faqs={faqs}
       ctaTitle="Rioolgeur laten opsporen?"
-      ctaBody={ctaBody}
+      ctaBody={`Beschrijf kort waar de geurhinder optreedt in Brussel Noord en hoe lang het probleem al aanwezig is. Turbo Services koppelt snel terug met een gerichte aanpak voor opsporing en advies.`}
       ctaButton="Vraag geurdetectie aan"
       heroImageOverride="/assets/base/geurdetectie.png"
-      municipalityLinks={municipalities.map((city) => ({
-        slug: slugify(city),
-        label: city,
-      }))}
+      municipalityLinks={municipalities.map((name) => ({ slug: name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, " en ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""), label: name }))}
     />
   );
 }

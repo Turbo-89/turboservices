@@ -1,88 +1,70 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
-import { getServiceByKey } from "@/content/services";
 
 export const metadata: Metadata = {
-  title: "Gerichte rioolherstellingen in Pepingen | Turbo Services",
-  description:
-    "Lekkage, verzakking of lokale schade aan de riolering in Pepingen? Turbo Services voert gerichte rioolherstellingen uit met diagnose vooraf en een doelgerichte aanpak.",
+  title: `Gerichte rioolherstellingen in Pepingen | Turbo Services`,
+  description: `Gerichte rioolherstellingen in Pepingen bij breuken, verzakkingen, lekkages en lokale schade aan afvoer of riolering. Turbo Services herstelt gericht op basis van duidelijke vaststellingen en zonder onnodige uitbreidingen.`,
 };
 
 export default function Page() {
-  const city = "Pepingen";
-  const service = getServiceByKey("gerichte-rioolherstellingen");
-
-  const intro =
-    "Lekkage, verzakking of lokale schade aan de riolering in Pepingen? Turbo Services voert gerichte rioolherstellingen uit met diagnose vooraf en een doelgerichte aanpak.";
-
-  const sections = [
-    {
-      title: "Gerichte rioolherstellingen",
-      body:
-        "Lekkage, verzakking of lokale schade aan de riolering in Pepingen? Turbo Services voert gerichte rioolherstellingen uit met diagnose vooraf en een doelgerichte aanpak.",
-    },
-    {
-      title: "Wat we doen",
-      body:
-        "- Herstelling van lokale breuken of verzakkingen\n- Vervanging van beschadigde delen van afvoer of riolering\n- Gerichte openbraak waar technisch nodig\n- Lokalisatie van leidingen en schadezones\n- Herstellingen op basis van duidelijke diagnose",
-    },
-    {
-      title: "Werkwijze",
-      body:
-        "1. Lokalisatie van het probleem\n2. Indien nodig diagnose via camera-inspectie of andere controle\n3. Gericht openmaken van de probleemzone\n4. Herstelling of vervanging van het beschadigde deel\n5. Controle en advies voor verdere opvolging",
-    },
-    {
-      title: "Tarieven",
-      body:
-        "Prijzen variÃƒÂ«ren volgens de aard van de schade en de nodige interventie:\n\n- Diagnose en interventie starten vanaf Ã¢â€šÂ¬160 exclusief btw\n- Camera-inspectie kan als supplement toegevoegd worden\n- Grotere of bijkomende herstellingen steeds na duidelijke bespreking",
-    },
-    {
-      title: "Waarom gericht herstellen?",
-      body:
-        "Door eerst correct te lokaliseren, blijft de herstelling beperkt tot de relevante zone. Dat vermijdt onnodige werken, beperkt kosten en maakt een technisch gerichte oplossing mogelijk.",
-    }
-  ];
-
+  const municipalities = [
+  "Pepingen"
+];
   const relatedRegionLinks = [
-    { slug: "antwerpen-noordrand", label: "Antwerpen Noordrand" },
-    { slug: "antwerpen-stad", label: "Antwerpen Stad" },
-    { slug: "antwerpen-zuidrand", label: "Antwerpen Zuidrand" },
-    { slug: "brussel-centrum", label: "Brussel Centrum" },
-    { slug: "brussel-noord", label: "Brussel Noord" },
-    { slug: "brussel-zuid", label: "Brussel Zuid" },
-    { slug: "denderstreek", label: "Denderstreek" },
-    { slug: "druivenstreek", label: "Druivenstreek" },
-    { slug: "durmestreek-lokeren", label: "Durmestreek" },
-    { slug: "hageland", label: "Hageland" },
-    { slug: "kempen-noord", label: "Kempen Noord" },
-    { slug: "kempen-zuid", label: "Kempen Zuid" },
-    { slug: "klein-brabant", label: "Klein-Brabant" },
-    { slug: "leuven-dijleland", label: "Leuven & Dijleland" },
-    { slug: "lier-neteland", label: "Lier & Neteland" },
-    { slug: "mechelen-rivierenland", label: "Mechelen & Rivierenland" },
-    { slug: "noordrand-brussel", label: "Noordrand Brussel" },
-    { slug: "pajottenland", label: "Pajottenland" },
-    { slug: "rupelstreek", label: "Rupelstreek" },
-    { slug: "scheldeland", label: "Scheldeland" },
-    { slug: "sint-niklaas-regio", label: "Sint-Niklaas regio" },
-    { slug: "temse-omgeving", label: "Temse & omstreken" },
-    { slug: "waasland", label: "Waasland" },
-  ];
-
-  const ctaBody =
-    "Neem contact op voor een snelle diagnose en gerichte rioolherstelling in Pepingen.";
+  {
+    "slug": "pajottenland",
+    "label": "Pajottenland"
+  }
+];
+  const sections = [
+  {
+    "title": "Wanneer een gerichte rioolherstelling nodig is in Pepingen",
+    "body": "Een gerichte rioolherstelling is aangewezen bij breuk, verzakking, lekkage, schade aan aansluiting of terugkerende problemen die via inspectie exact gelokaliseerd werden. Niet elke situatie vraagt een volledige vervanging van een leiding; vaak volstaat een herstelling van de juiste zone."
+  },
+  {
+    "title": "Waarom gericht herstellen beter is",
+    "body": "Door eerst juist te lokaliseren, blijft de herstelling beperkt tot de relevante zone. Dat bespaart onnodige werken, tijd en bijkomende kosten. Het maakt de uitvoering ook technischer en beter verdedigbaar wanneer er meerdere partijen of discussies betrokken zijn."
+  },
+  {
+    "title": "Werkwijze",
+    "body": "Na lokalisatie van het probleem wordt bepaald welke gerichte ingreep technisch aangewezen is. Dat kan gaan om herstel van een lokale breuk, vervanging van een beschadigd deel of correctie van een aansluiting. Waar nodig wordt eerst camera-inspectie gebruikt om de schade exact in kaart te brengen."
+  },
+  {
+    "title": "Prijzen",
+    "body": "Prijzen variëren volgens de aard van de schade en de nodige interventie. Diagnose en interventie starten vanaf €160 exclusief btw. Camera-inspectie kan als supplement toegevoegd worden wanneer bijkomende lokalisatie nodig is."
+  },
+  {
+    "title": "Waarom diagnose vooraf belangrijk is",
+    "body": "Een juiste lokalisatie voorkomt dat er te ruim of op de verkeerde plaats wordt gewerkt. Dat beperkt risico, houdt de kost onder controle en maakt een technisch doelgerichte oplossing mogelijk."
+  }
+];
+  const faqs = [
+  {
+    "q": "Moet een rioolherstelling altijd vooraf onderzocht worden?",
+    "a": "Ja, in de meeste gevallen is een juiste lokalisatie nodig om gericht en efficiënt te herstellen."
+  },
+  {
+    "q": "Wordt altijd de volledige leiding vervangen?",
+    "a": "Nee. Wanneer de schade lokaal zit, kan een gerichte herstelling volstaan."
+  },
+  {
+    "q": "Kan dit na camera-inspectie ingepland worden?",
+    "a": "Ja. Camera-inspectie is vaak de logische eerste stap om het defect correct in kaart te brengen."
+  }
+];
 
   return (
     <DienstPageLayout
       serviceKey="gerichte-rioolherstellingen"
       serviceName="Gerichte rioolherstellingen"
-      regionLabel={city}
-      municipalities={[city]}
-      intro={intro}
+      
+      regionLabel="Pepingen"
+      municipalities={municipalities}
+      intro={`Gerichte rioolherstellingen in Pepingen zijn bedoeld voor situaties waarin schade of defecten in de leiding al gelokaliseerd zijn of via inspectie duidelijk kunnen worden vastgesteld. Turbo Services focust op de echte probleemzone, zodat de herstelling technisch gericht en beheersbaar blijft.`}
       sections={sections}
-      faqs={service?.faqs ?? []}
+      faqs={faqs}
       ctaTitle="Gerichte rioolherstelling nodig?"
-      ctaBody={ctaBody}
+      ctaBody={`Beschrijf kort welk defect of welke schade zich voordoet in Pepingen. Turbo Services koppelt snel terug met een voorstel voor diagnose, herstelling en praktische aanpak.`}
       ctaButton="Vraag rioolherstelling aan"
       heroImageOverride="/assets/base/gerichte-rioolherstellingen.png"
       relatedRegionLinks={relatedRegionLinks}
