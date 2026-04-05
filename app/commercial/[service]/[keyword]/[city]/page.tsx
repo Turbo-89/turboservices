@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { COMMERCIAL_CITIES } from "@/content/commercial-cities";
+import { getLocationContext } from "@/content/location-context";
+import { getServiceByKey } from "@/content/services";
+import { slugify } from "@/lib/slugify";
 import {
-  COMMERCIAL_KEYWORDS,
   getCommercialKeywordByKey,
 } from "@/content/commercial-keywords";
 import {
   getCommercialTemplate,
 } from "@/content/commercial-templates";
-import { getLocationContext } from "@/content/location-context";
-import { getServiceByKey } from "@/content/services";
-import { slugify } from "@/lib/slugify";
+import {
+  COMMERCIAL_TARGETS,
+} from "@/content/commercial-targets";
 
 type Params = {
   service: string;
@@ -30,8 +31,13 @@ function replaceTokens(
   return out;
 }
 
-function getCityBySlug(citySlug: string) {
-  return COMMERCIAL_CITIES.find((city) => slugify(city) === citySlug);
+function getCommercialTarget(service: string, keyword: string, citySlug: string) {
+  return COMMERCIAL_TARGETS.find(
+    (item) =>
+      item.service === service &&
+      item.keyword === keyword &&
+      slugify(item.city) === citySlug
+  );
 }
 
 function buildContextParagraph(city: string, serviceKey: string) {
@@ -46,13 +52,11 @@ function buildContextParagraph(city: string, serviceKey: string) {
 }
 
 export function generateStaticParams(): Params[] {
-  return COMMERCIAL_KEYWORDS.flatMap((keywordDef) =>
-    COMMERCIAL_CITIES.map((city) => ({
-      service: keywordDef.serviceKey,
-      keyword: keywordDef.key,
-      city: slugify(city),
-    }))
-  );
+  return COMMERCIAL_TARGETS.map((item) => ({
+    service: item.service,
+    keyword: item.keyword,
+    city: slugify(item.city),
+  }));
 }
 
 export async function generateMetadata({
@@ -60,28 +64,28 @@ export async function generateMetadata({
 }: {
   params: Params;
 }): Promise<Metadata> {
+  const target = getCommercialTarget(params.service, params.keyword, params.city);
   const keywordDef = getCommercialKeywordByKey(params.keyword);
-  const city = getCityBySlug(params.city);
 
-  if (!keywordDef || !city || keywordDef.serviceKey !== params.service) {
+  if (!target || !keywordDef || keywordDef.serviceKey !== params.service) {
     return {};
   }
 
   return {
     title:
-      replaceTokens(keywordDef.titleTemplate, { "{CITY}": city }) +
+      replaceTokens(keywordDef.titleTemplate, { "{CITY}": target.city }) +
       " | Turbo Services",
     description: replaceTokens(keywordDef.descriptionTemplate, {
-      "{CITY}": city,
+      "{CITY}": target.city,
     }),
   };
 }
 
 export default function Page({ params }: { params: Params }) {
+  const target = getCommercialTarget(params.service, params.keyword, params.city);
   const keywordDef = getCommercialKeywordByKey(params.keyword);
-  const city = getCityBySlug(params.city);
 
-  if (!keywordDef || !city || keywordDef.serviceKey !== params.service) {
+  if (!target || !keywordDef || keywordDef.serviceKey !== params.service) {
     notFound();
   }
 
@@ -92,6 +96,7 @@ export default function Page({ params }: { params: Params }) {
     notFound();
   }
 
+  const city = target.city;
   const intro = replaceTokens(keywordDef.introTemplate, {
     "{CITY}": city,
   });
