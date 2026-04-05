@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
+import { getCommercialLinksForServiceAndCity, getRelatedServiceLinksForCity } from "@/lib/internal-links";
+import { filterKnowledgeByService } from "@/lib/knowledge-links";
 
 export const metadata: Metadata = {
   title: `Ontstoppingen in Mol | Turbo Services`,
@@ -7,6 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  const serviceKey = "ontstoppingen";
   const municipalities = [
   "Mol"
 ];
@@ -60,6 +63,15 @@ export default function Page() {
     "a": "Wanneer water terugkomt via toilet, douche of vloerputjes is snel ingrijpen belangrijk om bijkomende schade en geurhinder te vermijden."
   }
 ];
+  const commercialLinks = getCommercialLinksForServiceAndCity(serviceKey, "Mol", 4);
+
+  const relatedServiceLinks = getRelatedServiceLinksForCity(
+    serviceKey,
+    "Mol",
+    4
+  );
+
+  const knowledgeLinks = filterKnowledgeByService(serviceKey, 4);
 
   return (
     <DienstPageLayout
@@ -76,6 +88,9 @@ export default function Page() {
       ctaButton="Vraag ontstopping aan"
       heroImageOverride="/assets/base/ontstoppingen.png"
       relatedRegionLinks={relatedRegionLinks}
+      commercialLinks={commercialLinks}
+      relatedServiceLinks={relatedServiceLinks}
+      knowledgeLinks={knowledgeLinks}
     />
   );
 }

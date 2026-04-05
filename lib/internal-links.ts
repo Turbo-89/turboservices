@@ -1,57 +1,64 @@
-import fs from "fs";
-import path from "path";
+import { COMMERCIAL_TARGETS } from "@/content/commercial-targets";
+import { SERVICES } from "@/content/services";
+import { slugify } from "@/lib/slugify";
 
-const CONTENT_ROOT = path.join(process.cwd(), "content");
+export type InternalLink = {
+  href: string;
+  label: string;
+};
 
-function readDirSafe(p: string): string[] {
-  if (!fs.existsSync(p)) return [];
-  return fs.readdirSync(p);
+export function getCommercialLinksForServiceAndCity(
+  serviceKey: string,
+  city: string,
+  limit = 4
+): InternalLink[] {
+  const citySlug = slugify(city);
+
+  return COMMERCIAL_TARGETS.filter(
+    (target) =>
+      (target.active ?? true) &&
+      target.service === serviceKey &&
+      slugify(target.city) === citySlug
+  )
+    .sort((a, b) => (b.priority ?? b.score ?? 0) - (a.priority ?? a.score ?? 0))
+    .slice(0, limit)
+    .map((target) => ({
+      href: `/commercial/${target.service}/${target.keyword}/${citySlug}`,
+      label: target.title ?? `${target.keyword} in ${target.city}`,
+    }));
 }
 
-/* =========================
-   COMMERCIAL LINKS
-========================= */
+export function getRelatedServiceLinksForCity(
+  currentServiceKey: string,
+  city: string,
+  limit = 4
+): InternalLink[] {
+  const citySlug = slugify(city);
 
-export function getCommercialLinks(service: string) {
-  const dir = path.join(CONTENT_ROOT, "commercial", service);
-  return readDirSafe(dir)
-    .filter((f) => f.endsWith(".md"))
-    .map((f) => {
-      const slug = f.replace(".md", "");
-      return {
-        href: `/commercial/${service}/${slug}`,
-        label: slug.replace(/-/g, " "),
-      };
-    });
+  return SERVICES.filter(
+    (service) =>
+      service.key !== currentServiceKey &&
+      service.isPrimary !== false &&
+      service.hasMunicipalPages !== false
+  )
+    .slice(0, limit)
+    .map((service) => ({
+      href: `/diensten/${service.key}/${citySlug}`,
+      label: `${service.name} in ${city}`,
+    }));
 }
 
-/* =========================
-   KNOWLEDGE LINKS
-========================= */
-
-export function getKnowledgeLinks() {
-  const dir = path.join(CONTENT_ROOT, "kennisbank-auto");
-
-  return readDirSafe(dir)
-    .filter((f) => f.endsWith(".md"))
-    .map((f) => {
-      const slug = f.replace(".md", "");
-      return {
-        href: `/kennisbank/auto/${slug}`,
-        label: slug.replace(/-/g, " "),
-      };
-    });
-}
-
-/* =========================
-   FILTER PER SERVICE
-========================= */
-
-export function filterKnowledgeByService(
-  links: { href: string; label: string }[],
-  service: string
-) {
-  return links.filter((l) =>
-    l.href.includes(service)
-  );
+export function getFeaturedCommercialTargetsByService(
+  serviceKey: string,
+  limit = 3
+): InternalLink[] {
+  return COMMERCIAL_TARGETS.filter(
+    (target) => (target.active ?? true) && target.service === serviceKey
+  )
+    .sort((a, b) => (b.priority ?? b.score ?? 0) - (a.priority ?? a.score ?? 0))
+    .slice(0, limit)
+    .map((target) => ({
+      href: `/commercial/${target.service}/${target.keyword}/${slugify(target.city)}`,
+      label: target.title ?? `${target.keyword} in ${target.city}`,
+    }));
 }

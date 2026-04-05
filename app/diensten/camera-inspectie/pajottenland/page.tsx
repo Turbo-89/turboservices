@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+
 export const metadata: Metadata = {
   title: `Camera-inspectie in Pajottenland | Turbo Services`,
   description: `Camera-inspectie in Pajottenland om breuken, verzakkingen, wortelgroei en hardnekkige verstoppingen exact in beeld te brengen. Turbo Services lokaliseert de oorzaak gericht en zonder onnodig breekwerk.`,
 };
 
 export default function Page() {
+  const serviceKey = "camera-inspectie";
   const municipalities = [
   "Pajottegem",
   "Pepingen",

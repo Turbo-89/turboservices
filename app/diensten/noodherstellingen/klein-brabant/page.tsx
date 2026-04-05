@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+
 export const metadata: Metadata = {
   title: `Noodherstellingen in Klein-Brabant | Turbo Services`,
   description: `Noodherstellingen in Klein-Brabant bij lekken, breuken, verzakkingen en andere acute schade aan afvoer of riolering. Turbo Services grijpt snel in om verdere schade en uitval te beperken.`,
 };
 
 export default function Page() {
+  const serviceKey = "noodherstellingen";
   const municipalities = [
   "Bornem",
   "Puurs-Sint-Amands",

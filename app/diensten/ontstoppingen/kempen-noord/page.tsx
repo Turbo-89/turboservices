@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+
 export const metadata: Metadata = {
   title: `Ontstoppingen in Kempen Noord | Turbo Services`,
   description: `Ontstoppingen in Kempen Noord voor verstopte wc's, lavabo's, douches, baden, keukenafvoeren en hoofdrioleringen. Turbo Services werkt snel, gericht en ook 's avonds en in het weekend aan hetzelfde tarief.`,
 };
 
 export default function Page() {
+  const serviceKey = "ontstoppingen";
   const municipalities = [
   "Turnhout",
   "Oud-Turnhout",

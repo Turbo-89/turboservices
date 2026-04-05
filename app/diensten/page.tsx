@@ -2,47 +2,18 @@
 import Link from "next/link";
 import CTA from "@/components/kb/CTA";
 import HeroLogo from "@/components/HeroLogo";
+import { SERVICES } from "@/content/services";
+import { getFeaturedCommercialTargetsByService } from "@/lib/commercial-targets";
 
 export const metadata: Metadata = {
   title: "Diensten riolering & afvoer | Turbo Services",
   description:
-    "Ontstoppingen, camera-inspecties, gerichte rioolherstellingen, geurdetectie, noodherstellingen en vervangen van deksels. Turbo Services is actief in heel Vlaanderen.",
+    "Ontstoppingen, camera-inspectie, gerichte rioolherstellingen, geurdetectie, noodherstellingen en vervangen van deksels. Turbo Services is actief in heel Vlaanderen.",
 };
 
-const services = [
-  {
-    href: "/diensten/ontstoppingen",
-    title: "Ontstoppingen",
-    desc: "Verstopte wc, lavabo, douche of hoofdriolering. Professioneel ontstopt met de juiste apparatuur en duidelijke diagnose.",
-  },
-  {
-    href: "/diensten/camera-inspectie",
-    title: "Camera-inspectie",
-    desc: "Inwendige controle van leidingen met camera. Ideaal bij terugkerende problemen, geurhinder of twijfel over de staat van de riolering.",
-  },
-  {
-    href: "/diensten/gerichte-rioolherstellingen",
-    title: "Gerichte rioolherstellingen",
-    desc: "Gerichte herstellingen aan beschadigde of verzakte leidingen, met voorafgaande diagnose en duidelijke oplossing.",
-  },
-  {
-    href: "/diensten/geurdetectie",
-    title: "Geurdetectie",
-    desc: "Rioolgeur opsporen en oorzaak exact lokaliseren in badkamer, toilet, keuken of leidingsysteem.",
-  },
-  {
-    href: "/diensten/noodherstellingen",
-    title: "Noodherstellingen",
-    desc: "Snelle interventies bij lekken, breuken of acute schade aan afvoer- en rioleringsleidingen.",
-  },
-  {
-    href: "/diensten/vervangen-van-deksels",
-    title: "Vervangen van deksels",
-    desc: "Vervangen of aanpassen van beschadigde, losse of verzakte putdeksels en afdekkingselementen.",
-  },
-];
-
 export default function DienstenPage() {
+  const activeServices = SERVICES.filter((service) => service.isPrimary !== false);
+
   return (
     <>
       <section className="relative overflow-hidden border-b bg-gradient-to-b from-slate-50 to-white">
@@ -57,7 +28,8 @@ export default function DienstenPage() {
 
             <p className="mt-4 max-w-xl text-lg text-slate-600">
               Gespecialiseerd in riool- en afvoerproblemen, met een duidelijke
-              aanpak voor zowel dringende als terugkerende situaties in heel Vlaanderen.
+              aanpak voor zowel dringende als terugkerende situaties in heel
+              Vlaanderen.
             </p>
 
             <ul className="mt-6 space-y-2 text-slate-700">
@@ -87,7 +59,7 @@ export default function DienstenPage() {
                 href="/boeken"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-700 hover:bg-slate-50"
               >
-                Vraag interventie aan â†’
+                Vraag interventie aan →
               </Link>
             </div>
 
@@ -109,30 +81,64 @@ export default function DienstenPage() {
 
         <p className="mt-3 max-w-3xl text-slate-700">
           Turbo Services werkt met een transparante basisstructuur:
-          <strong> â‚¬160 standaard interventiekost</strong>, met
-          <strong> camera-inspectie als supplement van â‚¬90</strong> wanneer een
-          visuele diagnose nodig is. Voor specifieke herstellingen of vervangingen
-          gebeurt de prijsbepaling steeds op basis van diagnose en situatie ter plaatse.
+          <strong> €160 standaard interventiekost</strong>, met
+          <strong> camera-inspectie als supplement van €90</strong> wanneer een
+          visuele diagnose nodig is. Voor specifieke herstellingen of
+          vervangingen gebeurt de prijsbepaling steeds op basis van diagnose en
+          situatie ter plaatse.
         </p>
 
-      
-
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
-            <Link
-              key={s.href}
-              href={s.href}
-              className="rounded-2xl border p-5 transition hover:bg-slate-50"
-            >
-              <h3 className="text-lg font-semibold text-slate-900">
-                {s.title}
-              </h3>
-              <p className="mt-1 text-slate-600">{s.desc}</p>
-              <span className="mt-3 inline-block text-sm text-slate-700 underline">
-                Meer over {s.title} â†’
-              </span>
-            </Link>
-          ))}
+          {activeServices.map((service) => {
+            const featuredCommercialTargets = getFeaturedCommercialTargetsByService(
+              service.key,
+              3
+            );
+
+            return (
+              <div
+                key={service.key}
+                className="rounded-2xl border p-5 transition hover:bg-slate-50"
+              >
+                <Link href={`/diensten/${service.key}`}>
+                  <h3 className="text-lg font-semibold text-slate-900">
+                    {service.name}
+                  </h3>
+                </Link>
+
+                <p className="mt-2 text-slate-600">{service.intro}</p>
+
+                <div className="mt-4">
+                  <Link
+                    href={`/diensten/${service.key}`}
+                    className="inline-block text-sm text-slate-700 underline"
+                  >
+                    Meer over {service.name} →
+                  </Link>
+                </div>
+
+                {featuredCommercialTargets.length > 0 && (
+                  <div className="mt-5 border-t pt-4">
+                    <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                      Veel gezochte ingangen
+                    </p>
+                    <ul className="mt-2 space-y-1">
+                      {featuredCommercialTargets.map((target) => (
+                        <li key={`${target.service}-${target.keyword}-${target.city}`}>
+                          <Link
+                            href={`/commercial/${target.service}/${target.keyword}/${target.citySlug}`}
+                            className="text-sm text-slate-700 underline"
+                          >
+                            {target.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         <div className="mt-10">
@@ -142,4 +148,3 @@ export default function DienstenPage() {
     </>
   );
 }
-

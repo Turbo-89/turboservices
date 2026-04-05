@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+
 export const metadata: Metadata = {
   title: `Gerichte rioolherstellingen in Kempen Zuid | Turbo Services`,
   description: `Gerichte rioolherstellingen in Kempen Zuid bij breuken, verzakkingen, lekkages en lokale schade aan afvoer of riolering. Turbo Services herstelt gericht op basis van duidelijke vaststellingen en zonder onnodige uitbreidingen.`,
 };
 
 export default function Page() {
+  const serviceKey = "gerichte-rioolherstellingen";
   const municipalities = [
   "Herentals",
   "Herenthout",

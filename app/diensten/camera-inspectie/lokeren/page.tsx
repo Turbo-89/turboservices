@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
+import { getCommercialLinksForServiceAndCity, getRelatedServiceLinksForCity } from "@/lib/internal-links";
+import { filterKnowledgeByService } from "@/lib/knowledge-links";
 
 export const metadata: Metadata = {
   title: `Camera-inspectie in Lokeren | Turbo Services`,
@@ -7,6 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  const serviceKey = "camera-inspectie";
   const municipalities = [
   "Lokeren"
 ];
@@ -60,6 +63,15 @@ export default function Page() {
     "a": "Vaak wel. Wanneer de leiding niet toegankelijk is door vuil of blokkage, moet ze eerst vrijgemaakt worden om een correcte inspectie mogelijk te maken."
   }
 ];
+  const commercialLinks = [];
+
+  const relatedServiceLinks = getRelatedServiceLinksForCity(
+    serviceKey,
+    "Lokeren",
+    4
+  );
+
+  const knowledgeLinks = filterKnowledgeByService(serviceKey, 4);
 
   return (
     <DienstPageLayout
@@ -76,6 +88,9 @@ export default function Page() {
       ctaButton="Vraag camera-inspectie aan"
       heroImageOverride="/assets/base/camera-inspectie.png"
       relatedRegionLinks={relatedRegionLinks}
+      commercialLinks={commercialLinks}
+      relatedServiceLinks={relatedServiceLinks}
+      knowledgeLinks={knowledgeLinks}
     />
   );
 }

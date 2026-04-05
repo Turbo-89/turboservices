@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+
 export const metadata: Metadata = {
   title: `Geurdetectie in Brussel Centrum | Turbo Services`,
   description: `Geurdetectie in Brussel Centrum bij aanhoudende rioolgeur in badkamer, toilet, keuken of technische ruimte. Turbo Services zoekt gericht naar de bron van de stank zonder blind breekwerk.`,
 };
 
 export default function Page() {
+  const serviceKey = "geurdetectie";
   const municipalities = [
   "Brussel",
   "Elsene",

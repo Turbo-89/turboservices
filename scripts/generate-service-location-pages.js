@@ -1,13 +1,5 @@
 #!/usr/bin/env node
 
-/**
- * Genereert vaste dienst x regio- en dienst x gemeentepagina's
- * vanuit de centrale contentbestanden.
- *
- * Gebruik:
- *   node .\scripts\generate-service-location-pages.js
- */
-
 const fs = require("fs");
 const path = require("path");
 const ts = require("typescript");
@@ -44,13 +36,7 @@ function loadTsModule(relativePath) {
     "__dirname",
     transpiled.outputText
   );
-  wrapped(
-    module.exports,
-    require,
-    module,
-    absPath,
-    path.dirname(absPath)
-  );
+  wrapped(module.exports, require, module, absPath, path.dirname(absPath));
 
   return module.exports;
 }
@@ -196,8 +182,41 @@ function createPageSource({
   const sectionsJson = JSON.stringify(sections, null, 2);
   const faqsJson = JSON.stringify(service.faqs ?? [], null, 2);
 
+  const extraImports =
+    pageType === "city"
+      ? `import { getCommercialLinksForServiceAndCity, getRelatedServiceLinksForCity } from "@/lib/internal-links";
+import { filterKnowledgeByService } from "@/lib/knowledge-links";`
+      : "";
+
+  const extraConsts =
+    pageType === "city"
+      ? `
+  const commercialLinks = ${
+    service.key === "ontstoppingen"
+      ? `getCommercialLinksForServiceAndCity(serviceKey, "${escapeTemplateString(city)}", 4)`
+      : "[]"
+  };
+
+  const relatedServiceLinks = getRelatedServiceLinksForCity(
+    serviceKey,
+    "${escapeTemplateString(city)}",
+    4
+  );
+
+  const knowledgeLinks = filterKnowledgeByService(serviceKey, 4);`
+      : "";
+
+  const extraProps =
+    pageType === "city"
+      ? `
+      commercialLinks={commercialLinks}
+      relatedServiceLinks={relatedServiceLinks}
+      knowledgeLinks={knowledgeLinks}`
+      : "";
+
   return `import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
+${extraImports}
 
 export const metadata: Metadata = {
   title: \`${escapeTemplateString(metaTitle)} | Turbo Services\`,
@@ -205,10 +224,11 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  const serviceKey = "${escapeTemplateString(service.key)}";
   const municipalities = ${municipalitiesJson};
   const relatedRegionLinks = ${relatedRegionLinksJson};
   const sections = ${sectionsJson};
-  const faqs = ${faqsJson};
+  const faqs = ${faqsJson};${extraConsts}
 
   return (
     <DienstPageLayout
@@ -228,7 +248,7 @@ export default function Page() {
         pageType === "region"
           ? `municipalityLinks={municipalities.map((name) => ({ slug: name.toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").replace(/&/g, " en ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""), label: name }))}`
           : `relatedRegionLinks={relatedRegionLinks}`
-      }
+      }${extraProps}
     />
   );
 }
@@ -237,13 +257,11 @@ export default function Page() {
 
 function main() {
   const { SERVICES } = loadTsModule("content/services.ts");
-  const {
-    getServiceLocationTemplate,
-  } = loadTsModule("content/service-location-templates.ts");
+  const { getServiceLocationTemplate } = loadTsModule(
+    "content/service-location-templates.ts"
+  );
   const { REGION_CITIES } = loadTsModule("content/regions.ts");
-  const {
-    getLocationContext,
-  } = loadTsModule("content/location-context.ts");
+  const { getLocationContext } = loadTsModule("content/location-context.ts");
 
   const cityToRegionsMap = getCityToRegionsMap(REGION_CITIES);
   const allCities = dedupeCities(REGION_CITIES);

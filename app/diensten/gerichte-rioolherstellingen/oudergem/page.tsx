@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
+import { getCommercialLinksForServiceAndCity, getRelatedServiceLinksForCity } from "@/lib/internal-links";
+import { filterKnowledgeByService } from "@/lib/knowledge-links";
 
 export const metadata: Metadata = {
   title: `Gerichte rioolherstellingen in Oudergem | Turbo Services`,
@@ -7,6 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  const serviceKey = "gerichte-rioolherstellingen";
   const municipalities = [
   "Oudergem"
 ];
@@ -52,6 +55,15 @@ export default function Page() {
     "a": "Ja. Camera-inspectie is vaak de logische eerste stap om het defect correct in kaart te brengen."
   }
 ];
+  const commercialLinks = [];
+
+  const relatedServiceLinks = getRelatedServiceLinksForCity(
+    serviceKey,
+    "Oudergem",
+    4
+  );
+
+  const knowledgeLinks = filterKnowledgeByService(serviceKey, 4);
 
   return (
     <DienstPageLayout
@@ -68,6 +80,9 @@ export default function Page() {
       ctaButton="Vraag rioolherstelling aan"
       heroImageOverride="/assets/base/gerichte-rioolherstellingen.png"
       relatedRegionLinks={relatedRegionLinks}
+      commercialLinks={commercialLinks}
+      relatedServiceLinks={relatedServiceLinks}
+      knowledgeLinks={knowledgeLinks}
     />
   );
 }

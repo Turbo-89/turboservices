@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
+import { getCommercialLinksForServiceAndCity, getRelatedServiceLinksForCity } from "@/lib/internal-links";
+import { filterKnowledgeByService } from "@/lib/knowledge-links";
 
 export const metadata: Metadata = {
   title: `Noodherstellingen in Zele | Turbo Services`,
@@ -7,6 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  const serviceKey = "noodherstellingen";
   const municipalities = [
   "Zele"
 ];
@@ -60,6 +63,15 @@ export default function Page() {
     "a": "Dat hangt af van de aard van de schade. Soms gebeurt eerst een veilige noodoplossing, gevolgd door een definitieve herstelling."
   }
 ];
+  const commercialLinks = [];
+
+  const relatedServiceLinks = getRelatedServiceLinksForCity(
+    serviceKey,
+    "Zele",
+    4
+  );
+
+  const knowledgeLinks = filterKnowledgeByService(serviceKey, 4);
 
   return (
     <DienstPageLayout
@@ -76,6 +88,9 @@ export default function Page() {
       ctaButton="Vraag noodherstelling aan"
       heroImageOverride="/assets/base/noodherstellingen.png"
       relatedRegionLinks={relatedRegionLinks}
+      commercialLinks={commercialLinks}
+      relatedServiceLinks={relatedServiceLinks}
+      knowledgeLinks={knowledgeLinks}
     />
   );
 }

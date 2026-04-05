@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+
 export const metadata: Metadata = {
   title: `Geurdetectie in Kempen Zuid | Turbo Services`,
   description: `Geurdetectie in Kempen Zuid bij aanhoudende rioolgeur in badkamer, toilet, keuken of technische ruimte. Turbo Services zoekt gericht naar de bron van de stank zonder blind breekwerk.`,
 };
 
 export default function Page() {
+  const serviceKey = "geurdetectie";
   const municipalities = [
   "Herentals",
   "Herenthout",

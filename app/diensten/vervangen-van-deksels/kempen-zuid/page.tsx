@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+
 export const metadata: Metadata = {
   title: `Vervangen van deksels in Kempen Zuid | Turbo Services`,
   description: `Vervangen van deksels in Kempen Zuid voor beschadigde, verzakte of losliggende putdeksels en inspectiedeksels. Turbo Services vervangt en corrigeert deksels gericht, veilig en technisch passend.`,
 };
 
 export default function Page() {
+  const serviceKey = "vervangen-van-deksels";
   const municipalities = [
   "Herentals",
   "Herenthout",

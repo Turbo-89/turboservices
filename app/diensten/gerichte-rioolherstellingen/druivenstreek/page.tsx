@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+
 export const metadata: Metadata = {
   title: `Gerichte rioolherstellingen in Druivenstreek | Turbo Services`,
   description: `Gerichte rioolherstellingen in Druivenstreek bij breuken, verzakkingen, lekkages en lokale schade aan afvoer of riolering. Turbo Services herstelt gericht op basis van duidelijke vaststellingen en zonder onnodige uitbreidingen.`,
 };
 
 export default function Page() {
+  const serviceKey = "gerichte-rioolherstellingen";
   const municipalities = [
   "Overijse",
   "Hoeilaart",

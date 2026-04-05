@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
+import { getCommercialLinksForServiceAndCity, getRelatedServiceLinksForCity } from "@/lib/internal-links";
+import { filterKnowledgeByService } from "@/lib/knowledge-links";
 
 export const metadata: Metadata = {
   title: `Vervangen van deksels in Herent | Turbo Services`,
@@ -7,6 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  const serviceKey = "vervangen-van-deksels";
   const municipalities = [
   "Herent"
 ];
@@ -52,6 +55,15 @@ export default function Page() {
     "a": "Het is technisch belangrijk. Een slecht passend of beschadigd deksel kan geurhinder, waterinsijpeling en onveilige situaties veroorzaken."
   }
 ];
+  const commercialLinks = [];
+
+  const relatedServiceLinks = getRelatedServiceLinksForCity(
+    serviceKey,
+    "Herent",
+    4
+  );
+
+  const knowledgeLinks = filterKnowledgeByService(serviceKey, 4);
 
   return (
     <DienstPageLayout
@@ -68,6 +80,9 @@ export default function Page() {
       ctaButton="Vraag vervanging aan"
       heroImageOverride="/assets/base/vervangen-van-deksels.png"
       relatedRegionLinks={relatedRegionLinks}
+      commercialLinks={commercialLinks}
+      relatedServiceLinks={relatedServiceLinks}
+      knowledgeLinks={knowledgeLinks}
     />
   );
 }

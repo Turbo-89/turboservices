@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import DienstPageLayout from "@/components/diensten/DienstPage";
 
+
 export const metadata: Metadata = {
   title: `Ontstoppingen in Mechelen & Rivierenland | Turbo Services`,
   description: `Ontstoppingen in Mechelen & Rivierenland voor verstopte wc's, lavabo's, douches, baden, keukenafvoeren en hoofdrioleringen. Turbo Services werkt snel, gericht en ook 's avonds en in het weekend aan hetzelfde tarief.`,
 };
 
 export default function Page() {
+  const serviceKey = "ontstoppingen";
   const municipalities = [
   "Aartselaar",
   "Boechout",
