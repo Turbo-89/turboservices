@@ -26,6 +26,12 @@ function replaceTokens(
   return out;
 }
 
+function pickVariant(values: string[], seed: string) {
+  if (!values.length) return "";
+  const total = seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0);
+  return values[total % values.length];
+}
+
 function getCommercialTarget(service: string, keyword: string, citySlug: string) {
   return COMMERCIAL_TARGETS.find(
     (item) =>
@@ -44,6 +50,46 @@ function buildContextParagraph(city: string, serviceKey: string) {
     ] ?? [];
 
   return [...issues, ...nuance].filter(Boolean).join(" ");
+}
+
+function buildCommercialSections(
+  template: ReturnType<typeof getCommercialTemplate>,
+  city: string
+) {
+  if (!template) return [];
+
+  const seedBase = city.toLowerCase();
+
+  return [
+    {
+      title: replaceTokens(template.sectionTitles.urgency, { "{CITY}": city }),
+      body: replaceTokens(
+        pickVariant(template.urgencyVariants, `${seedBase}-urgency`),
+        { "{CITY}": city }
+      ),
+    },
+    {
+      title: replaceTokens(template.sectionTitles.symptoms, { "{CITY}": city }),
+      body: replaceTokens(
+        pickVariant(template.symptomVariants, `${seedBase}-symptoms`),
+        { "{CITY}": city }
+      ),
+    },
+    {
+      title: replaceTokens(template.sectionTitles.causes, { "{CITY}": city }),
+      body: replaceTokens(
+        pickVariant(template.causeVariants, `${seedBase}-causes`),
+        { "{CITY}": city }
+      ),
+    },
+    {
+      title: replaceTokens(template.sectionTitles.approach, { "{CITY}": city }),
+      body: replaceTokens(
+        pickVariant(template.approachVariants, `${seedBase}-approach`),
+        { "{CITY}": city }
+      ),
+    },
+  ];
 }
 
 export function generateStaticParams(): Params[] {
@@ -92,16 +138,16 @@ export default function Page({ params }: { params: Params }) {
   }
 
   const city = target.city;
-  const intro = replaceTokens(keywordDef.introTemplate, {
-    "{CITY}": city,
-  });
+
+  const intro =
+    replaceTokens(
+      pickVariant(template.introVariants, `${city.toLowerCase()}-intro`),
+      { "{CITY}": city }
+    ) ||
+    replaceTokens(keywordDef.introTemplate, { "{CITY}": city });
 
   const contextParagraph = buildContextParagraph(city, keywordDef.serviceKey);
-
-  const sections = template.sections.map((section) => ({
-    title: replaceTokens(section.title, { "{CITY}": city }),
-    body: replaceTokens(section.body, { "{CITY}": city }),
-  }));
+  const sections = buildCommercialSections(template, city);
 
   if (contextParagraph) {
     sections.push({
@@ -109,6 +155,11 @@ export default function Page({ params }: { params: Params }) {
       body: contextParagraph,
     });
   }
+
+  const ctaBody = replaceTokens(
+    pickVariant(template.ctaVariants, `${city.toLowerCase()}-cta`),
+    { "{CITY}": city }
+  );
 
   const canonicalDienstUrl = `/diensten/${keywordDef.serviceKey}/${slugify(city)}`;
   const dynamicImageSrc = `https://www.turboservices.be/assets/base/${keywordDef.serviceKey}.png`;
@@ -151,10 +202,7 @@ export default function Page({ params }: { params: Params }) {
               Snelle tussenkomst nodig in{" "}
               <span className="text-[var(--turbo-red,#E34D35)]">{city}</span>?
             </h2>
-            <p className="mt-3 text-neutral-700">
-              Bel rechtstreeks of vraag meteen een interventie aan. Turbo Services
-              koppelt snel terug met een concreet tijdsvenster.
-            </p>
+            <p className="mt-3 text-neutral-700">{ctaBody}</p>
           </div>
 
           <div className="flex flex-wrap gap-3">
