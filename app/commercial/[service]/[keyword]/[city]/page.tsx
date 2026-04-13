@@ -1,18 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ServiceCTA from "@/components/cta/ServiceCTA";
 import { getLocationContext } from "@/content/location-context";
 import { getServiceByKey } from "@/content/services";
 import { slugify } from "@/lib/slugify";
-import {
-  getCommercialKeywordByKey,
-} from "@/content/commercial-keywords";
-import {
-  getCommercialTemplate,
-} from "@/content/commercial-templates";
-import {
-  COMMERCIAL_TARGETS,
-} from "@/content/commercial-targets";
+import { getCommercialKeywordByKey } from "@/content/commercial-keywords";
+import { getCommercialTemplate } from "@/content/commercial-templates";
+import { COMMERCIAL_TARGETS } from "@/content/commercial-targets";
 
 type Params = {
   service: string;
@@ -115,42 +110,21 @@ export default function Page({ params }: { params: Params }) {
     });
   }
 
-  const ctaBody = replaceTokens(template.ctaBodyTemplate, {
-    "{CITY}": city,
-  });
-
   const canonicalDienstUrl = `/diensten/${keywordDef.serviceKey}/${slugify(city)}`;
+  const dynamicImageSrc = `https://www.turboservices.be/assets/base/${keywordDef.serviceKey}.png`;
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      <div className="mb-8">
-        <p className="mb-2 text-sm text-neutral-500">
-          Commercial / {service.name} / {city}
-        </p>
-        <h1 className="text-3xl font-semibold tracking-tight">
-          {replaceTokens(keywordDef.h1Template, { "{CITY}": city })}
-        </h1>
-        <p className="mt-4 text-lg leading-8 text-neutral-700">{intro}</p>
-      </div>
-
-      <div className="mb-10 rounded-2xl border p-6">
-        <h2 className="text-xl font-semibold">{keywordDef.ctaTitle}</h2>
-        <p className="mt-3 text-neutral-700">{ctaBody}</p>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <a
-            href="/boeken"
-            className="rounded-full border px-5 py-3 text-sm font-medium"
-          >
-            {keywordDef.ctaButton}
-          </a>
-          <Link
-            href={canonicalDienstUrl}
-            className="rounded-full border px-5 py-3 text-sm font-medium"
-          >
-            Bekijk {service.name.toLowerCase()} in {city}
-          </Link>
-        </div>
-      </div>
+      <ServiceCTA
+        title={replaceTokens(keywordDef.h1Template, { "{CITY}": city })}
+        body={intro}
+        city={city}
+        primaryHref="/boeken"
+        phoneNumber="+32485031877"
+        whatsAppNumber="+32485031877"
+        imageSrc={dynamicImageSrc}
+        imageAlt={`${service.name} in ${city}`}
+      />
 
       <div className="grid gap-6">
         {sections.map((section) => (
@@ -170,20 +144,51 @@ export default function Page({ params }: { params: Params }) {
         </ul>
       </div>
 
-      <div className="mt-10 rounded-2xl border p-6">
-        <h2 className="text-xl font-semibold">
-          Gerelateerde vaste dienstpagina
-        </h2>
-        <p className="mt-3 text-neutral-700">
-          Voor de canonieke dienstinformatie in {city} kun je ook terecht op de
-          vaste dienstpagina.
-        </p>
-        <div className="mt-4">
+      <div className="mt-10 rounded-3xl bg-[#f5f7fa] px-6 py-8 md:px-8">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="max-w-2xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#111827]">
+              Snelle tussenkomst nodig in{" "}
+              <span className="text-[var(--turbo-red,#E34D35)]">{city}</span>?
+            </h2>
+            <p className="mt-3 text-neutral-700">
+              Bel rechtstreeks of vraag meteen een interventie aan. Turbo Services
+              koppelt snel terug met een concreet tijdsvenster.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="tel:+32485031877"
+              className="inline-flex items-center justify-center rounded-full bg-[var(--turbo-red,#E34D35)] px-6 py-3 text-sm font-medium text-white transition hover:opacity-90"
+            >
+              Bel 24/7
+            </a>
+
+            <Link
+              href="/boeken"
+              className="inline-flex items-center justify-center rounded-full border border-neutral-300 bg-white px-6 py-3 text-sm font-medium text-neutral-900 transition hover:border-neutral-400"
+            >
+              Vraag interventie aan
+            </Link>
+
+            <a
+              href="https://wa.me/32485031877"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-sm font-medium text-white transition hover:opacity-90"
+            >
+              WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div className="mt-5">
           <Link
             href={canonicalDienstUrl}
-            className="rounded-full border px-5 py-3 text-sm font-medium inline-block"
+            className="text-sm font-medium text-neutral-700 underline underline-offset-4"
           >
-            Naar {service.name.toLowerCase()} in {city}
+            Bekijk ook de vaste dienstpagina voor {service.name.toLowerCase()} in {city}
           </Link>
         </div>
       </div>
