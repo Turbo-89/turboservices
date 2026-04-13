@@ -22,14 +22,6 @@ function replaceTokens(
   return out;
 }
 
-function stripCitySuffix(value: string) {
-  return value
-    .replace(/\s+in\s+\{CITY\}/gi, "")
-    .replace(/\s+in\s+Turbo Services/gi, "")
-    .replace(/\s+in\s+je regio/gi, "")
-    .trim();
-}
-
 function pickVariant(values: string[], seed: string) {
   if (!values.length) return "";
   const total = seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0);
