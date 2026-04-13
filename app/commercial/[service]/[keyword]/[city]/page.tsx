@@ -28,8 +28,15 @@ function replaceTokens(
 
 function pickVariant(values: string[], seed: string) {
   if (!values.length) return "";
-  const total = seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0);
+  const total = seed
+    .split("")
+    .reduce((sum, char) => sum + char.charCodeAt(0), 0);
   return values[total % values.length];
+}
+
+function resolveCommercialKeyword(keyword: string) {
+  if (keyword === "wc-ontstoppen") return "wc-verstopt";
+  return keyword;
 }
 
 function getCommercialTarget(service: string, keyword: string, citySlug: string) {
@@ -93,11 +100,21 @@ function buildCommercialSections(
 }
 
 export function generateStaticParams(): Params[] {
-  return COMMERCIAL_TARGETS.map((item) => ({
+  const aliasTargets = COMMERCIAL_TARGETS
+    .filter((item) => item.keyword === "wc-verstopt")
+    .map((item) => ({
+      service: item.service,
+      keyword: "wc-ontstoppen",
+      city: slugify(item.city),
+    }));
+
+  const defaultTargets = COMMERCIAL_TARGETS.map((item) => ({
     service: item.service,
     keyword: item.keyword,
     city: slugify(item.city),
   }));
+
+  return [...defaultTargets, ...aliasTargets];
 }
 
 export async function generateMetadata({
@@ -105,26 +122,45 @@ export async function generateMetadata({
 }: {
   params: Params;
 }): Promise<Metadata> {
-  const target = getCommercialTarget(params.service, params.keyword, params.city);
-  const keywordDef = getCommercialKeywordByKey(params.keyword);
+  const resolvedKeyword = resolveCommercialKeyword(params.keyword);
+  const target = getCommercialTarget(
+    params.service,
+    resolvedKeyword,
+    params.city
+  );
+  const keywordDef = getCommercialKeywordByKey(resolvedKeyword);
 
   if (!target || !keywordDef || keywordDef.serviceKey !== params.service) {
     return {};
   }
 
+  const title =
+    params.keyword === "wc-ontstoppen"
+      ? `WC ontstoppen in ${target.city} | Turbo Services`
+      : replaceTokens(keywordDef.titleTemplate, { "{CITY}": target.city }) +
+        " | Turbo Services";
+
+  const description =
+    params.keyword === "wc-ontstoppen"
+      ? `WC ontstoppen in ${target.city}? Turbo Services helpt snel bij een verstopte wc. 24/7 bereikbaar met gerichte interventie.`
+      : replaceTokens(keywordDef.descriptionTemplate, {
+          "{CITY}": target.city,
+        });
+
   return {
-    title:
-      replaceTokens(keywordDef.titleTemplate, { "{CITY}": target.city }) +
-      " | Turbo Services",
-    description: replaceTokens(keywordDef.descriptionTemplate, {
-      "{CITY}": target.city,
-    }),
+    title,
+    description,
   };
 }
 
 export default function Page({ params }: { params: Params }) {
-  const target = getCommercialTarget(params.service, params.keyword, params.city);
-  const keywordDef = getCommercialKeywordByKey(params.keyword);
+  const resolvedKeyword = resolveCommercialKeyword(params.keyword);
+  const target = getCommercialTarget(
+    params.service,
+    resolvedKeyword,
+    params.city
+  );
+  const keywordDef = getCommercialKeywordByKey(resolvedKeyword);
 
   if (!target || !keywordDef || keywordDef.serviceKey !== params.service) {
     notFound();
@@ -139,12 +175,19 @@ export default function Page({ params }: { params: Params }) {
 
   const city = target.city;
 
+  const pageTitle =
+    params.keyword === "wc-ontstoppen"
+      ? `WC ontstoppen in ${city}`
+      : replaceTokens(keywordDef.h1Template, { "{CITY}": city });
+
   const intro =
     replaceTokens(
-      pickVariant(template.introVariants, `${city.toLowerCase()}-intro`),
+      pickVariant(
+        template.introVariants,
+        `${city.toLowerCase()}-${resolvedKeyword}-intro`
+      ),
       { "{CITY}": city }
-    ) ||
-    replaceTokens(keywordDef.introTemplate, { "{CITY}": city });
+    ) || replaceTokens(keywordDef.introTemplate, { "{CITY}": city });
 
   const contextParagraph = buildContextParagraph(city, keywordDef.serviceKey);
   const sections = buildCommercialSections(template, city);
@@ -157,17 +200,26 @@ export default function Page({ params }: { params: Params }) {
   }
 
   const ctaBody = replaceTokens(
-    pickVariant(template.ctaVariants, `${city.toLowerCase()}-cta`),
+    pickVariant(
+      template.ctaVariants,
+      `${city.toLowerCase()}-${resolvedKeyword}-cta`
+    ),
     { "{CITY}": city }
   );
 
+  const canonicalKeyword =
+    params.keyword === "wc-ontstoppen" ? "wc-ontstoppen" : params.keyword;
+
+  const canonicalUrl = `/commercial/${params.service}/${canonicalKeyword}/${slugify(
+    city
+  )}`;
   const canonicalDienstUrl = `/diensten/${keywordDef.serviceKey}/${slugify(city)}`;
   const dynamicImageSrc = `https://www.turboservices.be/assets/base/${keywordDef.serviceKey}.png`;
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
       <ServiceCTA
-        title={replaceTokens(keywordDef.h1Template, { "{CITY}": city })}
+        title={pageTitle}
         body={intro}
         city={city}
         primaryHref="/boeken"
@@ -231,12 +283,20 @@ export default function Page({ params }: { params: Params }) {
           </div>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-5 flex flex-col gap-2">
           <Link
             href={canonicalDienstUrl}
             className="text-sm font-medium text-neutral-700 underline underline-offset-4"
           >
-            Bekijk ook de vaste dienstpagina voor {service.name.toLowerCase()} in {city}
+            Bekijk ook de vaste dienstpagina voor {service.name.toLowerCase()} in{" "}
+            {city}
+          </Link>
+
+          <Link
+            href={canonicalUrl}
+            className="text-sm font-medium text-neutral-500 underline underline-offset-4"
+          >
+            Directe commerciële landingspagina voor {pageTitle.toLowerCase()}
           </Link>
         </div>
       </div>
