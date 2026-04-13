@@ -1,46 +1,62 @@
 ---
-title: "Ontstoppingsdienst"
-description: "Ontstoppingsdienst nodig? Snelle interventie door Turbo Services. 24/7 bereikbaar zonder meerkost in avond en weekend."
+title: "Ontstoppingsdienst nodig?"
+description: "Ontstoppingsdienst nodig voor afvoer, wc, douche, lavabo of riool? Turbo Services is 24/7 bereikbaar voor snelle ontstopping zonder meerkost in avond en weekend."
 slug: "ontstoppingsdienst"
 service: "ontstoppingen"
 keywords: "ontstoppingsdienst"
 ---
 
-Heb je dringend hulp nodig voor **ontstoppingsdienst**? Turbo Services staat 24/7 klaar voor snelle en professionele interventies bij verstoppingen en afvoerproblemen.
+Zoek je een **ontstoppingsdienst** voor een verstopte afvoer, wc, douche, lavabo of riool? Turbo Services staat klaar voor snelle en professionele hulp bij acute en terugkerende verstoppingen.
 
-## Wat houdt dit probleem in?
+## Wanneer schakel je een ontstoppingsdienst in?
 
-Problemen zoals verstoppingen, slecht doorlopende afvoeren of terugkerende waterophoping kunnen snel escaleren. Vaak zit er meer achter dan alleen lokaal vuil in de afvoer.
+Een ontstoppingsdienst is nodig wanneer een verstopping niet meer verdwijnt met eenvoudige middelen of wanneer het probleem telkens terugkeert.
 
-## Wanneer moet je ingrijpen?
+Veelvoorkomende situaties:
 
-- water loopt niet meer weg
-- terugkerende verstoppingen
-- meerdere afvoeren tegelijk problemen
-- klassieke huis-tuin-oplossingen helpen niet
+- wc verstopt
+- gootsteen of keukenafvoer verstopt
+- douche of lavabo loopt niet door
+- riool of afvoerleiding geeft geur- of terugstroomproblemen
+- meerdere afvoeren tegelijk verstoord
 
-## Onze aanpak
+## Wat doet onze ontstoppingsdienst?
 
-Wij werken met professionele apparatuur om de oorzaak gericht aan te pakken:
+Wij kijken niet alleen naar het symptoom, maar naar de oorzaak van de verstopping.
+
+Afhankelijk van de situatie zetten wij in op:
 
 - mechanische ontstopping
-- hoge druk reiniging
-- camera-inspectie indien nodig
-- gericht advies bij structurele problemen
+- hogedrukreiniging
+- camera-inspectie
+- gerichte diagnose van leidingen of riolering
+- advies over herstel of onderhoud
+
+## Voor welke problemen kan je ons inschakelen?
+
+Onze ontstoppingsdienst helpt onder meer bij:
+
+- afvoer ontstoppen
+- wc ontstoppen
+- keukenafvoer ontstoppen
+- riool ontstoppen
+- terugkerende verstoppingen
+- geurhinder door afvoer of riolering
 
 ## Waarom Turbo Services?
 
+- snelle interventie
 - 24/7 bereikbaar
 - zelfde tarief in avond en weekend
-- snelle interventie
 - ervaren sinds 2009
+- professionele apparatuur en gerichte aanpak
 
-## Direct hulp nodig?
+## Direct een ontstoppingsdienst nodig?
 
-Bel onmiddellijk of vraag online een interventie aan.
+Neem direct contact op wanneer je snel hulp nodig hebt bij een verstopping of afvoerprobleem.
 
 ## Gerelateerd
 
-- [Ontstoppingen](/diensten/ontstoppingen)
-- [Camera-inspectie](/diensten/camera-inspectie)
-- [Geurdetectie](/diensten/geurdetectie)
+- [Afvoer ontstoppen](/commercial/ontstoppingen/afvoer-ontstoppen)
+- [WC ontstoppen](/commercial/ontstoppingen/wc-ontstoppen)
+- [Riool ontstoppen](/content/commercial/ontstoppingen/riool-ontstoppen)

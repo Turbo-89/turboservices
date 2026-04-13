@@ -1,46 +1,61 @@
 ---
-title: "Afvoer ontstoppen"
-description: "Afvoer ontstoppen nodig? Snelle interventie door Turbo Services. 24/7 bereikbaar zonder meerkost in avond en weekend."
+title: "Afvoer verstopt of afvoer ontstoppen?"
+description: "Afvoer verstopt? Turbo Services ontstopt snel uw afvoer bij keuken, badkamer, douche of lavabo. 24/7 bereikbaar aan hetzelfde tarief in avond en weekend."
 slug: "afvoer-ontstoppen"
 service: "ontstoppingen"
-keywords: "afvoer ontstoppen"
+keywords: "afvoer ontstoppen, afvoer verstopt"
 ---
 
-Heb je dringend hulp nodig voor **afvoer ontstoppen**? Turbo Services staat 24/7 klaar voor snelle en professionele interventies bij verstoppingen en afvoerproblemen.
+Heb je een **verstopte afvoer** en zoek je dringend een oplossing? Turbo Services helpt snel bij een **afvoer ontstoppen** in keuken, badkamer, douche, lavabo of andere afvoerleidingen.
 
-## Wat houdt dit probleem in?
+## Wanneer is een afvoer verstopt?
 
-Problemen zoals verstoppingen, slecht doorlopende afvoeren of terugkerende waterophoping kunnen snel escaleren. Vaak zit er meer achter dan alleen lokaal vuil in de afvoer.
+Een afvoer is vaak verstopt wanneer water traag wegloopt, terug omhoog komt of helemaal blijft staan. Dat begint soms klein, maar kan snel erger worden.
 
-## Wanneer moet je ingrijpen?
+Typische signalen:
 
-- water loopt niet meer weg
-- terugkerende verstoppingen
-- meerdere afvoeren tegelijk problemen
-- klassieke huis-tuin-oplossingen helpen niet
+- water loopt traag weg
+- afvoer borrelt of ruikt slecht
+- water komt terug in gootsteen, douche of lavabo
+- verstopping komt telkens terug
 
-## Onze aanpak
+## Oorzaken van een verstopte afvoer
 
-Wij werken met professionele apparatuur om de oorzaak gericht aan te pakken:
+Een verstopte afvoer ontstaat vaak door:
+
+- vet- en zeepresten
+- haren en vuilophoping
+- etensresten
+- aanslag in leidingen
+- structurele problemen verder in de afvoer
+
+Daardoor is een simpele huisoplossing vaak maar tijdelijk.
+
+## Onze oplossing voor afvoer ontstoppen
+
+Wij sporen de oorzaak gericht op en lossen de verstopping professioneel op.
+
+Onze aanpak kan bestaan uit:
 
 - mechanische ontstopping
-- hoge druk reiniging
-- camera-inspectie indien nodig
-- gericht advies bij structurele problemen
+- hogedrukreiniging
+- camera-inspectie bij terugkerende problemen
+- advies bij structurele leidingproblemen
 
 ## Waarom Turbo Services?
 
+- snelle interventie
 - 24/7 bereikbaar
 - zelfde tarief in avond en weekend
-- snelle interventie
-- ervaren sinds 2009
+- ervaring sinds 2009
+- gericht op duurzame oplossing, niet alleen symptoombestrijding
 
 ## Direct hulp nodig?
 
-Bel onmiddellijk of vraag online een interventie aan.
+Is je **afvoer verstopt** en wil je die snel laten verhelpen? Neem direct contact op voor een interventie.
 
 ## Gerelateerd
 
+- [Ontstoppingsdienst](/commercial/ontstoppingen/ontstoppingsdienst)
+- [Afvoer reinigen](/commercial/ontstoppingen/afvoer-reinigen)
 - [Ontstoppingen](/diensten/ontstoppingen)
-- [Camera-inspectie](/diensten/camera-inspectie)
-- [Geurdetectie](/diensten/geurdetectie)
